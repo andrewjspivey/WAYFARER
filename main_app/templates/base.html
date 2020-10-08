@@ -11,32 +11,98 @@
 </head>
 <body>
     <ul class="nav">
+        <!-- Home -->
         <li class="nav-item">
+<<<<<<< HEAD
             <a href="{%url 'home' %}" class="nav-link active">Wayfarer</a>
+=======
+            <a href="{% url 'home' %}" class="nav-link active">Wayfarer</a>
+>>>>>>> submaster
         </li>
+        <!-- About -->
         <li class="nav-item">
+<<<<<<< HEAD
             <a href="{%url 'about' %}" class="nav-link active">About</a>
+=======
+            <a href="{% url 'about' %}" class="nav-link active">About</a>
+>>>>>>> submaster
         </li>
+        <!-- Cities index -->
         <li class="nav-item">
             <a href="{%url 'cities_index' %}" class="nav-link active">Cities</a>
         </li>
-
+        <!-- Login -->
         <li class="nav-item">
+<<<<<<< HEAD
             <a href="{% url 'logout' %}" class="nav-link active">Log Out</a>
+=======
+            <a data-toggle="modal" href="#loginModal" class="nav-link active">Login</a>
+>>>>>>> submaster
         </li>
+        <!-- Sign Up -->
         <li class="nav-item">
+<<<<<<< HEAD
             <a href="{% url 'signup' %}" class="nav-link active">Sign Up</a>
+=======
+            <a data-toggle="modal" href="#signupModal" class="nav-link active">Sign Up</a>
+>>>>>>> submaster
         </li>
+        <!-- View Profile -->
         <li class="nav-item">
+<<<<<<< HEAD
             <a href="{% url 'login'  %}" class="nav-link active">Login</a>
         </li>
 
          <li class="nav-item">
             <a href="{% url 'profile_detail'  %}" class="nav-link active">Profile</a>
+=======
+            <a href="{% url 'profile_detail' %}" class="nav-link active">Profile</a>
         </li>
-
-      
+        <!-- Logout -->
+        <li class="nav-item">
+            <a href="{% url 'logout'%}" class="nav-link active">Log Out</a>
+>>>>>>> submaster
+        </li>
     </ul>
+
+    <div class="modal" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Log In</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Login Form</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="signupModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sign Up</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Signup Form</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <main class="container">
     {% block content %}
