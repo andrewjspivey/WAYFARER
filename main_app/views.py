@@ -21,11 +21,11 @@ def cities_index(request):
         if city_form.is_valid():
             new_city = city_form.save(commit=False)
             new_city.user = request.user
-            new_user.save()
+            new_city.save()
             return redirect('cities_index')
     cities = City.objects.filter(user=request.user)
     city_form = City_Form()
-    context = {' cities':cities, 'city_form': city_form}
+    context = {'cities':cities, 'city_form': city_form}
     return render(request, 'cities/index.html', context)
 
 
@@ -51,7 +51,24 @@ def cities_detail(request):
 
     
 def signup(request):
-    return HttpResponse( '<h1>signup</h1>')
+    # return HttpResponse( '<h1>signup</h1>')
+    error_message = ''
+    if request.method == 'POST':
+    # This is how to create a 'user' form object
+    # that includes the data from the browser
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            # This will add the user to the database
+            user = form.save()
+            # This is how we log a user in via code
+            login(request, user)
+            return redirect('cats_index')
+        else:
+            error_message = 'Invalid sign up - try again'
+    # A GET or a bad POST request, so render signup.html with an empty form
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)
 
 
 

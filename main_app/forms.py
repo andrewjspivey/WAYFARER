@@ -8,5 +8,9 @@ class City_Form(ModelForm):
         model = City
         fields = ['name', 'image', 'country']
 
-       
 
+
+class Post_Form(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'image', 'content' ]
