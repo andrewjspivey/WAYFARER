@@ -26,7 +26,8 @@ def cities_index(request):
     cities = City.objects.filter(user=request.user)
     city_form = City_Form()
     context = {'cities':cities, 'city_form': city_form}
-    return render(request, 'cities/index.html', context)
+    return render(request, 'cities/index.html')
+    # return render(request, 'cities/index.html', context)
 
 
 

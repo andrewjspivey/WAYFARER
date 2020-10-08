@@ -31,4 +31,4 @@ class Post(models.Model):
         return f"{self.user}'s {self.city.name} Post : {self.title} submitted on {self.post_date} : {self.content}"
 
     class Meta:
-        ordering = ['-date']
+        ordering = ['-post_date']
