@@ -13,32 +13,42 @@
     <ul class="nav">
         <!-- Home -->
         <li class="nav-item">
+
             <a href="{% url 'home' %}" class="nav-link active">Wayfarer</a>
+
         </li>
         <!-- About -->
         <li class="nav-item">
+
             <a href="{% url 'about' %}" class="nav-link active">About</a>
+
         </li>
         <!-- Cities index -->
         <li class="nav-item">
             <a href="{%url 'cities_index' %}" class="nav-link active">Cities</a>
         </li>
-        <!-- Login -->
-        <li class="nav-item">
-            <a data-toggle="modal" href="#loginModal" class="nav-link active">Login</a>
-        </li>
-        <!-- Sign Up -->
-        <li class="nav-item">
-            <a data-toggle="modal" href="#signupModal" class="nav-link active">Sign Up</a>
-        </li>
-        <!-- View Profile -->
-        <li class="nav-item">
-            <a href="{% url 'profile_detail' %}" class="nav-link active">Profile</a>
-        </li>
-        <!-- Logout -->
-        <li class="nav-item">
-            <a href="{% url 'logout'%}" class="nav-link active">Log Out</a>
-        </li>
+
+
+        {% if user.is_authenticated %}
+            <!-- View Profile -->
+            <li class="nav-item">
+                <a href="{% url 'profile_detail' %}" class="nav-link active">Profile</a>
+            </li>
+            <!-- Logout -->
+            <li class="nav-item">
+                <a href="{% url 'logout'%}" class="nav-link active">Log Out</a>
+            </li>
+        {% else %}
+            <!-- Login (Modal toggle) -->
+            <li class="nav-item">
+                <a data-toggle="modal" href="#loginModal" class="nav-link active">Login</a>
+            </li>
+            <!-- Sign Up (Modal toggle)-->
+            <li class="nav-item">
+                <a data-toggle="modal" href="#signupModal" class="nav-link active">Sign Up</a>
+            </li>
+        {% endif %}    
+
     </ul>
 
     <div class="modal" id="loginModal" tabindex="-1">
@@ -91,5 +101,3 @@
     </footer>
 </body>
 </html>
-
-  

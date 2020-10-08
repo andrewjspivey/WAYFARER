@@ -11,7 +11,7 @@ def home(request):
 
 
 def about(request):
-    return HttpResponse( '<h1>About</h1>')
+    return render(request, 'about.html')
 
 
 def cities_index(request):
@@ -39,19 +39,19 @@ def user_detail(request, user_id):
     return render(request, 'profile/detail.html', context)
 
 
+def cities_index(request):
+    return render(request, 'cities/index.html')
 
 
 
 def cities_detail(request):
-    return HttpResponse( '<h1>cities_detail</h1>')
+    return render(request, 'cities/detail.html')
 
-
-def cities_delete(request):
-    return HttpResponse( '<h1>cities_delete</h1>')
-
-    
-def cities_edit(request):
-    return HttpResponse( '<h1>cities_edit</h1>')
+# --- This functionality will by admin-only and accessible through the admin page, so we shouldn't need view functions to handle them ---
+# def cities_delete(request):
+#     return HttpResponse( '<h1>cities_delete</h1>')
+# def cities_edit(request):
+#     return HttpResponse( '<h1>cities_edit</h1>')
 
     
 def signup(request):
