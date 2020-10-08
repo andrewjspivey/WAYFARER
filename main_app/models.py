@@ -16,7 +16,10 @@ class City(models.Model):
         return f"{self.name}, {self.country}"
 
 
-
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    current_city = models.ForeignKey(City, on_delete=models.CASCADE)
+    
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -26,6 +29,7 @@ class Post(models.Model):
     
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.user}'s {self.city.name} Post : {self.title} submitted on {self.post_date} : {self.content}"
