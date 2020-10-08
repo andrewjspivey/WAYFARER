@@ -11,48 +11,66 @@
 </head>
 <body>
     <ul class="nav">
+        <!-- Home -->
         <li class="nav-item">
-            <a href="{url 'home'}" class="nav-link active">Wayfarer</a>
+            <a href="{% url 'home' %}" class="nav-link active">Wayfarer</a>
         </li>
+        <!-- About -->
         <li class="nav-item">
-            <a href="url 'about'" class="nav-link active">About</a>
+            <a href="{% url 'about' %}" class="nav-link active">About</a>
         </li>
+        <!-- Cities index -->
         <li class="nav-item">
-            <a href="{url 'cities'}" class="nav-link active">Cities</a>
+            <a href="{%url 'cities_index' %}" class="nav-link active">Cities</a>
         </li>
-
+        <!-- Login -->
         <li class="nav-item">
-<<<<<<< HEAD
-            <a data-toggle="modal" href="#loginModal" class="nav-link active">Sign In</a>
-=======
-            <a href="{url 'logout'}" class="nav-link active">Log Out</a>
->>>>>>> submaster
+            <a data-toggle="modal" href="#loginModal" class="nav-link active">Login</a>
         </li>
+        <!-- Sign Up -->
         <li class="nav-item">
-            <a href="{url 'signup'}" class="nav-link active">Sign Up</a>
+            <a data-toggle="modal" href="#signupModal" class="nav-link active">Sign Up</a>
         </li>
+        <!-- View Profile -->
         <li class="nav-item">
-            <a href="{url 'login'}" class="nav-link active">Login</a>
+            <a href="{% url 'profile_detail' %}" class="nav-link active">Profile</a>
         </li>
-
-         <li class="nav-item">
-            <a href="{url 'profile'}" class="nav-link active">Profile</a>
+        <!-- Logout -->
+        <li class="nav-item">
+            <a href="{% url 'logout'%}" class="nav-link active">Log Out</a>
         </li>
-
-      
     </ul>
 
     <div class="modal" id="loginModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"> Modal Title</h5>
+                    <h5 class="modal-title"> Log In</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Modal body text goes here.</p>
+                    <p>Login Form</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="signupModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sign Up</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Signup Form</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

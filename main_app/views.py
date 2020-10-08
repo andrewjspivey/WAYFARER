@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
-    return render( request ,'home.html')
+    return render(request, 'home.html')
 
 
 def about(request):
@@ -15,7 +15,7 @@ def about(request):
 
 
 def user_detail(request):
-    return HttpResponse( '<h1>user_detail</h1>')
+    return render(request, 'profile/detail.html')
 
 
 def cities_index(request):
