@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .models import City,Post
-from .forms import City_Form
+from .models import City, Post, Profile
+from .forms import City_Form, Post_Form, Profile_Form, User_Form
 from django.contrib.auth import login
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
@@ -28,16 +29,6 @@ def cities_index(request):
     context = {'cities':cities, 'city_form': city_form}
     return render(request, 'cities/index.html')
     # return render(request, 'cities/index.html', context)
-
-
-
-
-
-def user_detail(request, user_id):
-    user = User.objects.get(id=user_id)
-    context = {'user': user}
-    return render(request, 'profile/detail.html', context)
-
 
 
 
@@ -74,5 +65,14 @@ def signup(request):
 
 
 
+def profile_detail(request, user_id):
+    user = User.objects.get(id=user_id)
 
-
+    profile_form = Profile_Form()
+    user_form = User_Form()
+    context = {
+        'user': user,
+        'profile_form' : profile_form,
+        'user_form' : user_form,
+    }
+    return render(request, 'profile/detail.html', context)
