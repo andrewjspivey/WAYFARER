@@ -20,15 +20,15 @@ def about(request):
 
 
 def cities_index(request):
-    # if request.method == 'POST':
-    #     city_form = City_Form(request.POST)
-    #     if city_form.is_valid():
-    #         new_city = city_form.save(commit=False)
-    #         new_city.user = request.user
-    #         new_city.save()
-    #         return redirect('cities_index')
-    # cities = City.objects.filter(user=request.user)
-    # city_form = City_Form()
+    if request.method == 'POST':
+        city_form = City_Form(request.POST)
+        if city_form.is_valid():
+            new_city = city_form.save(commit=False)
+            new_city.user = request.user
+            new_city.save()
+            return redirect('cities_index')
+    cities = City.objects.filter(user=request.user)
+    city_form = City_Form()
     # context = {'cities':cities, 'city_form': city_form, 'login_form': AuthenticationForm(), 'signup_form': UserCreationForm()}
     return render(request, 'cities/index.html')
     # return render(request, 'cities/index.html', context)
