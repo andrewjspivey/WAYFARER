@@ -1,5 +1,7 @@
 from django.forms import ModelForm
-from .models import City, Post
+from .models import City, Post, Profile
+from django.contrib.auth.models import User
+
 
 
 
@@ -14,3 +16,15 @@ class Post_Form(ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'image', 'content' ]
+
+
+class Profile_Form(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['current_city',]
+
+class User_Form(ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email',]
+
