@@ -1,26 +1,20 @@
 {% extends 'base.html'%}
 {% block content %}
+
 <h1>{{user.username}}</h1>
 
-
-<form action="">
-    {%csrf_token%}
-    {{ profile_form.as_p }}
-__________________________
-
-    {{user_form.as_p}}
-</form>
 
 <div class="container">
     <div class="row">
         <div class="col">
             <p>Left of page</p>
-            <!-- Left of page
-            Name
-            Current city (name & link to city's show page)
-            Join Date
-            -->
-
+            <!-- Left of page-->
+            <div style="background-image: url('{{city.id.image}}');">
+                <h3>{{user.username}}</h3><br/>
+                <h4>Member since: {{user.date_joined}}</h4><br/>
+                <h4>Current city: <a href="{% url 'cities_detail' user.profile.current_city.id  %}">{{user.profile.current_city}}</a></h4><br/>
+                <img src="{{ user.profile.current_city.image }}" alt="">
+            </div>
         </div>
         <div class="col">
             <p>Right of page</p>
