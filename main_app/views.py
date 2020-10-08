@@ -52,8 +52,9 @@ def profile_detail(request, user_id):
 
 
 
-def cities_detail(request):
-    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm()}
+def cities_detail(request, city_id):
+    city = City.objects.get(id=city_id)
+    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'city': city}
     return render(request, 'cities/detail.html', context)
 
 # --- This functionality will by admin-only and accessible through the admin page, so we shouldn't need view functions to handle them ---
