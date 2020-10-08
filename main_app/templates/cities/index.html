@@ -8,18 +8,16 @@
     <div class="col s9">
         {% for city in cities %}
         <div class="card">
-            <a href="{% url 'cities_index' city.id %}">
+            <a href="{% url 'cities_detail' city.id %}">
                 <div class="card-content">
-                    <img src="{{ city.image }}" alt="{{ city.name }}{{ city.country }}">
+                    <img src="{{ city.image }}" alt="{{ city.name }}{{ city.country }}"> 
                     <span class="card-title">{{ city.name }}</span>
                 </div>
             </a>
-        </div>
+        </div> 
         {% endfor %}
-    </div>
+    </div> 
 </div>
-
-
 
 
 {% endblock %}
