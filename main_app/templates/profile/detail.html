@@ -1,6 +1,15 @@
 {% extends 'base.html'%}
 {% block content %}
+<h1>{{user.username}}</h1>
 
+
+<form action="">
+    {%csrf_token%}
+    {{ profile_form.as_p }}
+__________________________
+
+    {{user_form.as_p}}
+</form>
 
 <div class="container">
     <div class="row">

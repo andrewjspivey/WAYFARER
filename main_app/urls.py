@@ -12,7 +12,7 @@ urlpatterns = [
     # path('cities/<int:city_id>/edit/', views.cities_edit, name='cities_edit'),
     # path('cities/<int:city_id>/assoc_post', views.assoc_post, name='assoc_cities_post'),
     # path('cities/<int:city_id>/deassoc_post', views.deassoc_post, name='deassoc_cities_post'),
-    path('accounts/signup/', views.signup, name='signup'),
+    # path('accounts/signup/', views.signup, name='signup'),
 
   
 ]
