@@ -51,7 +51,7 @@ def profile_detail(request, user_id):
 
 
 
-def cities_detail(request):
+def cities_detail(request, cities_id):
     context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm()}
     return render(request, 'cities/detail.html', context)
 
