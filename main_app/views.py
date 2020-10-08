@@ -14,12 +14,31 @@ def about(request):
     return HttpResponse( '<h1>About</h1>')
 
 
-def user_detail(request):
-    return render(request, 'profile/detail.html')
-
-
 def cities_index(request):
-    return HttpResponse( '<h1>cities_index</h1>')
+    # return HttpResponse( '<h1>cities_index</h1>')
+    if request.method == 'POST':
+        city_form = City_Form(request.POST)
+        if city_form.is_valid():
+            new_city = city_form.save(commit=False)
+            new_city.user = request.user
+            new_user.save()
+            return redirect('cities_index')
+    cities = City.objects.filter(user=request.user)
+    city_form = City_Form()
+    context = {' cities':cities, 'city_form': city_form}
+    return render(request, 'profile/detail.html', context)
+
+
+
+
+
+def user_detail(request, user_id):
+    # return render(request, 'profile/detail.html')
+    user = User.objects.get(id=user_id)
+    context = {'user': user}
+    return render(request, 'profile/detail.html', context)
+
+
 
 
 
