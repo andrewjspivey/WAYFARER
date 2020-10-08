@@ -9,6 +9,7 @@ class City(models.Model):
     image = models.CharField(max_length=250)
     country = models.CharField(max_length=50)
 
+
     def __str__(self):
         return self.name
 
