@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import City, Post, Profile
-from .forms import City_Form, Post_Form, Profile_Form, User_Form
+from .forms import City_Form, Post_Form, Profile_Form, User_Form, Register_Form
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
@@ -10,28 +10,29 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 def home(request):
     # sign up form should be profile form, not just base django user creation form
-    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm()}
+    context = {'login_form': AuthenticationForm(), 'signup_form': Register_Form()}
     return render(request, 'home.html', context)
 
 
 def about(request):
-    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm()}
+    context = {'login_form': AuthenticationForm(), 'signup_form': Register_Form()}
     return render(request, 'about.html', context)
 
 
 def cities_index(request):
-    # if request.method == 'POST':
-    #     city_form = City_Form(request.POST)
-    #     if city_form.is_valid():
-    #         new_city = city_form.save(commit=False)
-    #         new_city.user = request.user
-    #         new_city.save()
-    #         return redirect('cities_index')
+    # profile = Profile.objects.get(id=request.user.id)
+    if request.method == 'POST':
+        city_form = City_Form(request.POST)
+        if city_form.is_valid():
+            new_city = city_form.save(commit=False)
+            new_city.user = request.user
+            new_city.save()
+            return redirect('cities_index')
     # cities = City.objects.filter(user=request.user)
-    # city_form = City_Form()
-    # context = {'cities':cities, 'city_form': city_form, 'login_form': AuthenticationForm(), 'signup_form': UserCreationForm()}
-    return render(request, 'cities/index.html')
-    # return render(request, 'cities/index.html', context)
+    cities = City.objects.all()
+    city_form = City_Form()
+    context = {'cities':cities, 'city_form': city_form, 'login_form': AuthenticationForm(), 'signup_form': UserCreationForm()}
+    return render(request, 'cities/index.html', context)
 
 
 
@@ -62,25 +63,24 @@ def cities_detail(request):
 #     return HttpResponse( '<h1>cities_edit</h1>')
 
     
-# def signup(request):
-#     # return HttpResponse( '<h1>signup</h1>')
-#     error_message = ''
-#     if request.method == 'POST':
-#     # This is how to create a 'user' form object
-#     # that includes the data from the browser
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             # This will add the user to the database
-#             user = form.save()
-#             # This is how we log a user in via code
-#             login(request, user)
-#             return redirect('cats_index')
-#         else:
-#             error_message = 'Invalid sign up - try again'
-#     # A GET or a bad POST request, so render signup.html with an empty form
-#     form = UserCreationForm()
-#     context = {'form': form, 'error_message': error_message}
-#     return render(request, 'registration/signup.html', context)
+def signup(request):
+    error_message = ''
+    if request.method == 'POST':
+    # This is how to create a 'user' form object
+    # that includes the data from the browser
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            # This will add the user to the database
+            user = form.save()
+            # This is how we log a user in via code
+            login(request, user)
+            return redirect('/')
+        else:
+            error_message = 'Invalid sign up - try again'
+    # A GET or a bad POST request, so render signup.html with an empty form
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)
 
 
 

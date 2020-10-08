@@ -29,7 +29,7 @@ class Post(models.Model):
     
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    # profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.user}'s {self.city.name} Post : {self.title} submitted on {self.post_date} : {self.content}"
