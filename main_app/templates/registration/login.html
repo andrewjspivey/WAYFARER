@@ -2,6 +2,14 @@
 {%block content %}
 
 
-<h1>This will be login</h1>
+<h1>Log In to Wayfarer<h1>
+
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" class="btn" value="login">
+    <input type="hidden" name="next" value="{{ next }}">
+</form>
+
 
 {% endblock %}
