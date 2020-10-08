@@ -78,6 +78,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'wayfarer',
+<<<<<<< HEAD
+=======
+        # 'USER':'lizkane'
+        # 'USER':'quin?'
+        # 'USER':'binay'
+>>>>>>> submaster
     }
 }
 
