@@ -49,9 +49,6 @@ def profile_detail(request, user_id):
     return render(request, 'profile/detail.html', context)
 
 
-
-
-
 def cities_detail(request, city_id):
     city = City.objects.get(id=city_id)
     posts  = Post.objects.all()
