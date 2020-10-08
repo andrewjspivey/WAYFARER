@@ -13,16 +13,21 @@
     <ul class="nav">
         <!-- Home -->
         <li class="nav-item">
+
             <a href="{% url 'home' %}" class="nav-link active">Wayfarer</a>
+
         </li>
         <!-- About -->
         <li class="nav-item">
+
             <a href="{% url 'about' %}" class="nav-link active">About</a>
+
         </li>
         <!-- Cities index -->
         <li class="nav-item">
             <a href="{%url 'cities_index' %}" class="nav-link active">Cities</a>
         </li>
+
 
         {% if user.is_authenticated %}
             <!-- View Profile -->
@@ -43,6 +48,7 @@
                 <a data-toggle="modal" href="#signupModal" class="nav-link active">Sign Up</a>
             </li>
         {% endif %}    
+
     </ul>
 
     <div class="modal" id="loginModal" tabindex="-1">
