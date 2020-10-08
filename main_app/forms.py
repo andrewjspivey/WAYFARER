@@ -21,10 +21,10 @@ class Post_Form(ModelForm):
 class Profile_Form(ModelForm):
     class Meta:
         model = Profile
-        fields = ['user', 'current_city',]
+        fields = ['current_city',]
 
 class User_Form(ModelForm):
     class Meta:
         model = User
-        fields = ['username','first_name', 'last_name', 'email',]
+        fields = ['first_name', 'last_name', 'email',]
 

@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
+    # sign up form should be profile form, not just base django user creation form
     context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm()}
     return render(request, 'home.html', context)
 
@@ -34,17 +35,18 @@ def cities_index(request):
 
 
 
+def profile_detail(request, user_id):
+    user = User.objects.get(id=user_id)
 
-
-# def user_detail(request, user_id):
-#     user = User.objects.get(id=user_id)
-#     context = {'user': user}
-#     return render(request, 'profile/detail.html', context)
-
-def profile_detail(request):
-    user = request.user
-    context = {'user': user}
+    profile_form = Profile_Form()
+    user_form = User_Form()
+    context = {
+        'user': user,
+        'profile_form' : profile_form,
+        'user_form' : user_form,
+    }
     return render(request, 'profile/detail.html', context)
+
 
 
 
@@ -82,15 +84,3 @@ def cities_detail(request):
 
 
 
-
-def profile_detail(request, user_id):
-    user = User.objects.get(id=user_id)
-
-    profile_form = Profile_Form()
-    user_form = User_Form()
-    context = {
-        'user': user,
-        'profile_form' : profile_form,
-        'user_form' : user_form,
-    }
-    return render(request, 'profile/detail.html', context)
