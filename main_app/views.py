@@ -69,13 +69,20 @@ def signup(request):
     if request.method == 'POST':
     # This is how to create a 'user' form object
     # that includes the data from the browser
-        form = UserCreationForm(request.POST)
+        # form = UserCreationForm(request.POST)
+        form = Register_Form(request.POST)
         if form.is_valid():
             # This will add the user to the database
             user = form.save()
+            city_id = City.objects.get(id=request.POST['current_city'])
+            profile = Profile.objects.create(
+                user = user,
+                current_city = city_id
+            )
+            profile.save()
             # This is how we log a user in via code
             login(request, user)
-            return redirect('/')
+            return redirect('profile_detail', user_id=user.id)
         else:
             error_message = 'Invalid sign up - try again'
     # A GET or a bad POST request, so render signup.html with an empty form
