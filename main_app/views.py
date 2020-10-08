@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .models import City,Post
+from .forms import City_Form
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -15,7 +16,6 @@ def about(request):
 
 
 def cities_index(request):
-    # return HttpResponse( '<h1>cities_index</h1>')
     if request.method == 'POST':
         city_form = City_Form(request.POST)
         if city_form.is_valid():
@@ -26,21 +26,17 @@ def cities_index(request):
     cities = City.objects.filter(user=request.user)
     city_form = City_Form()
     context = {' cities':cities, 'city_form': city_form}
-    return render(request, 'profile/detail.html', context)
+    return render(request, 'cities/index.html', context)
 
 
 
 
 
 def user_detail(request, user_id):
-    # return render(request, 'profile/detail.html')
     user = User.objects.get(id=user_id)
     context = {'user': user}
     return render(request, 'profile/detail.html', context)
 
-
-def cities_index(request):
-    return render(request, 'cities/index.html')
 
 
 
