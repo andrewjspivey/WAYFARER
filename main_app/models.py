@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-# we may want to add a profile model to supplement user data, decorations (date joined)
+# we may want to add a profile model to supplement user data, decorations (date joined)a
 
 
 class City(models.Model):
