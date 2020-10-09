@@ -11,7 +11,7 @@
     /* max-width: 100vw; */
 }
 
-/* General Styling */
+/* ANCHOR General Styling */
 body {
     font-family: 'Poppins', sans-serif;
 }
@@ -27,7 +27,7 @@ a:hover {
 
 
 
-/* Navbar styling */
+/* ANCHOR Navbar styling */
 .nav {
     display: flex;
     justify-content: space-between;
@@ -43,7 +43,7 @@ a:hover {
 }
 
 
-/* Profile styling */
+/* ANCHOR Profile styling */
 
 .profile.container {
     width: 100vw;
@@ -97,7 +97,7 @@ a:hover {
 
 
 
-/* City Page Styling */
+/* ANCHOR City Page Styling */
 .city-detail .post-detail-img {
     max-width: 30vw;
 }
@@ -108,4 +108,9 @@ a:hover {
 
 .city-detail-img {
     max-width: 50vw;
+}
+
+/* ANCHOR Post Detail Styling */
+.post-detail-img {
+    max-width: 30vw;
 }

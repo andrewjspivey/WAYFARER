@@ -41,6 +41,7 @@
                 </button>
             </div>
             <div class="modal-body">
+            {% comment %} url for post route goes here {% endcomment %}
                 <form action="#" method="POST">
                     {% csrf_token %}
                     {{post_form.as_p}}
