@@ -46,17 +46,25 @@ def profile_detail(request, user_id):
         'user': user,
         'profile_form' : profile_form,
         'user_form' : user_form,
+        'login_form': AuthenticationForm(), 
+        'signup_form': Register_Form()
     }
     return render(request, 'profile/detail.html', context)
 
 
 def cities_detail(request, city_id):
     city = City.objects.get(id=city_id)
+<<<<<<< HEAD
     print(city , city.id)
     posts  = Post.objects.all()
     # city_related_posts = City.objects.filter(id__in= Post.objects.all().values_list('id'))
     city_related_posts = Post.objects.filter(city_id = city.id)
     context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'city': city ,'posts': posts, ' city_related_posts':  city_related_posts}
+=======
+    posts = Post.objects.filter(city_id=city.id)
+    post_form = Post_Form()
+    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'post_form': post_form, 'city': city ,'posts': posts}
+>>>>>>> submaster
     return render(request, 'cities/detail.html', context)
 
 # --- This functionality will by admin-only and accessible through the admin page, so we shouldn't need view functions to handle them ---
@@ -69,17 +77,21 @@ def cities_detail(request, city_id):
 
 def posts_detail(request, post_id):
     post = Post.objects.get(id=post_id)
+    post_form = Post_Form(instance=post)
     context = {
-        'post': post
+        'post': post,
+        'login_form': AuthenticationForm(),
+        'signup_form': Register_Form(),
+        'post_form': post_form,
     }
+<<<<<<< HEAD
     return render(request, 'posts/detail.html' ,context)
    
+=======
+    return render(request, 'posts/detail.html', context)
+>>>>>>> submaster
 
 
-
-
-
-    
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -107,6 +119,8 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 
+
+
 def custom_login(request):
     username = request.POST['username']
     password = request.POST['password']
@@ -118,7 +132,10 @@ def custom_login(request):
         # TODO figure out frontend error handling?
         return redirect('/accounts/login')
 
-      
+
+
+
+@login_required
 def profile_edit(request, user_id):
 
     user = User.objects.get(id=user_id)
