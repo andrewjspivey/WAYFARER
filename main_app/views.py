@@ -78,15 +78,45 @@ def posts_detail(request, post_id):
    
 
 
-def posts_new(request):
-    post = Post.objects.create(id=post_id)
+# def posts_new(request, city_id):
+#     # error_message = ''
+#     post = Post.objects.create()
+#     city = Post.objects.get(id=city_id)
+#     # if request.method == 'POST':
+#     #     form = Post_Form(request.POST)
+#     #     if form.is_valid():
+#     #         post_new = form.save()
+#     #         return redirect('cities_detail', city_new_post)    
+#     #     else:
+#     #         error_message = 'Unable to add new post - try again'
+
+#     # form = Post_Form()
+#     context = {
+#         'post': post,
+#         'city': city
+#     }
+#     return render(request, 'cities/detail.html', context)
+
+
+def posts_new(request, city_id):
+    error_message = ''
+    post = Post.objects.create()
+    city = Post.objects.get(id=city_id)
+    if request.method == 'POST':
+        form = Post_Form(request.POST)
+        if form.is_valid():
+            new_post = form.save()
+            return redirect('cities_detail', city_new_post)    
+        else:
+            error_message = 'Unable to add new post - try again'
+    form = Post_Form()
     context = {
-        'post': post
+        'post': post,
+        'city': city,
+        'form': form,
     }
-    return render(request, 'posts/detail.html', context)
+    return render(request, 'cities/detail.html', context)
 
-
-    
 
 
 def signup(request):
@@ -130,11 +160,8 @@ def custom_login(request):
         return redirect('/accounts/login')
 
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> submaster
 @login_required
 def profile_edit(request, user_id):
 
