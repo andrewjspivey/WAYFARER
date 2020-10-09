@@ -4,11 +4,21 @@
 <div class="container">
     <div class="row">
         <div class="col left">
-                <h3>{{user.first_name}}</h3><br/>
-                <h4>Member since: {{user.date_joined}}</h4><br/>
-                <h4>Current city: <a href="{% url 'cities_detail' user.profile.current_city.id  %}">{{user.profile.current_city}}</a></h4><br/>
-                <img src="{{ user.profile.current_city.image }}" class="profile-img" alt=""> 
+
+            <div class="card profile-details">
+                <div class="card-body">
+                    <h5 class="card-title">{{user.first_name}}</h5>
+                    <p class="card-text">
+                        Memeber since: {{ user.date_joined }}
+                    </p>
+                    <div class="card-footer">
+                    Current city: <a href="{% url 'cities_detail' user.profile.current_city.id  %}">{{user.profile.current_city}}</a>
+                    </div>
+                </div>
+                <img src="{{user.profile.current_city.image }}" class="card-img-top" alt="...">
+            </div>
         </div>
+
         <div class="col right">
             {%for post in user.post_set.all %}
                 <!-- Go ahead and slap the appropriate url in this anchor tag -->
@@ -25,6 +35,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}

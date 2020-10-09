@@ -14,23 +14,23 @@
 </head>
 <body>
     <ul class="nav">
+    <div class="nav-section constant">
         <!-- Home -->
         <li class="nav-item">
-
             <a href="{% url 'home' %}" class="nav-link active">Wayfarer</a>
-
         </li>
+
         <!-- About -->
         <li class="nav-item">
-
             <a href="{% url 'about' %}" class="nav-link active">About</a>
-
         </li>
+
         <!-- Cities index -->
         <li class="nav-item">
             <a href="{% url 'cities_index' %}" class="nav-link active">Cities</a>
         </li>
-
+        </div>
+        <div class="nav-section auth-defined">
         {% if user.is_authenticated %}
             <!-- View Profile -->
             <li class="nav-item">
@@ -50,6 +50,7 @@
                 <a data-toggle="modal" href="#signupModal" class="nav-link active">Sign Up</a>
             </li>
         {% endif %} 
+        </div>
     </ul>
 
     <div class="modal" id="loginModal" tabindex="-1">
