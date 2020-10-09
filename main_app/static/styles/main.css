@@ -5,6 +5,12 @@
     --secondary_dark: #26466f;
 }
 
+*{
+    margin: 0;
+    padding: 0;
+    /* max-width: 100vw; */
+}
+
 /* General Styling */
 body {
     font-family: 'Poppins', sans-serif;
@@ -38,9 +44,24 @@ a:hover {
 
 /* Profile styling */
 
+.profile.container {
+    width: 100vw;
+}
+
 .row {
+    width: 100vw;
     display: flex;
     justify-content: space-between;
+}
+
+/* FIXME the scroll here isn't working quite right */
+.profile.col {
+    max-height: 90vh;
+    width: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .card.profile-details {
@@ -59,7 +80,6 @@ a:hover {
 /* Trying to unify card size, rather than letting them be defined by the aspect ratio of the background image */
 .card.post-index{
     width: 30vw;
-    overflow: hidden;
 }
 
 .card-img-overlay {
