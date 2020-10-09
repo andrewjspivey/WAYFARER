@@ -108,13 +108,16 @@ def profile_edit(request, user_id):
     
     user = User.objects.get(id=user_id)
     if request.method == 'POST':
-        # prof_form = Profile_Form(request.POST, instance=profile.user)
-        # user_form = User_Form(request.POST, instance=)
+        # prof_form = Profile_Form(request.POST, instance=user)
+        # user_form = User_Form(request.POST, instance=user)
         reg_form = Register_Form(request.POST, instance=user)
+        # if reg_form.is_valid():
         if reg_form.is_valid():
             reg_form.save()
-            return redirect('detail', user_id = user)
+            # reg_form.save()
+            # reg_form.save()
+            return redirect('profile_detail', user_id=user.id)
     else:
         reg_form = Register_Form(instance=user)
     context = {'user':user, 'reg_form':reg_form}
-    return render( request, 'profile_edit', context)
+    return render( request, 'profile/edit.html', context)
