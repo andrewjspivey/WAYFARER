@@ -69,8 +69,7 @@ def posts_detail(request, post_id):
     context = {
         'post': post
     }
-    return render(request, 'posts/show.html' ,context)
-   
+    return render(request, 'posts/detail.html', context)
 
 
 

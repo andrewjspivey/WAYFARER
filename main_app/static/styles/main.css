@@ -19,6 +19,7 @@ body {
 a {
     color: var(--main_dark);
 }
+
 a:hover {
     color: var(--secondary_light);
     text-decoration: none;
@@ -48,11 +49,11 @@ a:hover {
     width: 100vw;
 }
 
-.row {
+/* .profile.row {
     width: 100vw;
     display: flex;
     justify-content: space-between;
-}
+} */
 
 /* FIXME the scroll here isn't working quite right */
 .profile.col {
