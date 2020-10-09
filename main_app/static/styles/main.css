@@ -22,28 +22,49 @@ a:hover {
 
 /* Navbar styling */
 .nav {
+    display: flex;
+    justify-content: space-between;
     font-family: 'Syne', sans-serif;
     font-size: 1.3em;
     background-color: var(--secondary_dark);
     padding: 10px;
+    margin: 0 0 15px;
 }
-/* .right {
-    align-self: flex-end;
-} */
+
+.nav-section {
+    display: flex;
+}
 
 
 /* Profile styling */
-.profile-img {
-    max-width: 40vw;
-    height: auto;
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card.profile-details {
+    width: 30vw;
+    background-color: var(--main_light);
+}
+
+.card-footer {
+    background-color: lightgray;
 }
 
 .card-img {
     opacity: .5;
 }
 
+/* Trying to unify card size, rather than letting them be defined by the aspect ratio of the background image */
+.card.post-index{
+    width: 30vw;
+    overflow: hidden;
+}
+
 .card-img-overlay {
     background-color: rgba(0, 0, 0, .5);
+    background-position: center;
     color: var(--main_light);
 }
 
