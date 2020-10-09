@@ -69,10 +69,16 @@ def posts_detail(request, post_id):
     context = {
         'post': post
     }
-    return render(request, 'posts/show.html' ,context)
+    return render(request, 'posts/detail.html' ,context)
    
 
 
+def posts_new(request):
+    post = Post.objects.create(id=post_id)
+    context = {
+        'post': post
+    }
+    return render(request, 'posts/detail.html', context)
 
 
 
@@ -114,6 +120,7 @@ def custom_login(request):
     else:
         # TODO figure out frontend error handling?
         return redirect('/accounts/login')
+
 
 @login_required
 def profile_edit(request, user_id):
