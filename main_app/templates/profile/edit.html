@@ -6,7 +6,8 @@
 
 <form action="{% url 'profile_edit' user.id %}" method="POST">
     {% csrf_token %}
-    {{ reg_form.as_p }}
+    {{ user_form.as_p }}
+    {{ prof_form.as_p }}
     <input type="submit" value="Submit">
 </form> 
 {% endblock %}
