@@ -97,4 +97,5 @@ def custom_login(request):
         login(request, user)
         return redirect('profile_detail', user_id=user.id)
     else:
-        return redirect('/')
+        # TODO figure out frontend error handling?
+        return redirect('/accounts/login')
