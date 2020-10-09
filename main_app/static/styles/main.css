@@ -1,4 +1,55 @@
-img {
+:root {
+    --main_light: #c2ffff;
+    --secondary_light: #8bdeff;
+    --main_dark: #a888ff;
+    --secondary_dark: #26466f;
+}
+
+/* General Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+a {
+    color: var(--main_dark);
+}
+a:hover {
+    color: var(--secondary_light);
+    text-decoration: none;
+}
+
+
+
+/* Navbar styling */
+.nav {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3em;
+    background-color: var(--secondary_dark);
+    padding: 10px;
+}
+/* .right {
+    align-self: flex-end;
+} */
+
+
+/* Profile styling */
+.profile-img {
     max-width: 40vw;
     height: auto;
 }
+
+.card-img {
+    opacity: .5;
+}
+
+.card-img-overlay {
+    background-color: rgba(0, 0, 0, .5);
+    color: var(--main_light);
+}
+
+
+.post-index:hover .card-img-overlay {
+    background-color: rgba(255, 255, 255, .5);
+    color: var(--secondary_dark);
+}
+
