@@ -95,3 +95,17 @@ a:hover {
     color: var(--secondary_dark);
 }
 
+
+
+/* City Page Styling */
+.city-detail .post-detail-img {
+    max-width: 30vw;
+}
+
+.city-index-img {
+    max-width: 30vw; 
+}
+
+.city-detail-img {
+    max-width: 50vw;
+}
