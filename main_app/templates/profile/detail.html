@@ -1,38 +1,30 @@
 {% extends 'base.html'%}
 {% block content %}
-<h1>{{user.username}}</h1>
-
-
-<form action="">
-    {%csrf_token%}
-    {{ profile_form.as_p }}
-__________________________
-
-    {{user_form.as_p}}
-</form>
 
 <div class="container">
     <div class="row">
-        <div class="col">
-            <p>Left of page</p>
-            <!-- Left of page
-            Name
-            Current city (name & link to city's show page)
-            Join Date
-            -->
-
+        <div class="col left">
+                <h3>{{user.first_name}}</h3><br/>
+                <h4>Member since: {{user.date_joined}}</h4><br/>
+                <h4>Current city: <a href="{% url 'cities_detail' user.profile.current_city.id  %}">{{user.profile.current_city}}</a></h4><br/>
+                <img src="{{ user.profile.current_city.image }}" class="profile-img" alt=""> 
         </div>
-        <div class="col">
-            <p>Right of page</p>
-            <!-- Right of page
-            Picture? Of the user or of their current city?
-            Index of posts (cards, including images(tiled left))
-            -->
-
+        <div class="col right">
+            {%for post in user.post_set.all %}
+                <!-- Go ahead and slap the appropriate url in this anchor tag -->
+                <a href="#">
+                    <div class="card mb-3 post-index">
+                        <img class="card-img" src="{{post.city.image}}" alt="Card image">
+                        <div class="card-img-overlay">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.content }}</p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
         </div>
     </div>
 </div>
-
 
 
 {% endblock %}

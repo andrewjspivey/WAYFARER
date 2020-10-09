@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import City, Post, Profile
 from .forms import City_Form, Post_Form, Profile_Form, User_Form, Register_Form
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -49,9 +49,6 @@ def profile_detail(request, user_id):
     return render(request, 'profile/detail.html', context)
 
 
-
-
-
 def cities_detail(request, city_id):
     city = City.objects.get(id=city_id)
     posts  = Post.objects.all()
@@ -92,5 +89,12 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 
-
-
+def custom_login(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect('profile_detail', user_id=user.id)
+    else:
+        return redirect('/')
