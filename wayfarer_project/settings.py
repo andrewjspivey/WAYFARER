@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'wayfarer',
         # 'USER':'lizkane'
         # 'USER':'quin?'
-        'USER':'binay'
+        # 'USER':'binay'
     }
 }
 
@@ -125,7 +125,8 @@ STATIC_URL = '/static/'
 
 # profile_detail
 # LOGIN_REDIRECT_URL = '/profile/'
-LOGIN_REDIRECT_URL = '/'
+# LOGIN_REDIRECT_URL = '/'
+# LOGIN_REDIRECT_URL = '/profile/home/'
 
 # home
 LOGOUT_REDIRECT_URL = '/'
