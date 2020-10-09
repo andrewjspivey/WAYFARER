@@ -52,8 +52,11 @@ def profile_detail(request, user_id):
 
 def cities_detail(request, city_id):
     city = City.objects.get(id=city_id)
+    print(city , city.id)
     posts  = Post.objects.all()
-    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'city': city ,'posts': posts}
+    # city_related_posts = City.objects.filter(id__in= Post.objects.all().values_list('id'))
+    city_related_posts = Post.objects.filter(city_id = city.id)
+    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'city': city ,'posts': posts, ' city_related_posts':  city_related_posts}
     return render(request, 'cities/detail.html', context)
 
 # --- This functionality will by admin-only and accessible through the admin page, so we shouldn't need view functions to handle them ---
@@ -69,7 +72,7 @@ def posts_detail(request, post_id):
     context = {
         'post': post
     }
-    return render(request, 'posts/show.html' ,context)
+    return render(request, 'posts/detail.html' ,context)
    
 
 
