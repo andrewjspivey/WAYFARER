@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+
+
 {% block content %}
 <h3>{{city.name}}</h3>
 <h5>{{city.country}}</h5>
@@ -19,6 +21,7 @@
                     <p>{{post.title }}</p>
                     <img src="{{ post.image }}" alt="{{ post.name }}" class="post-detail-img"> 
                     <p>{{post.content }}</p>
+                    <p>{{post.city.name}}, {{post.city.country}}</p>
                     <p>{{post.post_date }}</p>
                     
                 </div>
@@ -50,9 +53,6 @@
             </div>
         </div>
     </div>
-</div>
+</div> 
 
 {% endblock %}
-
-
-

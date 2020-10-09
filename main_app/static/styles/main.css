@@ -97,7 +97,7 @@ a:hover {
 
 
 
-/* ANCHOR City Page Styling */
+/* ANCHOR City Index Page Styling */
 .city-detail .post-detail-img {
     max-width: 30vw;
 }
@@ -106,9 +106,25 @@ a:hover {
     max-width: 30vw; 
 }
 
+
+/* ANCHOR City Detail Page Styling */
 .city-detail-img {
     max-width: 50vw;
 }
+
+.new-post-toggle {
+    width: 40px;
+    height: 40px;
+    margin: 20px;
+    border-radius: 50%;
+    background-color: var(--secondary_dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
 
 /* ANCHOR Post Detail Styling */
 .post-detail-img {
