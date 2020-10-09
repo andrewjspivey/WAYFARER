@@ -114,3 +114,22 @@ def custom_login(request):
     else:
         # TODO figure out frontend error handling?
         return redirect('/accounts/login')
+
+      
+def profile_edit(request, user_id):
+
+    user = User.objects.get(id=user_id)
+    
+    if request.method == 'POST':
+        prof_form = Profile_Form(request.POST, instance=user.profile)
+        user_form = User_Form(request.POST, instance=user)
+        if prof_form.is_valid() and user_form.is_valid():
+                prof_form.save()
+                user_form.save()
+                return redirect('profile_detail', user_id=user.id)
+    else:
+        prof_form = Profile_Form(instance=user.profile)
+        user_form = User_Form(instance=user)
+    context = {'user':user, 'prof_form':prof_form,'user_form':user_form}
+    return render( request, 'profile/edit.html', context)
+
