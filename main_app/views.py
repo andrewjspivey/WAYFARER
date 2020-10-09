@@ -38,6 +38,7 @@ def cities_index(request):
 
 def profile_detail(request, user_id):
     user = User.objects.get(id=user_id)
+    print(user)
 
     profile_form = Profile_Form()
     user_form = User_Form()
@@ -60,6 +61,20 @@ def cities_detail(request, city_id):
 #     return HttpResponse( '<h1>cities_delete</h1>')
 # def cities_edit(request):
 #     return HttpResponse( '<h1>cities_edit</h1>')
+
+
+
+def posts_detail(request, post_id):
+    post = Post.objects.get(id=post_id)
+    context = {
+        'post': post
+    }
+    return render(request, 'posts/show.html' ,context)
+   
+
+
+
+
 
     
 def signup(request):
@@ -100,7 +115,7 @@ def custom_login(request):
         # TODO figure out frontend error handling?
         return redirect('/accounts/login')
 
-
+      
 def profile_edit(request, user_id):
 
     user = User.objects.get(id=user_id)
@@ -117,3 +132,4 @@ def profile_edit(request, user_id):
         user_form = User_Form(instance=user)
     context = {'user':user, 'prof_form':prof_form,'user_form':user_form}
     return render( request, 'profile/edit.html', context)
+
