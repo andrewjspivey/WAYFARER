@@ -46,6 +46,8 @@ def profile_detail(request, user_id):
         'user': user,
         'profile_form' : profile_form,
         'user_form' : user_form,
+        'login_form': AuthenticationForm(), 
+        'signup_form': Register_Form()
     }
     return render(request, 'profile/detail.html', context)
 
@@ -53,7 +55,8 @@ def profile_detail(request, user_id):
 def cities_detail(request, city_id):
     city = City.objects.get(id=city_id)
     posts  = Post.objects.all()
-    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'city': city ,'posts': posts}
+    post_form = Post_Form()
+    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'post_form': post_form, 'city': city ,'posts': posts}
     return render(request, 'cities/detail.html', context)
 
 # --- This functionality will by admin-only and accessible through the admin page, so we shouldn't need view functions to handle them ---
@@ -67,16 +70,13 @@ def cities_detail(request, city_id):
 def posts_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     context = {
-        'post': post
+        'post': post,
+        'login_form': AuthenticationForm(),
+        'signup_form': Register_Form()
     }
-    return render(request, 'posts/show.html' ,context)
-   
+    return render(request, 'posts/detail.html', context)
 
 
-
-
-
-    
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -104,6 +104,8 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 
+
+
 def custom_login(request):
     username = request.POST['username']
     password = request.POST['password']
@@ -115,7 +117,10 @@ def custom_login(request):
         # TODO figure out frontend error handling?
         return redirect('/accounts/login')
 
-      
+
+
+
+@login_required
 def profile_edit(request, user_id):
 
     user = User.objects.get(id=user_id)
