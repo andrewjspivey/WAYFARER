@@ -100,7 +100,7 @@ def custom_login(request):
         # TODO figure out frontend error handling?
         return redirect('/accounts/login')
 
-
+@login_required
 def profile_edit(request, user_id):
 
     user = User.objects.get(id=user_id)
