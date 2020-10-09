@@ -3,6 +3,7 @@
 
 <div class="row">
 	<div class="col">
+		<p>{{post.city.name}}, {{post.city.country}}</p>
 		<p>{{post.title}}</p>
 		<p>{{post.user.username}}</p>
 	</div>
@@ -14,26 +15,49 @@
 <p>{{post.content}}</p>
 
 
-<a href="">Edit</a>
-<a href="">Delete</a>
+<a data-toggle="modal" href="#edit-post-modal">Edit</a>
+<a data-toggle="modal" href="#delete-post-modal">Delete</a>
 
 
 
 
-<div class="modal" id="new-post-modal" tabindex="-1">
+<div class="modal" id="edit-post-modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"> New Post</h5>
+                <h5 class="modal-title">Edit Post</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
+				{% comment %} edit url goes here {% endcomment %}
                 <form action="#" method="POST">
                     {% csrf_token %}
                     {{post_form.as_p}}
                     <input type="submit" value="Add Post">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="delete-post-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Post?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+				{% comment %} delete url goes here {% endcomment %}
+                <form action="#" method="POST">
+                    {% csrf_token %}
+                    {% comment %} {{post_form.as_p}} {% endcomment %}
+					<p>Are you sure you want to delete {{post.title}}? Deleted posts cannot be recovered.</p>
+                    <input type="submit" value="I'm sure">
                 </form>
             </div>
         </div>
