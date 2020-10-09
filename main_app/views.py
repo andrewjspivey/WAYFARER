@@ -69,10 +69,12 @@ def cities_detail(request, city_id):
 
 def posts_detail(request, post_id):
     post = Post.objects.get(id=post_id)
+    post_form = Post_Form(instance=post)
     context = {
         'post': post,
         'login_form': AuthenticationForm(),
-        'signup_form': Register_Form()
+        'signup_form': Register_Form(),
+        'post_form': post_form,
     }
     return render(request, 'posts/detail.html', context)
 
