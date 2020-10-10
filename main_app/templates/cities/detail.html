@@ -45,7 +45,7 @@
             </div>
             <div class="modal-body">
             {% comment %} url for post route goes here {% endcomment %}
-                <form action="{% url 'city_new_post' city_id %}" method="POST">
+                <form action="{% url 'new_post' city.id %}" method="POST">
                     {% csrf_token %}
                     {{post_form.as_p}}
                     <input type="submit" value="Add Post">
