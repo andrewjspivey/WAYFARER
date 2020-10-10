@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
+from django.db.models.fields import (DateField, DateTimeField, IntegerField, TimeField)
 
 # Create your models here.
 
@@ -23,7 +25,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     image = models.CharField(max_length=250)
     content = models.TextField(max_length=500)
-    post_date = models.DateField(auto_now_add=True)
+    post_date = models.DateField(auto_now_add = True)
     
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

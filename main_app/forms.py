@@ -27,7 +27,6 @@ class Post_Form(ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'image', 'content']
-        exclude = ['post_date']
 
 
 class Profile_Form(ModelForm):

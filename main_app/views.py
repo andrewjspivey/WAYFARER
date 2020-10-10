@@ -84,11 +84,27 @@ def posts_edit(request, post_id):
 
 
 
-
 # delete post
 def posts_delete(request, post_id):
     Post.objects.get(id=post_id).delete()
     return redirect("cities_index" )
+
+
+def new_post(request, city_id):
+    # return HttpResponse(city_id)
+    if request.method == 'POST':
+        post_form = Post_Form(request.POST)
+        city = City.objects.get(id=city_id)
+        if post_form.is_valid():
+            new_form =  post_form.save(commit=False)
+            new_form.user = request.user
+            new_form.city = city
+            new_form.save()
+            return redirect('cities_detail', city_id=city_id)
+    posts = Post.objects.all()
+    post_form = Post_Form()
+    context = {'posts':posts, 'post_form': post_form}
+    return render(request, 'cities/detail.html', context)
 
 
 def signup(request):
