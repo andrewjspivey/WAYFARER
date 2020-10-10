@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
-    # sign up form should be profile form, not just base django user creation form
     context = {'login_form': AuthenticationForm(), 'signup_form': Register_Form()}
     return render(request, 'home.html', context)
 
@@ -20,7 +19,6 @@ def about(request):
 
 
 def cities_index(request):
-    # profile = Profile.objects.get(id=request.user.id)
     if request.method == 'POST':
         city_form = City_Form(request.POST)
         if city_form.is_valid():
@@ -28,7 +26,6 @@ def cities_index(request):
             new_city.user = request.user
             new_city.save()
             return redirect('cities_index')
-    # cities = City.objects.filter(user=request.user)
     cities = City.objects.all()
     city_form = City_Form()
     context = {'cities':cities, 'city_form': city_form, 'login_form': AuthenticationForm(), 'signup_form': UserCreationForm()}
@@ -57,11 +54,7 @@ def cities_detail(request, city_id):
     context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'post_form': post_form, 'city': city ,'posts': posts}
     return render(request, 'cities/detail.html', context)
 
-# --- This functionality will by admin-only and accessible through the admin page, so we shouldn't need view functions to handle them ---
-# def cities_delete(request):
-#     return HttpResponse( '<h1>cities_delete</h1>')
-# def cities_edit(request):
-#     return HttpResponse( '<h1>cities_edit</h1>')
+
 
 
 def posts_detail(request, post_id):
@@ -74,114 +67,6 @@ def posts_detail(request, post_id):
         'post_form': post_form,
     }
     return render(request, 'posts/detail.html' ,context)
-   
-
-   
-def new_post(request, city_id):
-    # return HttpResponse(city_id)
-    if request.method == 'POST':
-        post_form = Post_Form(request.POST)
-        city = City.objects.get(id=city_id)
-        # city = Post.objects.get(id=city_id)
-        if post_form.is_valid():
-            post_form.save()
-            # context = {'login_form': AuthenticationForm(),'signup_form': Register_Form()}
-            context = {'login_form': AuthenticationForm(),'signup_form': Register_Form(), 'city':city, 'post-form':post_form}
-            return redirect('cities_detail', context)
-    posts = Post.objects.all()
-    post_form = Post_Form()
-    context = {'posts':posts, 'post_form': post_form}
-    return render(request, 'cities/detail.html', context)
-
-
-            # user = form.save()
-            # city_id = City.objects.get(id=request.POST['current_city'])
-            # profile = Profile.objects.get(
-            #     user = user,
-            #     current_city = city_id
-            # )
-            # profile.save()
-
-
-
-
-
-
-# def posts_new(request, city_id):
-#     # error_message = ''
-#     post = Post.objects.create()
-#     city = Post.objects.get(id=city_id)
-#     # if request.method == 'POST':
-#     #     form = Post_Form(request.POST)
-#     #     if form.is_valid():
-#     #         post_new = form.save()
-#     #         return redirect('cities_detail', city_new_post)    
-#     #     else:
-#     #         error_message = 'Unable to add new post - try again'
-
-#     # form = Post_Form()
-#     context = {
-#         'post': post,
-#         'city': city
-#     }
-#     return render(request, 'cities/detail.html', context)
-
-
-# def posts_new(request, city_id):
-#     error_message = ''
-#     post = Post.objects.create()
-#     city = Post.objects.get(id=city_id)
-#     if request.method == 'POST':
-#         form = Post_Form(request.POST)
-#         if form.is_valid():
-#             new_post = form.save()
-
-#             return redirect('cities_detail', city_new_post)    
-#         else:
-#             error_message = 'Unable to add new post - try again'
-#     form = Post_Form()
-#     context = {
-#         'post': post,
-#         'city': city,
-#         'form': form,
-#     }
-#     return render(request, 'cities/detail.html', context)
-
-# def posts_new(request, city_id):
-#     error_message = ''
-#     city = Post.objects.get(id=city_id)
-
-#     post_form = Post_Form(instance=post)
-#     context = {
-#         'post': post,
-#         'login_form': AuthenticationForm(),
-#         'signup_form': Register_Form(),
-#         'post_form': post_form,
-#     }
-#     return render(request, 'posts/detail.html' ,context)
-
-
-# def posts_new(request, city_id):
-#     error_message = ''
-#     post = Post.objects.create()
-#     city = Post.objects.get(id=city_id)
-#     if request.method == 'POST':
-#         form = Post_Form(request.POST)
-#         if form.is_valid():
-#             new_post = form.save()
-#             return redirect('cities_detail', city_new_post)    
-#         else:
-#             error_message = 'Unable to add new post - try again'
-#     form = Post_Form()
-#     context = {
-#         'post': post,
-#         'city': city,
-#         'form': form,
-#     }
-#     return render(request, 'cities/detail.html', context)
-
-
-
 
 
 # edit post 
@@ -200,15 +85,10 @@ def posts_edit(request, post_id):
 
 
 
-
 # delete post
 def posts_delete(request, post_id):
     Post.objects.get(id=post_id).delete()
     return redirect("cities_index" )
-   
-
-
-
 
 
 def signup(request):
