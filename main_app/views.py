@@ -38,8 +38,6 @@ def cities_index(request):
 
 def profile_detail(request, user_id):
     user = User.objects.get(id=user_id)
-    print(user)
-
     profile_form = Profile_Form()
     user_form = User_Form()
     context = {
@@ -181,6 +179,35 @@ def new_post(request, city_id):
 #         'form': form,
 #     }
 #     return render(request, 'cities/detail.html', context)
+
+
+
+
+
+# edit post 
+def posts_edit(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if request.method == 'POST':
+        post_form = Post_Form(request.POST, instance=post)
+        if post_form.is_valid():
+            post_form.save()
+        return redirect('posts_detail',post_id = post_id)
+    else:
+        post_form = Post_Form(instance=post)
+    context = {'post': post, 'post_form': post_form}
+    return render(request, 'cities/detail.html', context)
+
+
+
+
+
+# delete post
+def posts_delete(request, post_id):
+    Post.objects.get(id=post_id).delete()
+    return redirect("cities_index" )
+   
+
+
 
 
 
