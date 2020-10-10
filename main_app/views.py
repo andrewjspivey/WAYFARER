@@ -91,14 +91,10 @@ def posts_new(request , city_id):
     return render(request, 'cities/detail.html', context)
 
 
-
-
-   
-    
-        
-         
-       
-
+# delete post
+def posts_delete(request, post_id):
+    Post.objects.get(id=post_id).delete()
+    return redirect("cities_index" )
    
 
 
