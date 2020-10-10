@@ -11,6 +11,7 @@ urlpatterns = [
     path('cities/<int:city_id>/', views.cities_detail, name='cities_detail'),
     path('posts/<int:post_id>/', views.posts_detail, name='posts_detail'),
     path('posts/<int:post_id>/delete', views.posts_delete, name='posts_delete'),
+    path('posts/<int:post_id>/edit', views.posts_edit, name='posts_edit'),
     path('cities/<int:city_id>/new_post', views.posts_new, name='new_post'),
     # path('cities/<int:city_id>/delete/', views.cities_delete, name='cities_delete'),
     # path('cities/<int:city_id>/assoc_post', views.assoc_post, name='assoc_cities_post'),

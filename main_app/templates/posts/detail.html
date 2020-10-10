@@ -32,7 +32,7 @@
             </div>
             <div class="modal-body">
 				{% comment %} edit url goes here {% endcomment %}
-                <form action="#" method="POST">
+                <form action="{% url 'posts_edit' post.id %}" method="POST">
                     {% csrf_token %}
                     {{post_form.as_p}}
                     <input type="submit" value="Add Post">
