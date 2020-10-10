@@ -38,8 +38,6 @@ def cities_index(request):
 
 def profile_detail(request, user_id):
     user = User.objects.get(id=user_id)
-    print(user)
-
     profile_form = Profile_Form()
     user_form = User_Form()
     context = {
@@ -54,17 +52,9 @@ def profile_detail(request, user_id):
 
 def cities_detail(request, city_id):
     city = City.objects.get(id=city_id)
-<<<<<<< HEAD
-    print(city , city.id)
-    posts  = Post.objects.all()
-    # city_related_posts = City.objects.filter(id__in= Post.objects.all().values_list('id'))
-    city_related_posts = Post.objects.filter(city_id = city.id)
-    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'city': city ,'posts': posts, ' city_related_posts':  city_related_posts}
-=======
     posts = Post.objects.filter(city_id=city.id)
     post_form = Post_Form()
     context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'post_form': post_form, 'city': city ,'posts': posts}
->>>>>>> submaster
     return render(request, 'cities/detail.html', context)
 
 # --- This functionality will by admin-only and accessible through the admin page, so we shouldn't need view functions to handle them ---
@@ -84,12 +74,40 @@ def posts_detail(request, post_id):
         'signup_form': Register_Form(),
         'post_form': post_form,
     }
-<<<<<<< HEAD
-    return render(request, 'posts/detail.html' ,context)
-   
-=======
     return render(request, 'posts/detail.html', context)
->>>>>>> submaster
+
+
+
+
+def posts_new(request , city_id):
+    if request.method == 'POST':
+        post_form = Post_Form(request.POST)
+        if post_form.is_valid():
+            post_form.save()
+            return redirect('cities_detail')
+    post_form = Post_Form()
+    city = City.objects.get(id = city_id)
+    context = { 'post_form': post_form, 'city': city}
+    return render(request, 'cities/detail.html', context)
+
+
+
+
+   
+    
+        
+         
+       
+
+   
+
+
+
+
+
+
+
+
 
 
 def signup(request):

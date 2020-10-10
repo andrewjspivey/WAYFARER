@@ -45,7 +45,7 @@
             </div>
             <div class="modal-body">
             <!-- url for post route goes here -->
-                <form action="#" method="POST">
+                <form action="{% url 'new_post' city.id %}" method="POST">
                     {% csrf_token %}
                     {{post_form.as_p}}
                     <input type="submit" value="Add Post">
@@ -55,18 +55,4 @@
     </div>
 </div> 
 
-<<<<<<< HEAD
-<hr>
-
-
-</div>
-
-
-
 {% endblock %}
-
-
-
-=======
-{% endblock %}
->>>>>>> submaster
