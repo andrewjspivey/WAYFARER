@@ -3,6 +3,7 @@
     --secondary_light: #8bdeff;
     --main_dark: #a888ff;
     --secondary_dark: #26466f;
+    --background: #434a57;
 }
 
 *{
@@ -14,6 +15,7 @@
 /* ANCHOR General Styling */
 body {
     font-family: 'Poppins', sans-serif;
+    background-color: var(--background);
 }
 
 a {
