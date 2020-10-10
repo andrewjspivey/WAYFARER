@@ -28,6 +28,7 @@ class Post_Form(ModelForm):
         model = Post
         fields = ['title', 'image', 'content']
         exclude = ['post_date']
+        
 
 
 class Profile_Form(ModelForm):
