@@ -3,17 +3,18 @@
     --secondary_light: #8bdeff;
     --main_dark: #a888ff;
     --secondary_dark: #26466f;
+    --background: #434a57;
 }
 
 *{
     margin: 0;
     padding: 0;
-    /* max-width: 100vw; */
 }
 
 /* ANCHOR General Styling */
 body {
     font-family: 'Poppins', sans-serif;
+    background-color: var(--background);
 }
 
 a {
@@ -28,6 +29,7 @@ a:hover {
 
 
 /* ANCHOR Navbar styling */
+
 .nav {
     display: flex;
     justify-content: space-between;
@@ -47,13 +49,13 @@ a:hover {
 
 .profile.container {
     width: 100vw;
-}
+} 
 
-/* .profile.row {
+.profile.row {
     width: 100vw;
     display: flex;
     justify-content: space-between;
-} */
+}
 
 /* FIXME the scroll here isn't working quite right */
 .profile.col {
@@ -117,6 +119,7 @@ a:hover {
     height: 40px;
     margin: 20px;
     border-radius: 50%;
+    border:  2px solid var(--secondary_light);
     background-color: var(--secondary_dark);
     display: flex;
     justify-content: center;
@@ -127,6 +130,7 @@ a:hover {
 
 
 /* ANCHOR Post Detail Styling */
+
 .post-detail-img {
     max-width: 30vw;
 }

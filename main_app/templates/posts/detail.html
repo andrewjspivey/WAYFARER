@@ -35,7 +35,7 @@
                 <form action="{% url 'posts_edit' post.id %}" method="POST">
                     {% csrf_token %}
                     {{post_form.as_p}}
-                    <input type="submit" value="Add Post">
+                    <input type="submit" value="Update Post">
                 </form>
             </div>
         </div>

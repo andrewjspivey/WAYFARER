@@ -5,8 +5,6 @@ from django.db.models.fields import (DateField, DateTimeField, IntegerField, Tim
 
 # Create your models here.
 
-# we may want to add a profile model to supplement user data, decorations (date joined)a
-
 
 class City(models.Model):
     name = models.CharField(max_length=50)
