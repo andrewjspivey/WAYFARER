@@ -16,6 +16,7 @@ urlpatterns = [
     # path('cities/<int:city_id>/delete/', views.cities_delete, name='cities_delete'),
     # path('cities/<int:city_id>/assoc_post', views.assoc_post, name='assoc_cities_post'),
     # path('cities/<int:city_id>/deassoc_post', views.deassoc_post, name='deassoc_cities_post'),
+    # path('cities/<int:city_id>/delete/', views.cities_delete, name='cities_delete'),
     path('accounts/signup/', views.signup, name='signup'),
     path('profile/home/', views.custom_login, name='custom_login'),
 ]
