@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{user.first_name}}</h5>
                     <p class="card-text">
-                    Memeber since: {{ user.date_joined }}
+                    Member since: {{ user.date_joined }}
                     </p>
                     <div class="card-footer">
                         Current city: <a href="{% url 'cities_detail' user.profile.current_city.id  %}">{{user.profile.current_city}}</a>
