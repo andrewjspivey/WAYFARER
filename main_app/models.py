@@ -25,7 +25,7 @@ class Profile(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=200)
     image = models.CharField(max_length=250)
-    content = models.TextField(max_length=500 ,blank=False)
+    content = models.TextField(max_length=2000 ,blank=False)
     post_date = models.DateTimeField(auto_now_add = True)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -33,6 +33,8 @@ class Post(models.Model):
  
     def get_date(self):
         cur_time = datetime.now()
+        print(cur_time)
+        print(self.post_date)
         if self.post_date.day == cur_time.day:
                 return str(abs(cur_time.hour  -  self.post_date.hour)) + " hours ago"
         elif self.post_date.month == cur_time.month:
