@@ -103,19 +103,32 @@ a:hover {
 
 
 /* ANCHOR City Index Page Styling */
-.city-detail {
-    max-width: 40vw;
-    max-height: 30vh;
+
+.index-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.city-detail .post-detail-img {
-    max-width: 40vw;
+.city-index {
+    width: 40vw;
+
+}
+.card-img-overlay {
+    background-color: rgba(0, 0, 0, .5);
+    background-position: center;
+    color: var(--main_light);
 }
 
-.city-index-img {
-    max-width: 30vw; 
-    max-height: 100%;
+
+.city-index:hover .card-img-overlay {
+    background-color: rgba(255, 255, 255, .5);
+    color: var(--secondary_dark);
 }
+
+
+
 
 
 /* ANCHOR City Detail Page Styling */
@@ -143,8 +156,6 @@ a:hover {
 }
 
 .city-detail-img {
-    max-width: 50vw;
-    max-height: 30vh;
     width: inherit;
     margin: 0 15px 0 0;
     border-radius: 5px;
@@ -153,7 +164,7 @@ a:hover {
 /* new post button */
 .new-post-toggle {
     color: var(--main_light);
-    margin: 20px;
+    margin: 20px 0;
     border-radius: 50%;
     display: flex;
     font-size: 2.5em;
@@ -170,29 +181,55 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 0 0 15px;
+    width: inherit;
+    margin: 15px 0;
 }
 
 /* post index */
 .card.post {
     color: var(--secondary_dark);
+    background-color: var(--main_light);
 }
 
 .post-index-img {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: lightgray;
 }
 
 .card-img.post-index {
     opacity: 1;
-    padding: 2px;
-    border-radius: 5px;
 }
 
 
 /* ANCHOR Post Detail Styling */
 
+.post-detail-meta {
+    width: inherit;
+    padding: 5px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.post-detail-title {
+    color: var(--main_light);
+}
 .post-detail-img {
-    max-width: 30vw;
+    width: inherit;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.post-content {
+    color: var(--main_light);
+}
+
+.post-date {
+    color: lightgray;
+}
+
+.post-edit {
+    margin-right: 10px;
 }
