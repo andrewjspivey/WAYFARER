@@ -35,7 +35,7 @@
         {% if user.is_authenticated %}
             <!-- View Profile -->
             <li class="nav-item">
-                <a href="{% url 'profile_detail' user.id %}" class="nav-link active">Profile</a> 
+                <a href="{% url 'profile_detail' request.user.id %}" class="nav-link active">Profile</a> 
             </li>
             <!-- Logout -->
             <li class="nav-item">

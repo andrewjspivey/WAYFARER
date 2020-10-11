@@ -34,8 +34,9 @@
 
         <div class="row new-post-button">
             <h4>Posts</h3>
+            {% if request.user.id %}
             <a data-toggle="modal" href="#new-post-modal" class="new-post-toggle"><i class="fas fa-plus-circle"></i></a>
-
+            {% endif %}
         </div>
 
         <div class="row">
