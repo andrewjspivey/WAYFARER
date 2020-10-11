@@ -16,6 +16,7 @@
                 </div>
                 <img src="{{user.profile.current_city.image }}" class="card-img-top" alt="...">
             </div>
+            <br/><a href="{% url 'profile_edit' user.profile.id %}"><button>Edit Profile</button></a>
         </div>
 
         <div class="profile col right">
@@ -34,6 +35,5 @@
         </div>
     </div>
 </div>
-<a href="{% url 'profile_edit' user.profile.id %}"><button>Edit Profile</button></a>
 
 {% endblock %}

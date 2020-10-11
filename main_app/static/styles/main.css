@@ -3,7 +3,8 @@
     --secondary_light: #8bdeff;
     --main_dark: #a888ff;
     --secondary_dark: #26466f;
-    --background: #434a57;
+    --background_mid: #434a57;
+    --background_light: #D56D4C
 }
 
 *{
@@ -13,8 +14,10 @@
 
 /* ANCHOR General Styling */
 body {
+    /* height: 100%; */
     font-family: 'Poppins', sans-serif;
-    background-color: var(--background);
+    background-image: linear-gradient(var(--secondary_dark), var(--background_mid), var(--background_light));
+    background-size: cover;
 }
 
 a {
@@ -55,6 +58,7 @@ a:hover {
     width: 100vw;
     display: flex;
     justify-content: space-between;
+    /* overflow: scroll; */
 }
 
 /* FIXME the scroll here isn't working quite right */
@@ -100,19 +104,26 @@ a:hover {
 
 
 /* ANCHOR City Index Page Styling */
+.city-detail {
+    max-width: 40vw;
+    max-height: 30vh;
+}
 .city-detail .post-detail-img {
-    max-width: 30vw;
+    max-width: 40vw;
 }
 
 .city-index-img {
     max-width: 30vw; 
+    max-height: 100%;
 }
 
 
 /* ANCHOR City Detail Page Styling */
 .city-detail-img {
     max-width: 50vw;
+    max-height: 30vh;
 }
+
 
 .new-post-toggle {
     width: 40px;
@@ -124,6 +135,7 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 2.5em;
 }
 
 
