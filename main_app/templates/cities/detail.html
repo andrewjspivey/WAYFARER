@@ -1,54 +1,73 @@
-{% extends 'base.html' %}
+   {% extends 'base.html' %}
 {% block content %}
 
 <div class="row">
-    <div class="col s4">
-        <h3>Cities</h3>
-        {% for city in cities %}
-        <div class="card">
-            <a href="{% url 'cities_detail' city.id %}">
+    <div class="col">
+        {% for list_city in cities %}
+        {% if list_city.id == city.id %}
+        <div class="card sidebar selected-city">
+        {% else %}
+        <div class="card sidebar">
+        {% endif %}
+            <a href="{% url 'cities_detail' list_city.id %}">
                 <div class="card-content">
-                    <img src="{{ city.image }}" alt="{{ city.name }}{{ city.country }}" class="city-index-img"> 
-                    <span class="card-title">{{ city.name }}</span>
+                    <img src="{{ list_city.image }}" alt="{{ list_city.name }}{{ list_city.country }}" class="city-index-img"> 
+                    <span class="card-title">{{ list_city.name }}</span>
                 </div>
             </a>
         </div> 
         {% endfor %}
-    </div> 
-
-
-
-    <div class="col s6">
-    <h3>{{city.name}}</h3>
-    <h5>{{city.country}}</h5>
-
-
-    <img src="{{ city.image }}" alt="{{ city.name }}{{ city.country }}" class="city-detail-img"> 
-
-
-    <div class="row">
-        <a data-toggle="modal" href="#new-post-modal" class="new-post-toggle btn-default">+</a>
     </div>
-    <div>
-        {% for post in posts %}
-            <a href="{% url 'posts_detail' post.id %}">
-                <div class="card city-detail">
-                    <div class="card-content">
-                        <p>{{post.title }}</p>
-                        <img src="{{ post.image }}" alt="{{ post.name }}" class="post-detail-img"> 
-                        <p>{{post.content }}</p>
-                        <p>{{post.city.name}}, {{post.city.country}}</p>
-                        <p>{{post.post_date }}</p>
-                        
-                    </div>
-                </div>
-            </a>
-            {% endfor %}
+
+
+    <div class="col">
+    
+        <div class="row">
+            <div class="col city-detail">
+                <h3>{{city.name}}</h3>
+                <h5>{{city.country}}</h5>
+            </div>
+            <div class="col-s9">
+                <img src="{{ city.image }}" alt="{{ city.name }}{{ city.country }}" class="city-detail-img"> 
+            </div>
         </div>
-        <hr>
+
+        <div class="row new-post-button">
+            <h4>Posts</h3>
+            {% if request.user.id %}
+            <a data-toggle="modal" href="#new-post-modal" class="new-post-toggle"><i class="fas fa-plus-circle"></i></a>
+            {% endif %}
+        </div>
+
+        <div class="row">
+            <div class="col">
+                {% for post in posts %}
+                    <a href="{% url 'posts_detail' post.id %}">
+                    <div class="card mb-3 post" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 post-index-img">
+                            <img src="{{post.image}}" class="card-img post-index">
+                        </div>
+                        <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{post.title}}</h5>
+                             {% if post.content|length < 1000 %}
+                                    <p>{{post.content}}</p>
+                                {% else %}
+                                    <p>{{post.content|truncatechars_html:1000 }}</p>
+                                    <a href="{% url 'posts_detail' post.id %}" class="btn btn-default">Read More</a>
+                        {% endif %}
+                            <p class="card-text"><small class="text-muted">{{post.get_date }}</small></p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-
-
+</div>
 
 <div class="modal" id="new-post-modal" tabindex="-1">
     <div class="modal-dialog">
@@ -68,6 +87,67 @@
             </div>
         </div>
     </div>
-</div> 
+</div>  
 
 {% endblock %}
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

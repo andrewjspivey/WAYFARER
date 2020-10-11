@@ -16,12 +16,14 @@
                 </div>
                 <img src="{{user.profile.current_city.image }}" class="card-img-top" alt="...">
             </div>
-            <br/><a href="{% url 'profile_edit' user.profile.id %}"><button>Edit Profile</button></a>
+            <br/>
+            {% if request.user.id == user.id %}
+            <a href="{% url 'profile_edit' user.profile.id %}"><button>Edit Profile</button></a>
+            {% endif %}
         </div>
 
         <div class="profile col right">
             {%for post in user.post_set.all %}
-                <!-- Go ahead and slap the appropriate url in this anchor tag -->
                 <a href="{% url 'posts_detail' post.id%}">
                     <div class="card mb-3 post-index">
                     <img class="card-img" src="{{post.city.image}}" alt="Card image">
