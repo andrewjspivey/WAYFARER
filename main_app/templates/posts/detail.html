@@ -5,7 +5,7 @@
 	<div class="col">
 		<a href="{% url 'cities_detail' post.city.id %}">{{post.city.name}}, {{post.city.country}}</a>
 		<p>{{post.title}}</p>
-		<p>{{post.user.username}}</p>
+		<a href="{% url 'profile_detail' post.user.id %}"><p>{{post.user.username}}</p></a>
 	</div>
 	<div class="col">
 		<img src="{{ post.image }}" class="post-detail-img">
@@ -16,10 +16,10 @@
 
 <small>{{post.post_date}}</small>
 
-
+{% if request.user.id == post.user.id %}
 <a data-toggle="modal" href="#edit-post-modal">Edit</a>
 <a data-toggle="modal" href="#delete-post-modal">Delete</a>
-
+{% endif %}
 
 
 
@@ -33,7 +33,6 @@
                 </button>
             </div>
             <div class="modal-body">
-				{% comment %} edit url goes here {% endcomment %}
                 <form action="{% url 'posts_edit' post.id %}" method="POST">
                     {% csrf_token %}
                     {{post_form.as_p}}
