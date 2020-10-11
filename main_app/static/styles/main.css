@@ -4,7 +4,7 @@
     --main_dark: #a888ff;
     --secondary_dark: #26466f;
     --background_mid: #434a57;
-    --background_light: #D56D4C
+    --background_light: #D56D4C;
 }
 
 *{
@@ -108,6 +108,7 @@ a:hover {
     max-width: 40vw;
     max-height: 30vh;
 }
+
 .city-detail .post-detail-img {
     max-width: 40vw;
 }
@@ -119,6 +120,20 @@ a:hover {
 
 
 /* ANCHOR City Detail Page Styling */
+
+.card.selected-city {
+    background-color: var(--main_light);
+}
+
+.card.sidebar {
+    max-width: 25vw;
+    font-size: 1.5rem;
+}
+
+.card.sidebar .city-index-img {
+    max-width: 10vw;
+}
+
 .city-detail-img {
     max-width: 50vw;
     max-height: 30vh;
@@ -138,7 +153,12 @@ a:hover {
     font-size: 2.5em;
 }
 
-
+.new-post-toggle{
+    color: var(--secondary_light);
+}
+.new-post-toggle:hover{
+    color: var(--main_dark);
+}
 
 
 /* ANCHOR Post Detail Styling */
