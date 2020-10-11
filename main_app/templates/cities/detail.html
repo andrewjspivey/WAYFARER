@@ -35,8 +35,15 @@
                 <div class="card city-detail">
                     <div class="card-content">
                         <p>{{post.title }}</p>
-                        <img src="{{ post.image }}" alt="{{ post.name }}" class="post-detail-img"> 
-                        <p>{{post.content }}</p>
+                        <img src="{{ post.image }}" alt="{{ post.name }}" class="post-detail-img">
+                        
+                        {% if post.content|length < 1000 %}
+                            <p>{{post.content}}</p>
+                        {% else %}
+                            <p>{{post.content|truncatechars_html:1000 }}</p>
+                            <a href="{% url 'posts_detail' post.id %}" class="btn btn-default">Read More</a>
+                        {% endif %}
+
                         <p>{{post.city.name}}, {{post.city.country}}</p>
                         <p>{{post.post_date }}</p>
                         
