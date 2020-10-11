@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+   {% extends 'base.html' %}
 {% block content %}
 
 <div class="row">
@@ -51,8 +51,13 @@
                         <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">{{post.title}}</h5>
-                            <p class="card-text">{{post.content}}</p>
-                            <p class="card-text"><small class="text-muted">{{post.post_date}}</small></p>
+                             {% if post.content|length < 1000 %}
+                                    <p>{{post.content}}</p>
+                                {% else %}
+                                    <p>{{post.content|truncatechars_html:1000 }}</p>
+                                    <a href="{% url 'posts_detail' post.id %}" class="btn btn-default">Read More</a>
+                        {% endif %}
+                            <p class="card-text"><small class="text-muted">{{post.get_date }}</small></p>
                         </div>
                         </div>
                     </div>
@@ -63,8 +68,6 @@
         </div>
     </div>
 </div>
-
-
 
 <div class="modal" id="new-post-modal" tabindex="-1">
     <div class="modal-dialog">
@@ -87,3 +90,64 @@
 </div>  
 
 {% endblock %}
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
