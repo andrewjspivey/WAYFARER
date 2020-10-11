@@ -49,9 +49,10 @@ def profile_detail(request, user_id):
 
 def cities_detail(request, city_id):
     city = City.objects.get(id=city_id)
+    cities = City.objects.all()
     posts = Post.objects.filter(city_id=city.id)
     post_form = Post_Form()
-    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'post_form': post_form, 'city': city ,'posts': posts}
+    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'post_form': post_form, 'city': city ,'posts': posts, 'cities':cities}
     return render(request, 'cities/detail.html', context)
 
 
