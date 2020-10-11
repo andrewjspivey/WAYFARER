@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime
+from datetime import datetime 
 from django.db.models.fields import (DateField, DateTimeField, IntegerField, TimeField)
+
 
 # Create your models here.
 
@@ -23,12 +24,26 @@ class Profile(models.Model):
     
 
 class Post(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=200)
     image = models.CharField(max_length=250)
-    content = models.TextField(max_length=500)
+    content = models.TextField(max_length=500 ,blank=False)
     post_date = models.DateTimeField(auto_now_add = True)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+ 
+    def get_date(self):
+        cur_time = datetime.now()
+        if self.post_date.day == cur_time.day:
+                return str(abs(cur_time.hour  -  self.post_date.hour)) + " hours ago"
+        elif self.post_date.month == cur_time.month:
+                return str(abs(cur_time.day - self.post_date.day)) + " days ago"
+        elif self.post_date.year == cur_time.year:
+                return str(abs(cur_time.month - self.post_date.month)) + " months ago"
+        return self.post_date 
+
+
+
 
     def __str__(self):
         return f"{self.user}'s {self.city.name} Post : {self.title} submitted on {self.post_date} : {self.content}"
