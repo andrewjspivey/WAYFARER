@@ -55,6 +55,7 @@ a:hover {
     width: 100vw;
     display: flex;
     justify-content: space-between;
+    /* overflow: scroll; */
 }
 
 /* FIXME the scroll here isn't working quite right */
@@ -100,19 +101,26 @@ a:hover {
 
 
 /* ANCHOR City Index Page Styling */
+.city-detail {
+    max-width: 40vw;
+    max-height: 30vh;
+}
 .city-detail .post-detail-img {
-    max-width: 30vw;
+    max-width: 40vw;
 }
 
 .city-index-img {
     max-width: 30vw; 
+    max-height: 100%;
 }
 
 
 /* ANCHOR City Detail Page Styling */
 .city-detail-img {
     max-width: 50vw;
+    max-height: 30vh;
 }
+
 
 .new-post-toggle {
     width: 40px;
@@ -124,6 +132,7 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 2.5em;
 }
 
 

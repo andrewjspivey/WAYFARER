@@ -27,7 +27,6 @@ class Post(models.Model):
     image = models.CharField(max_length=250)
     content = models.TextField(max_length=500)
     post_date = models.DateTimeField(auto_now_add = True)
-    
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
