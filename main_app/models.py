@@ -35,3 +35,8 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-post_date']
+    
+
+
+
+class EmailMessage

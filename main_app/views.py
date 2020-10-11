@@ -6,18 +6,25 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core import mail
+from django.core.mail import send_mail
+
 
 # Create your views here.
+
+# HOME PAGE WITH CAROUSEL OF CITIES & APP INFO
 def home(request):
     context = {'login_form': AuthenticationForm(), 'signup_form': Register_Form()}
     return render(request, 'home.html', context)
 
 
+# DEVELOPER DETAILS ON APP CREATORS OF WAYFARER
 def about(request):
     context = {'login_form': AuthenticationForm(), 'signup_form': Register_Form()}
     return render(request, 'about.html', context)
 
 
+# CITIES INDEX PAGE (NO LONGER REQUIRED)
 def cities_index(request):
     if request.method == 'POST':
         city_form = City_Form(request.POST)
@@ -33,20 +40,7 @@ def cities_index(request):
 
 
 
-def profile_detail(request, user_id):
-    user = User.objects.get(id=user_id)
-    profile_form = Profile_Form()
-    user_form = User_Form()
-    context = {
-        'user': user,
-        'profile_form' : profile_form,
-        'user_form' : user_form,
-        'login_form': AuthenticationForm(), 
-        'signup_form': Register_Form()
-    }
-    return render(request, 'profile/detail.html', context)
-
-
+# CITIES INDEX PAGE WITH CITY DETAIL, AT CITY DETAIL PAGE
 def cities_detail(request, city_id):
     city = City.objects.get(id=city_id)
     cities = City.objects.all()
@@ -57,7 +51,7 @@ def cities_detail(request, city_id):
 
 
 
-
+# POST DETAIL PAGE INCLUDES:
 def posts_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     post_form = Post_Form(instance=post)
@@ -70,27 +64,8 @@ def posts_detail(request, post_id):
     return render(request, 'posts/detail.html' ,context)
 
 
-# edit post 
-def posts_edit(request, post_id):
-    post = Post.objects.get(id=post_id)
-    if request.method == 'POST':
-        post_form = Post_Form(request.POST, instance=post)
-        if post_form.is_valid():
-            post_form.save()
-        return redirect('posts_detail',post_id = post_id)
-    else:
-        post_form = Post_Form(instance=post)
-    context = {'post': post, 'post_form': post_form}
-    return render(request, 'cities/detail.html', context)
-
-
-
-# delete post
-def posts_delete(request, post_id):
-    Post.objects.get(id=post_id).delete()
-    return redirect("cities_index" )
-
-
+# CREATE NEW POST WHILE ON CITY PAGE
+@login_required
 def new_post(request, city_id):
     # return HttpResponse(city_id)
     if request.method == 'POST':
@@ -108,6 +83,57 @@ def new_post(request, city_id):
     return render(request, 'cities/detail.html', context)
 
 
+# EDIT POST AT POST DETAIL PAGE 
+@login_required
+def posts_edit(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if request.method == 'POST':
+        post_form = Post_Form(request.POST, instance=post)
+        if post_form.is_valid():
+            post_form.save()
+        return redirect('posts_detail',post_id = post_id)
+    else:
+        post_form = Post_Form(instance=post)
+    context = {'post': post, 'post_form': post_form}
+    return render(request, 'cities/detail.html', context)
+
+
+# DELETE POST AT POST DETAIL PAGE
+@login_required
+def posts_delete(request, post_id):
+    Post.objects.get(id=post_id).delete()
+    return redirect("cities_index" )
+
+
+# PROFILE DETAIL PAGE INCLUDES
+def profile_detail(request, user_id):
+    user = User.objects.get(id=user_id)
+    profile_form = Profile_Form()
+    user_form = User_Form()
+    context = {
+        'user': user,
+        'profile_form' : profile_form,
+        'user_form' : user_form,
+        'login_form': AuthenticationForm(), 
+        'signup_form': Register_Form()
+    }
+    return render(request, 'profile/detail.html', context)
+
+
+
+
+
+# def send_mail(request, emailto):
+#     res = send_mail(
+#     'Welcome to Wayfarer',
+#     'Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com',
+#     'wayfarer_team@wayfarer.com',
+#     [emailto],
+#     fail_silently=False,)
+    
+
+
+# SIGN UP IN MODAL AT ANY PAGE WITHIN THE APP
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -134,9 +160,22 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
+    # send_mail()
+
+
+    with mail.get_connection() as connection:
+        mail.EmailMessage(
+            'Welcome to Wayfarer','Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com','wayfarer_team@wayfarer.com',[user.email],
+            connection=connection,
+        ).send()
+        mail.EmailMessage(
+            subject2, body2, from2, [user.email],
+            connection=connection
+        ).send()
 
 
 
+# LOGIN IN MODAL AT ANY PAGE IN APP
 def custom_login(request):
     username = request.POST['username']
     password = request.POST['password']
@@ -149,13 +188,10 @@ def custom_login(request):
         return redirect('/accounts/login')
 
 
-
-
+# EDIT PROFILE DETAILS (EXCEPT PASSWORD & USERNAME) AT PROFILE DETAIL PAGE
 @login_required
 def profile_edit(request, user_id):
-
     user = User.objects.get(id=user_id)
-    
     if request.method == 'POST':
         prof_form = Profile_Form(request.POST, instance=user.profile)
         user_form = User_Form(request.POST, instance=user)
