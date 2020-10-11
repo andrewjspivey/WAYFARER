@@ -32,7 +32,7 @@ class Post_Form(ModelForm):
 class Profile_Form(ModelForm):
     class Meta:
         model = Profile
-        fields = ['current_city',]
+        fields = ['current_city', 'image']
 
 class User_Form(ModelForm):
     class Meta:

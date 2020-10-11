@@ -20,12 +20,13 @@ class City(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     current_city = models.ForeignKey(City, on_delete=models.CASCADE)
+    image = models.CharField(max_length=300, default='https://icons-for-free.com/iconfiles/png/512/people+person+profile+user+icon-1320186207447274965.png')
     
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
     image = models.CharField(max_length=250)
-    content = models.TextField(max_length=500 ,blank=False)
+    content = models.TextField(max_length=5000 ,blank=False)
     post_date = models.DateTimeField(auto_now_add = True)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

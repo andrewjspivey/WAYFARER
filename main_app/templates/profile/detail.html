@@ -1,41 +1,55 @@
 {% extends 'base.html'%}
 {% block content %}
 
-<div class="profile container">
-    <div class="profile row">
-        <div class="profile col left">
-            <div class="card profile-details">
-                <div class="card-body">
-                    <h5 class="card-title">{{user.first_name}}</h5>
-                    <p class="card-text">
-                    Member since: {{ user.date_joined }}
-                    </p>
-                    <div class="card-footer">
-                        Current city: <a href="{% url 'cities_detail' user.profile.current_city.id  %}">{{user.profile.current_city}}</a>
+<div class="row">
+
+    <div class="col">
+        <div class="card profile-details">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <img src="{{user.profile.image}}" class="profile-card-img">
+                    </div>
+                    <div class="col">
+                        <h5 class="card-title">{{user.first_name}}</h5>
                     </div>
                 </div>
-                <img src="{{user.profile.current_city.image }}" class="card-img-top" alt="...">
+                <p class="card-text">Member since: {{ user.date_joined }}</p>
+                <div class="card-footer">
+                    Current city: <a href="{% url 'cities_detail' user.profile.current_city.id  %}">{{user.profile.current_city}}</a>
+                </div>
             </div>
-            <br/>
-            {% if request.user.id == user.id %}
-            <a href="{% url 'profile_edit' user.profile.id %}"><button>Edit Profile</button></a>
-            {% endif %}
+            <img src="{{user.profile.current_city.image }}" class="card-img-top" alt="...">
         </div>
+        <br/>
+        {% if request.user.id == user.id %}
+            <a href="{% url 'profile_edit' user.profile.id %}"><button>Edit Profile</button></a>
+        {% endif %}
+    </div>
 
-        <div class="profile col right">
-            {%for post in user.post_set.all %}
-                <a href="{% url 'posts_detail' post.id%}">
-                    <div class="card mb-3 post-index">
-                    <img class="card-img" src="{{post.city.image}}" alt="Card image">
-                        <div class="card-img-overlay">
-                            <h5 class="card-title">{{ post.title }}</h5>
-                            <p class="card-text">{{ post.content }}</p>
+
+    <div class="col">
+        {%for post in user.post_set.all %}
+            <a href="{% url 'posts_detail' post.id %}">
+                <div class="card mb-3 post" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 post-index-img">
+                            <img src="{{post.image}}" class="card-img post-index">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{post.title}}</h5>
+                                <p class="card-text">{{post.content}}</p>
+                                <p class="card-text"><small class="text-muted">{{post.post_date}}</small></p>
+                            </div>
                         </div>
                     </div>
-                </a>
-            {% endfor %}
-        </div>
+                </div>
+            </a>
+        {% endfor %}
     </div>
+
 </div>
+
 
 {% endblock %}
