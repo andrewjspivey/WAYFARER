@@ -30,7 +30,6 @@ a:hover {
 }
 
 
-
 /* ANCHOR Navbar styling */
 
 .nav {
@@ -58,12 +57,12 @@ a:hover {
     width: 100vw;
     display: flex;
     justify-content: space-between;
-    /* overflow: scroll; */
+    overflow: scroll;
 }
 
 /* FIXME the scroll here isn't working quite right */
 .profile.col {
-    max-height: 90vh;
+    /* max-height: 90vh; */
     width: 100%;
     overflow-y: scroll;
     display: flex;
@@ -129,6 +128,7 @@ a:hover {
 .card.sidebar {
     max-width: 25vw;
     font-size: 1.5rem;
+    margin: 10px 0;
 }
 
 .card.sidebar .city-index-img {
@@ -138,16 +138,21 @@ a:hover {
 
 /* city details */
 
+.col.city-detail {
+    color: var(--background_light);
+}
+
 .city-detail-img {
-    border-radius: 5px;
     max-width: 50vw;
     max-height: 30vh;
     width: inherit;
+    margin: 0 15px 0 0;
+    border-radius: 5px;
 }
 
 /* new post button */
 .new-post-toggle {
-    color: var(--secondary_light);
+    color: var(--main_light);
     margin: 20px;
     border-radius: 50%;
     display: flex;
@@ -157,13 +162,15 @@ a:hover {
 
 .new-post-toggle:hover{
     color: var(--secondary_dark);
-    background-color: var(--secondary_light);
+    background-color: var(--main_light);
 }
 
 .new-post-button {
+    color: var(--main_light);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 0 0 15px;
 }
 
 /* post index */
