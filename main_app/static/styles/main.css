@@ -3,7 +3,8 @@
     --secondary_light: #8bdeff;
     --main_dark: #a888ff;
     --secondary_dark: #26466f;
-    --background: #434a57;
+    --background_mid: #434a57;
+    --background_light: #D56D4C;
 }
 
 *{
@@ -13,8 +14,10 @@
 
 /* ANCHOR General Styling */
 body {
+    min-height: 100vh;
     font-family: 'Poppins', sans-serif;
-    background-color: var(--background);
+    background-image: linear-gradient(var(--secondary_dark), var(--background_mid), var(--background_light));
+    background-size: cover;
 }
 
 a {
@@ -25,7 +28,6 @@ a:hover {
     color: var(--secondary_light);
     text-decoration: none;
 }
-
 
 
 /* ANCHOR Navbar styling */
@@ -55,12 +57,12 @@ a:hover {
     width: 100vw;
     display: flex;
     justify-content: space-between;
-    /* overflow: scroll; */
+    overflow: scroll;
 }
 
 /* FIXME the scroll here isn't working quite right */
 .profile.col {
-    max-height: 90vh;
+    /* max-height: 90vh; */
     width: 100%;
     overflow-y: scroll;
     display: flex;
@@ -105,6 +107,7 @@ a:hover {
     max-width: 40vw;
     max-height: 30vh;
 }
+
 .city-detail .post-detail-img {
     max-width: 40vw;
 }
@@ -116,26 +119,76 @@ a:hover {
 
 
 /* ANCHOR City Detail Page Styling */
+
+/* city index sidebar */
+.card.selected-city {
+    background-color: var(--main_light);
+}
+
+.card.sidebar {
+    max-width: 25vw;
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+
+.card.sidebar .city-index-img {
+    max-width: 10vw;
+}
+
+
+/* city details */
+
+.col.city-detail {
+    color: var(--background_light);
+}
+
 .city-detail-img {
     max-width: 50vw;
     max-height: 30vh;
+    width: inherit;
+    margin: 0 15px 0 0;
+    border-radius: 5px;
 }
 
-
+/* new post button */
 .new-post-toggle {
-    width: 40px;
-    height: 40px;
+    color: var(--main_light);
     margin: 20px;
     border-radius: 50%;
-    border:  2px solid var(--secondary_light);
-    background-color: var(--secondary_dark);
+    display: flex;
+    font-size: 2.5em;
+    
+}
+
+.new-post-toggle:hover{
+    color: var(--secondary_dark);
+    background-color: var(--main_light);
+}
+
+.new-post-button {
+    color: var(--main_light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 0 15px;
+}
+
+/* post index */
+.card.post {
+    color: var(--secondary_dark);
+}
+
+.post-index-img {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.5em;
 }
 
-
+.card-img.post-index {
+    opacity: 1;
+    padding: 2px;
+    border-radius: 5px;
+}
 
 
 /* ANCHOR Post Detail Styling */

@@ -3,7 +3,7 @@
 
 <div class="row">
 	<div class="col">
-		<p>{{post.city.name}}, {{post.city.country}}</p>
+		<a href="{% url 'cities_detail' post.city.id %}">{{post.city.name}}, {{post.city.country}}</a>
 		<p>{{post.title}}</p>
 		<p>{{post.user.username}}</p>
 	</div>
@@ -13,6 +13,8 @@
 </div>
 
 <p>{{post.content}}</p>
+
+<small>{{post.post_date}}</small>
 
 
 <a data-toggle="modal" href="#edit-post-modal">Edit</a>
