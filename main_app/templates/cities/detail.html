@@ -27,7 +27,9 @@
                 <h3>{{city.name}}</h3>
                 <h5>{{city.country}}</h5>
             </div>
-            <div class="col-s9">
+        </div>
+        <div class="row">
+            <div class="col">
                 <img src="{{ city.image }}" alt="{{ city.name }}{{ city.country }}" class="city-detail-img"> 
             </div>
         </div>
@@ -46,7 +48,7 @@
                     <div class="card mb-3 post" style="max-width: 540px;">
                     <div class="row no-gutters">
                         <div class="col-md-4 post-index-img">
-                            <img src="{{post.image}}" class="card-img post-index">
+                            <img src="{{post.user.profile.image}}" class="card-img post-index">
                         </div>
                         <div class="col-md-8">
                         <div class="card-body">
