@@ -39,4 +39,3 @@ class Post(models.Model):
 
 
 
-class EmailMessage
