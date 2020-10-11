@@ -35,8 +35,8 @@ def cities_index(request):
 
 def profile_detail(request, user_id):
     user = User.objects.get(id=user_id)
-    profile_form = Profile_Form()
-    user_form = User_Form()
+    profile_form = Profile_Form(instance=user.profile)
+    user_form = User_Form(instance=user)
     context = {
         'user': user,
         'profile_form' : profile_form,
