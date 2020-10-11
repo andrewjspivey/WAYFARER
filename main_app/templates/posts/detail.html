@@ -16,10 +16,10 @@
 
 <small>{{post.post_date}}</small>
 
-
+{% if request.user.id == post.user.id %}
 <a data-toggle="modal" href="#edit-post-modal">Edit</a>
 <a data-toggle="modal" href="#delete-post-modal">Delete</a>
-
+{% endif %}
 
 
 
@@ -33,7 +33,6 @@
                 </button>
             </div>
             <div class="modal-body">
-				{% comment %} edit url goes here {% endcomment %}
                 <form action="{% url 'posts_edit' post.id %}" method="POST">
                     {% csrf_token %}
                     {{post_form.as_p}}
