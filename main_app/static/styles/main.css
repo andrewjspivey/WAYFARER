@@ -14,7 +14,7 @@
 
 /* ANCHOR General Styling */
 body {
-    /* height: 100%; */
+    min-height: 100vh;
     font-family: 'Poppins', sans-serif;
     background-image: linear-gradient(var(--secondary_dark), var(--background_mid), var(--background_light));
     background-size: cover;
