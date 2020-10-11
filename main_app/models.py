@@ -26,7 +26,7 @@ class Profile(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=200)
     image = models.CharField(max_length=250)
-    content = models.TextField(max_length=500 ,blank=False)
+    content = models.TextField(max_length=5000 ,blank=False)
     post_date = models.DateTimeField(auto_now_add = True)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
