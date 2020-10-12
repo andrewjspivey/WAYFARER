@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import City, Post, Profile
-from .forms import City_Form, Post_Form, Profile_Form, User_Form, Register_Form
+from .forms import City_Form, Post_Form, Profile_Form, User_Form, Register_Form 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
@@ -366,7 +366,7 @@ def custom_login(request):
 def profile_edit(request, user_id):
     user = User.objects.get(id=user_id)
     if request.method == 'POST':
-        prof_form = Profile_Form(request.POST, instance=user.profile)
+        prof_form = Profile_Form(request.POST ,request.FILES, instance=user.profile)
         user_form = User_Form(request.POST, instance=user)
         if prof_form.is_valid() and user_form.is_valid():
                 prof_form.save()
