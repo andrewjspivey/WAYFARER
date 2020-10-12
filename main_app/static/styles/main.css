@@ -33,6 +33,31 @@ a:hover {
     color: red;
 }
 
+/* pagination styling */
+
+.page-link {
+    background-color: var(--background_mid);
+    color: white;
+}
+
+.page-item.active .page-link {
+    background-color: var(--background_light);
+}
+
+.page-item.active .page-link:hover {
+    background-color: var(--background_light);
+}
+
+.page-item.disabled .page-link {
+    background-color: lightgray;
+}
+
+.page-item .page-link:hover {
+    background-color: var(--main_light);
+}
+
+
+
 /* ANCHOR Navbar styling */
 
 .nav {
@@ -50,7 +75,21 @@ a:hover {
 }
 
 
+/* ANCHOR Home Page styling */
+    
+    .splash-img {
+        border-radius: 5px;
+    }
+
+    .container.cards-home {
+        margin: 20px 0;
+    }
+
 /* ANCHOR Profile styling */
+
+.name-and-edit {
+    justify-content: space-around;
+}
 
 .profile-card-img {
     width: 10vw;
@@ -63,6 +102,15 @@ a:hover {
     display: flex;
     justify-content: space-between;
     overflow: scroll;
+}
+
+.fa-user-edit {
+    font-size: 2em;
+    color: var(--secondary_dark);
+}
+
+.fa-user-edit:hover {
+    color: var(--background_light);
 }
 
 /* FIXME the scroll here isn't working quite right */
