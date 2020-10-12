@@ -27,7 +27,9 @@
                 <h3>{{city.name}}</h3>
                 <h5>{{city.country}}</h5>
             </div>
-            <div class="col-s9">
+        </div>
+        <div class="row">
+            <div class="col">
                 <img src="{{ city.image }}" alt="{{ city.name }}{{ city.country }}" class="city-detail-img"> 
             </div>
         </div>
@@ -46,17 +48,17 @@
                     <div class="card mb-3 post" style="max-width: 540px;">
                     <div class="row no-gutters">
                         <div class="col-md-4 post-index-img">
-                            <img src="{{post.image}}" class="card-img post-index">
+                            <img src="{{post.user.profile.image}}" class="card-img post-index">
                         </div>
                         <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">{{post.title}}</h5>
-                             {% if post.content|length < 1000 %}
-                                    <p>{{post.content}}</p>
-                                {% else %}
-                                    <p>{{post.content|truncatechars_html:1000 }}</p>
-                                    <a href="{% url 'posts_detail' post.id %}" class="btn btn-default">Read More</a>
-                        {% endif %}
+                            {% if post.content|length < 200 %}
+                                <p>{{post.content}}</p>
+                            {% else %}
+                                <p>{{post.content|truncatechars_html:200 }}</p>
+                                <small>Read More</small>
+                            {% endif %}
                             <p class="card-text"><small class="text-muted">{{post.get_date }}</small></p>
                         </div>
                         </div>
