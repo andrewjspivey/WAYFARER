@@ -132,10 +132,10 @@ LOGOUT_REDIRECT_URL = '/'
 # EMAILING REGISTERED USERS
 
 # UNCOMMENT THIS TO SEND CONSOLE EMAILS
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # UNCOMMENT THIS first line TO SEND OUT REAL EMAILS
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'localhost'
 # EMAIL_PORT = 1025
 # EMAIL_HOST_USER = ''

@@ -46,13 +46,13 @@ def cities_index(request):
     return render(request, 'cities/index.html', context)
 
 
-
-def profile_detail(request, user_id):
-    user = User.objects.get(id=user_id)
-    profile_form = Profile_Form(instance=user.profile)
-    user_form = User_Form(instance=user)
+# PROFILE DETAIL PAGE
+def profile_detail(request, slug):
+    user = User.objects.get(slug=slug)
+    profile_form = Profile_Form(instance=slug.profile)
+    user_form = User_Form(instance=slug)
     context = {
-        'user': user,
+        'slug': user,
         'profile_form' : profile_form,
         'user_form' : user_form,
         'login_form': login_form, 
@@ -136,8 +136,8 @@ def posts_delete(request, post_id):
 
 
 # PROFILE DETAIL PAGE INCLUDES
-def profile_detail(request, user_id):
-    user = User.objects.get(id=user_id)
+def profile_detail(request, slug):
+    user = User.objects.get(slug=slug)
     profile_form = Profile_Form()
     user_form = User_Form()
     context = {
@@ -148,10 +148,6 @@ def profile_detail(request, user_id):
         'signup_form': register_form
     }
     return render(request, 'profile/detail.html', context)
-
-
-
-
 
 
 
@@ -177,16 +173,21 @@ def signup(request):
                 }
         return render(request, 'registration/signup.html', context)
 
-        with mail.get_connection() as connection:
-            user = User.objects.get(id=user_id)
-            mail.EmailMessage(
-                'Welcome to Wayfarer','Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com','wayfarer_team@wayfarer.com',[user.email],
-                connection=connection,
-            ).send()
-            mail.EmailMessage(
-                subject2, body2, from2, [user.email],
-                connection=connection
-            ).send()
+
+
+
+
+
+        # with mail.get_connection() as connection:
+        #     user = User.objects.get(id=user_id)
+        #     mail.EmailMessage(
+        #         'Welcome to Wayfarer','Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging-in to Wayfarer.com','wayfarer_team@wayfarer.com',[user.email],
+        #         connection=connection,
+        #     ).send()
+            # mail.EmailMessage(
+            #     subject2, body2, from2, [user.email],
+            #     connection=connection
+            # ).send()
 
 
         #     # print('SIGNUP Function POST IS FORM VALID?????')
@@ -307,13 +308,6 @@ def signup(request):
 
 
 
-
-
-
-
-
-=======
->>>>>>> submaster
 # LOGIN IN MODAL AT ANY PAGE IN APP
 def custom_login(request):
     username = request.POST['username']
