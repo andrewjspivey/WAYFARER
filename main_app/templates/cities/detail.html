@@ -53,12 +53,12 @@
                         <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">{{post.title}}</h5>
-                             {% if post.content|length < 1000 %}
-                                    <p>{{post.content}}</p>
-                                {% else %}
-                                    <p>{{post.content|truncatechars_html:1000 }}</p>
-                                    <a href="{% url 'posts_detail' post.id %}" class="btn btn-default">Read More</a>
-                        {% endif %}
+                            {% if post.content|length < 200 %}
+                                <p>{{post.content}}</p>
+                            {% else %}
+                                <p>{{post.content|truncatechars_html:200 }}</p>
+                                <small>Read More</small>
+                            {% endif %}
                             <p class="card-text"><small class="text-muted">{{post.get_date }}</small></p>
                         </div>
                         </div>
