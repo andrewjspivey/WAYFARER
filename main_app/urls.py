@@ -1,7 +1,6 @@
 from django.urls import path
-from . import views
-
-
+from . import views  
+# from django.conf.urls import patterns, url
 
 
 urlpatterns = [
@@ -21,7 +20,5 @@ urlpatterns = [
     # path('cities/<int:city_id>/delete/', views.cities_delete, name='cities_delete'),
     path('accounts/signup/', views.signup, name='signup'),
     path('profile/home/', views.custom_login, name='custom_login'),
+    # patterns('main_app.views', url(r'^simpleemail/(?<emailto>[\w.%+-]+@[A-Za-z0-9.-}+\.[A-Za-z]{2,4})/', 'confirmation_email', name='confirmation_email'),)
 ]
-
-
-

@@ -4,11 +4,13 @@
 
 <h1>Sign Up</h1>
 
-{% if error_message %} <p class="red-text">{{ error_message }}</p>{% endif %}
+{%if error_message%}
+<p class="error">{{error_message}}</p>
+{%endif%}
 
 <form method="POST" action="{% url 'signup' %}">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ signup_form.as_p }}
     <input type="submit" class="btn" value="Sign Up!">
 </form>
 

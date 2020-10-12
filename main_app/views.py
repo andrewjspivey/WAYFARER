@@ -6,18 +6,30 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core import mail
+from django.core.mail import send_mail
+
+
+
+# Form constants
+register_form = Register_Form()
+login_form = AuthenticationForm()
 
 # Create your views here.
+
+# HOME PAGE WITH CAROUSEL OF CITIES & APP INFO
 def home(request):
-    context = {'login_form': AuthenticationForm(), 'signup_form': Register_Form()}
+    context = {'login_form': login_form, 'signup_form': register_form}
     return render(request, 'home.html', context)
 
 
+# DEVELOPER DETAILS ON APP CREATORS OF WAYFARER
 def about(request):
-    context = {'login_form': AuthenticationForm(), 'signup_form': Register_Form()}
+    context = {'login_form': login_form, 'signup_form': register_form}
     return render(request, 'about.html', context)
 
 
+# CITIES INDEX PAGE (NO LONGER REQUIRED)
 def cities_index(request):
     if request.method == 'POST':
         city_form = City_Form(request.POST)
@@ -28,49 +40,79 @@ def cities_index(request):
             return redirect('cities_index')
     cities = City.objects.all()
     city_form = City_Form()
-    context = {'cities':cities, 'city_form': city_form, 'login_form': AuthenticationForm(), 'signup_form': UserCreationForm()}
+    context = {'cities':cities, 'city_form': city_form, 'login_form': login_form, 'signup_form': register_form}
     return render(request, 'cities/index.html', context)
 
 
 
 def profile_detail(request, user_id):
     user = User.objects.get(id=user_id)
-    profile_form = Profile_Form()
-    user_form = User_Form()
+    profile_form = Profile_Form(instance=user.profile)
+    user_form = User_Form(instance=user)
     context = {
         'user': user,
         'profile_form' : profile_form,
         'user_form' : user_form,
-        'login_form': AuthenticationForm(), 
-        'signup_form': Register_Form()
+        'login_form': login_form, 
+        'signup_form': register_form
     }
     return render(request, 'profile/detail.html', context)
 
 
+# CITIES INDEX PAGE WITH CITY DETAIL, AT CITY DETAIL PAGE
 def cities_detail(request, city_id):
     city = City.objects.get(id=city_id)
     cities = City.objects.all()
     posts = Post.objects.filter(city_id=city.id)
     post_form = Post_Form()
-    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'post_form': post_form, 'city': city ,'posts': posts, 'cities':cities}
+    context = {
+        'login_form': login_form, 
+        'signup_form': register_form, 
+        'post_form': post_form, 
+        'city': city,
+        'posts': posts, 
+        'cities':cities
+    }
     return render(request, 'cities/detail.html', context)
 
 
 
-
+# POST DETAIL PAGE INCLUDES:
 def posts_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     post_form = Post_Form(instance=post)
     context = {
         'post': post,
-        'login_form': AuthenticationForm(),
-        'signup_form': Register_Form(),
+        'login_form': login_form,
+        'signup_form': register_form,
         'post_form': post_form,
     }
     return render(request, 'posts/detail.html' ,context)
 
 
-# edit post 
+# CREATE NEW POST WHILE ON CITY PAGE
+@login_required
+def new_post(request, city_id):
+    if request.method == 'POST':
+        post_form = Post_Form(request.POST)
+        city = City.objects.get(id=city_id)
+        if post_form.is_valid():
+            new_form =  post_form.save(commit=False)
+            new_form.user = request.user
+            new_form.city = city
+            new_form.save()
+            return redirect('cities_detail', city_id=city_id)
+    posts = Post.objects.all()
+    post_form = Post_Form()
+    context = {
+        'posts':posts, 
+        'post_form': post_form
+        }
+    return render(request, 'cities/detail.html', context)
+
+
+# EDIT POST AT POST DETAIL PAGE 
+@login_required
 def posts_edit(request, post_id):
     post = Post.objects.get(id=post_id)
     if request.method == 'POST':
@@ -84,86 +126,78 @@ def posts_edit(request, post_id):
     return render(request, 'cities/detail.html', context)
 
 
-
-# delete post
+# DELETE POST AT POST DETAIL PAGE
+@login_required
 def posts_delete(request, post_id):
     Post.objects.get(id=post_id).delete()
     return redirect("cities_index" )
 
 
-def new_post(request, city_id):
-    # return HttpResponse(city_id)
-    if request.method == 'POST':
-        post_form = Post_Form(request.POST )
-        city = City.objects.get(id=city_id)
-        if post_form.is_valid():
-            new_form =  post_form.save(commit=False)
-            new_form.user = request.user
-            new_form.city = city
-            new_form.save()
-            return redirect('cities_detail', city_id=city_id)
-    posts = Post.objects.all()
-    post_form = Post_Form()
-    context = {'posts':posts, 'post_form': post_form}
-    return render(request, 'cities/detail.html', context)
-
-
-
-
-# # Create your views here. 
-# def hotel_image_view(request): 
-  
-#     if request.method == 'POST': 
-#         form = HotelForm(request.POST, request.FILES) 
-  
-#         if form.is_valid(): 
-#             form.save() 
-#             return redirect('success') 
-#     else: 
-#         form = HotelForm() 
-#     return render(request, 'hotel_image_form.html', {'form' : form}) 
-  
-  
-# def success(request): 
-#     return HttpResponse('successfully uploaded') 
+# PROFILE DETAIL PAGE INCLUDES
+def profile_detail(request, user_id):
+    user = User.objects.get(id=user_id)
+    profile_form = Profile_Form()
+    user_form = User_Form()
+    context = {
+        'user': user,
+        'profile_form' : profile_form,
+        'user_form' : user_form,
+        'login_form': login_form, 
+        'signup_form': register_form
+    }
+    return render(request, 'profile/detail.html', context)
 
 
 
 
 
+# def send_mail(request, emailto):
+#     res = send_mail(
+#     'Welcome to Wayfarer',
+#     'Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com',
+#     'wayfarer_team@wayfarer.com',
+#     [emailto],
+#     fail_silently=False,)
+    
 
 
-
-
+# SIGN UP IN MODAL AT ANY PAGE WITHIN THE APP
 def signup(request):
-    error_message = ''
     if request.method == 'POST':
-    # This is how to create a 'user' form object
-    # that includes the data from the browser
-        # form = UserCreationForm(request.POST)
+        error_message = 'Invalid signup. Try again.'
         form = Register_Form(request.POST)
         if form.is_valid():
-            # This will add the user to the database
             user = form.save()
             city_id = City.objects.get(id=request.POST['current_city'])
             profile = Profile.objects.create(
-                user = user,
-                current_city = city_id
+            user = user,
+            current_city = city_id
             )
             profile.save()
-            # This is how we log a user in via code
             login(request, user)
             return redirect('profile_detail', user_id=user.id)
-        else:
-            error_message = 'Invalid sign up - try again'
-    # A GET or a bad POST request, so render signup.html with an empty form
-    form = UserCreationForm()
-    context = {'form': form, 'error_message': error_message}
-    return render(request, 'registration/signup.html', context)
+        context = {
+                    'error_message': error_message,
+                    'signup_form': register_form,
+                    'login_form': login_form
+                }
+        return render(request, 'registration/signup.html', context)
+
+    # send_mail()
+
+"""     with mail.get_connection() as connection:
+        mail.EmailMessage(
+            'Welcome to Wayfarer','Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com','wayfarer_team@wayfarer.com',[user.email],
+            connection=connection,
+        ).send()
+        mail.EmailMessage(
+            subject2, body2, from2, [user.email],
+            connection=connection
+        ).send() """
 
 
 
-
+# LOGIN IN MODAL AT ANY PAGE IN APP
 def custom_login(request):
     username = request.POST['username']
     password = request.POST['password']
@@ -172,17 +206,18 @@ def custom_login(request):
         login(request, user)
         return redirect('profile_detail', user_id=user.id)
     else:
-        # TODO figure out frontend error handling?
-        return redirect('/accounts/login')
+        context = {
+            'error_message': 'Invalid Login. Try again.',
+            'login_form': login_form,
+            'signup_form': register_form
+        }
+        return render(request, 'registration/login.html', context)
 
 
-
-
+# EDIT PROFILE DETAILS (EXCEPT PASSWORD & USERNAME) AT PROFILE DETAIL PAGE
 @login_required
 def profile_edit(request, user_id):
-
     user = User.objects.get(id=user_id)
-    
     if request.method == 'POST':
         prof_form = Profile_Form(request.POST ,request.FILES, instance=user.profile)
         user_form = User_Form(request.POST, instance=user)
