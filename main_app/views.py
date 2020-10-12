@@ -6,8 +6,10 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.core import mail
-from django.core.mail import send_mail
+
+from django.core.mail import send_mail, EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
 
 
 # Create your views here.
@@ -123,14 +125,6 @@ def profile_detail(request, user_id):
 
 
 
-# def send_mail(request, emailto):
-#     res = send_mail(
-#     'Welcome to Wayfarer',
-#     'Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com',
-#     'wayfarer_team@wayfarer.com',
-#     [emailto],
-#     fail_silently=False,)
-    
 
 
 # SIGN UP IN MODAL AT ANY PAGE WITHIN THE APP
@@ -251,24 +245,74 @@ def signup(request):
             # print('line241')
             # return render(request, 'home.html', context)
             return render(request, 'registration/signup.html', context)
+    
+
 
 
     # send_mail()
 
-"""     with mail.get_connection() as connection:
-        mail.EmailMessage(
-            'Welcome to Wayfarer','Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com','wayfarer_team@wayfarer.com',[user.email],
-            connection=connection,
-        ).send()
-        mail.EmailMessage(
-            subject2, body2, from2, [user.email],
-            connection=connection
-        ).send() """
+        with mail.get_connection() as connection:
+            user = User.objects.get(id=user_id)
+            mail.EmailMessage(
+                'Welcome to Wayfarer','Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com','wayfarer_team@wayfarer.com',[user.email],
+                connection=connection,
+            ).send()
+            mail.EmailMessage(
+                subject2, body2, from2, [user.email],
+                connection=connection
+            ).send()
 
 
 
+# def send_email(request):
+#     send_mail(
+#     'Welcome to Wayfarer',
+#     'Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com',
+#     'wayfarer_team@hushmail.com',
+#     [user.email],
+#     fail_silently=False,)
+    
+#     print(f'{user.name} has been sent an email at {user.email}')
+#     return render(request, 'send/index.html')
 
 
+# def success(request, uid):
+#     template = render_to_string('send/email_template.html', {'name': request.user.profile.first_name})
+
+
+#     email = EmailMessage(
+#         'Welcome to Wayfarrer',
+#         template,
+#         settings.EMAIL_HOST_USER,
+#         [request.user.profile.email]
+#     )
+#     email.fail_silently=False
+#     email.send()
+
+#     wayfarer_project = wayfarer_project.objects.get(id=uid)
+#     context = {'wayfarer_project':wayfarer_project}
+    
+#     return render(request, 'send')
+
+
+# def contact(request):
+#     if request.method == "POST":
+#         message_name = request.POST['message_name']
+#         message_email = request.POST['message_email']
+#         message = request.POST['message']
+
+#         # send an email
+#         send_mail(
+
+#             message_name, # subject
+#             message, # message
+#             message_email, # from email
+#             ['wayfareruser@swanticket.com'], # to email
+#         )
+
+#         return render(request, 'contact.html', {'message_name':message)name})
+#     else:
+#         return render(request, 'contact.html', {})
 
 
 

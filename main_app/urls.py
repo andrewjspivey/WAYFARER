@@ -21,4 +21,5 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name='signup'),
     path('profile/home/', views.custom_login, name='custom_login'),
     # patterns('main_app.views', url(r'^simpleemail/(?<emailto>[\w.%+-]+@[A-Za-z0-9.-}+\.[A-Za-z]{2,4})/', 'confirmation_email', name='confirmation_email'),)
+    # path('send/', views.send_email, name="send")
 ]

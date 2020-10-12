@@ -130,14 +130,25 @@ LOGOUT_REDIRECT_URL = '/'
 
 
 # EMAILING REGISTERED USERS
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.wayfarer.com'
-# EMAIL_HOST_USER = 'wayfarer_team@wayfarer.com'
-# EMAIL_HOST_PASSWORD = 'yourpassword'
-# EMAIL_PORT = 587
-
-# UNCOMMENT THIS TO SEND OUT REAL EMAILS
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # UNCOMMENT THIS TO SEND CONSOLE EMAILS
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# UNCOMMENT THIS first line TO SEND OUT REAL EMAILS
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1025
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_TLS = False
+# EMAIL_USE_SSL = False
+
+
+
+
+EMAIL_HOST = 'smtp.hushmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'wayfarer_team@hushmail.com'
+EMAIL_HOST_PASSWORD = 'team chetana for project wayfarer'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
