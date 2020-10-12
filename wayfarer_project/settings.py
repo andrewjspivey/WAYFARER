@@ -126,3 +126,18 @@ STATIC_URL = '/static/'
 
 # home
 LOGOUT_REDIRECT_URL = '/'
+
+
+
+# EMAILING REGISTERED USERS
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.wayfarer.com'
+# EMAIL_HOST_USER = 'wayfarer_team@wayfarer.com'
+# EMAIL_HOST_PASSWORD = 'yourpassword'
+# EMAIL_PORT = 587
+
+# UNCOMMENT THIS TO SEND OUT REAL EMAILS
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# UNCOMMENT THIS TO SEND CONSOLE EMAILS
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
