@@ -33,6 +33,31 @@ a:hover {
     color: red;
 }
 
+/* pagination styling */
+
+.page-link {
+    background-color: var(--background_mid);
+    color: white;
+}
+
+.page-item.active .page-link {
+    background-color: var(--background_light);
+}
+
+.page-item.active .page-link:hover {
+    background-color: var(--background_light);
+}
+
+.page-item.disabled .page-link {
+    background-color: lightgray;
+}
+
+.page-item .page-link:hover {
+    background-color: var(--main_light);
+}
+
+
+
 /* ANCHOR Navbar styling */
 
 .nav {

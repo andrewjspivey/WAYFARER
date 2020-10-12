@@ -58,10 +58,8 @@
                 </button>
             </div>
             <div class="modal-body">
-				{% comment %} delete url goes here {% endcomment %}
                 <form action="{% url 'posts_delete' post.id %}" method="POST">
                     {% csrf_token %}
-                    {% comment %} {{post_form.as_p}} {% endcomment %}
 					<p>Are you sure you want to delete {{post.title }}? Deleted posts cannot be recovered.</p>
                     <input type="submit" value="I'm sure">
                 </form>
