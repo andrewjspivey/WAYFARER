@@ -52,6 +52,10 @@ a:hover {
 
 /* ANCHOR Profile styling */
 
+.name-and-edit {
+    justify-content: space-between;
+}
+
 .profile-card-img {
     width: 10vw;
     height: 10vw;
@@ -63,6 +67,11 @@ a:hover {
     display: flex;
     justify-content: space-between;
     overflow: scroll;
+}
+
+.fa-user-edit {
+    font-size: 2em;
+    color: var(--secondary_dark);
 }
 
 /* FIXME the scroll here isn't working quite right */

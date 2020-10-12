@@ -136,12 +136,12 @@ def posts_delete(request, post_id):
 # PROFILE DETAIL PAGE INCLUDES
 def profile_detail(request, user_id):
     user = User.objects.get(id=user_id)
-    profile_form = Profile_Form()
-    user_form = User_Form()
+    profile_form = Profile_Form(user.profile)
+    user_form = User_Form(user)
     context = {
         'user': user,
-        'profile_form' : profile_form,
-        'user_form' : user_form,
+        'prof_form': Profile_Form(instance=user.profile),
+        'user_form': User_Form(instance=user),
         'login_form': login_form, 
         'signup_form': register_form
     }

@@ -11,7 +11,12 @@
                         <img src="{{user.profile.image}}" class="profile-card-img">
                     </div>
                     <div class="col">
+                        <div class="row name-and-edit">
                         <h5 class="card-title">{{user.first_name}}</h5>
+                        {% if request.user.id == user.id %}
+                            <a data-toggle="modal" href="#edit-profile-modal"><i class="fas fa-user-edit"></i></a>
+                        {% endif %}
+                        </div>
                     </div>
                 </div>
                 <p class="card-text">Member since: {{ user.date_joined }}</p>
@@ -22,9 +27,6 @@
             <img src="{{user.profile.current_city.image }}" class="card-img-top" alt="...">
         </div>
         <br/>
-        {% if request.user.id == user.id %}
-            <a data-toggle="modal" href="#edit-profile-modal"><button>Edit Profile</button></a>
-        {% endif %}
     </div>
 
 
@@ -39,8 +41,13 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{post.title}}</h5>
-                                <p class="card-text">{{post.content}}</p>
-                                <p class="card-text"><small class="text-muted">{{post.post_date}}</small></p>
+                                {% if post.content|length < 200 %}
+                                    <p>{{post.content}}</p>
+                                {% else %}
+                                    <p>{{post.content|truncatechars_html:200 }}</p>
+                                    <small>Read More</small>
+                                {% endif %}
+                                <p class="card-text"><small class="text-muted">{{post.get_date }}</small></p>
                             </div>
                         </div>
                     </div>
@@ -65,7 +72,7 @@
                 <form action="{% url 'profile_edit' user.id %}" method="POST">
                     {% csrf_token %}
                     {{ user_form.as_p }}
-                    {{ profile_form.as_p }}
+                    {{ prof_form.as_p }}
                     <input type="submit" value="Update Profile">
                 </form>
             </div>
