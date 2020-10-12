@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path 
+from pathlib import Path , os
+
+
 
 import environ
 env = environ.Env(
@@ -23,16 +25,17 @@ environ.Env.read_env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'n_3=c&onrlq)*mra10sh-^^5$*2u^28e8zqx4mg0$h1l@579uq'
+
 
 SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
-
 
 
 ALLOWED_HOSTS = []
@@ -94,9 +97,11 @@ DATABASES = {
     }
 }
 
-# DATABASE = {
-#     'default': env.db(),
+# For when we push to remote database
+# DATABASES = {
+#     'default': env.db()
 # }
+
 
 
 # Password validation
@@ -136,6 +141,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+
+STATICFILES_DIRS = (
+os.path.join(BASE_DIR, 'static'),
+
+)
+
 
 # home
 LOGOUT_REDIRECT_URL = '/'

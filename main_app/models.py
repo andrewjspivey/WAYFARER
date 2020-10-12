@@ -46,20 +46,7 @@ class City(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     current_city = models.ForeignKey(City, on_delete=models.CASCADE)
-    image = models.CharField(max_length=300, default='https://icons-for-free.com/iconfiles/png/512/people+person+profile+user+icon-1320186207447274965.png')
-    # slug = models.SlugField(max_length=25, null=True, blank=True)
-
-    # def save(self, *args, **kwargs):
-    #     self.slug= self.slug or slugify(self.user.username)
-    #     return super().save(*args, **kwargs)
-
-    # def get_absolute_url(self):
-    #     return reverse('profile_detail', kwargs={'slug':slug})
-
-    def __str__(self):
-        return f"{self.user.username}'s is currently in {self.current_city}"
-
-
+    image = models.ImageField(null=True, blank= True,upload_to = 'images/', default='images/default_icon.png')
 
 
 
@@ -82,6 +69,8 @@ class Post(models.Model):
  
     def get_date(self):
         cur_time = datetime.now()
+        print(cur_time)
+        print(self.post_date)
         if self.post_date.day == cur_time.day:
             if cur_time.hour - self.post_date.hour < 1:
                 return "Less than an hour ago"
