@@ -23,6 +23,9 @@ class Profile(models.Model):
     image = models.CharField(max_length=300, default='https://icons-for-free.com/iconfiles/png/512/people+person+profile+user+icon-1320186207447274965.png')
     
 
+
+
+
 class Post(models.Model):
     title = models.CharField(max_length=200)
     image = models.CharField(max_length=250)
@@ -50,3 +53,7 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-post_date']
+    
+
+
+
