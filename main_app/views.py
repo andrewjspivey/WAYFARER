@@ -134,36 +134,128 @@ def profile_detail(request, user_id):
 
 
 # SIGN UP IN MODAL AT ANY PAGE WITHIN THE APP
+# def signup(request):
+#     error_message = ''
+#     if request.method == 'POST':
+#     # This is how to create a 'user' form object
+#     # that includes the data from the browser
+#         # form = UserCreationForm(request.POST)
+#         form = Register_Form(request.POST)
+#         if form.is_valid():
+#             # This will add the user to the database
+#             user = form.save()
+#             city_id = City.objects.get(id=request.POST['current_city'])
+#             profile = Profile.objects.create(
+#                 user = user,
+#                 current_city = city_id
+#             )
+#             profile.save()
+#             # This is how we log a user in via code
+#             login(request, user)
+#             return redirect('profile_detail', user_id=user.id)
+#         else:
+#             error_message = 'Invalid sign up - try again'
+#     # A GET or a bad POST request, so render signup.html with an empty form
+#     form = UserCreationForm()
+#     context = {'form': form, 'error_message': error_message}
+#     return render(request, 'registration/signup.html', context)
+
+#     # send_mail()
+
+
+#     with mail.get_connection() as connection:
+#         mail.EmailMessage(
+#             'Welcome to Wayfarer','Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com','wayfarer_team@wayfarer.com',[user.email],
+#             connection=connection,
+#         ).send()
+#         mail.EmailMessage(
+#             subject2, body2, from2, [user.email],
+#             connection=connection
+#         ).send()
+
+
+# SIGN UP IN MODAL AT ANY PAGE WITHIN THE APP
 def signup(request):
+    # print('SIGNUP Function is HEEEEEERRRRRREEEEE')
     error_message = ''
+    firstname = ''
+    lastname = ''
+    emailvalue = ''
+    uservalue = ''
+    passwordvalue1 = ''
+    passwordvalue2 = ''
+
     if request.method == 'POST':
+        # print('SIGNUP Function POST IFFFF STATEMENT line 189')
+
     # This is how to create a 'user' form object
     # that includes the data from the browser
-        # form = UserCreationForm(request.POST)
         form = Register_Form(request.POST)
+        # print(form)
+
         if form.is_valid():
-            # This will add the user to the database
-            user = form.save()
-            city_id = City.objects.get(id=request.POST['current_city'])
-            profile = Profile.objects.create(
-                user = user,
-                current_city = city_id
-            )
-            profile.save()
-            # This is how we log a user in via code
-            login(request, user)
-            return redirect('profile_detail', user_id=user.id)
-        else:
-            error_message = 'Invalid sign up - try again'
-    # A GET or a bad POST request, so render signup.html with an empty form
-    form = UserCreationForm()
-    context = {'form': form, 'error_message': error_message}
-    return render(request, 'registration/signup.html', context)
+            # print('SIGNUP Function POST IS FORM VALID?????')
+
+            formsave = form.save(commit=False)
+            
+            firstname = form.cleaned_data.get("first_name")
+            lastname = form.cleaned_data.get("last_name")
+            emailvalue = form.cleaned_data.get("email")
+            uservalue = form.cleaned_data.get("username")
+            passwordvalue1 = form.cleaned_data.get("password1")
+            passwordvalue2 = form.cleaned_data.get("password2")
+
+            if passwordvalue1 == passwordvalue2:
+                try:
+                    user = User.objects.get(username = uservalue)
+                    context = {'form':form, 'error_message':'The username you entered already exists. Try again.'}
+                    # email = User.objects.get(email = emailvalue)
+                    return render(request, 'registration/signup.html', context)
+                except User.DoesNotExist:
+                    # user = User.objects.create_user(uservalue, password = passwordvalue1, email=emailvalue)
+
+                    # This will add the user to the database
+                    user = formsave.save()
+                    city_id = City.objects.get(id=request.POST['current_city'])
+                    profile = Profile.objects.create(
+                        user = user,
+                        current_city = city_id
+                    )
+                    profile.save()
+
+                    # This is how we log a user in via code
+                    login(request, user)
+                    
+                    # formsave.user = request.user
+
+                    # formsave.save()
+
+                    context = {'form':form, 'user_id':user.id}
+                    # print('line225')
+                    # return render(request, 'registration/signup.html', context)               
+                    
+                    return redirect('profile_detail', context)
+
+            else:
+                context = {'form':form, 'error_message': 'The passwords that you provided don\'t match'}
+                print('line233')
+                return render(request, 'registration/signup.html', context)               
+
+                    # error_message = 'Invalid sign up - try again'
+            # A GET or a bad POST request, so render signup.html with an empty form
+        else: 
+            # print('BEFORE USERCREATION FORM UNDER THE LAST ELSE STATEMENT')
+
+            form = UserCreationForm()
+            context = {'form': form, 'error_message': error_message}
+            # print('line241')
+            # return render(request, 'home.html', context)
+            return render(request, 'registration/signup.html', context)
+
 
     # send_mail()
 
-
-    with mail.get_connection() as connection:
+"""     with mail.get_connection() as connection:
         mail.EmailMessage(
             'Welcome to Wayfarer','Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com','wayfarer_team@wayfarer.com',[user.email],
             connection=connection,
@@ -171,7 +263,19 @@ def signup(request):
         mail.EmailMessage(
             subject2, body2, from2, [user.email],
             connection=connection
-        ).send()
+        ).send() """
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

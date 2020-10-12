@@ -22,6 +22,9 @@ class Profile(models.Model):
     current_city = models.ForeignKey(City, on_delete=models.CASCADE)
     
 
+
+
+
 class Post(models.Model):
     title = models.CharField(max_length=200)
     image = models.CharField(max_length=250)
