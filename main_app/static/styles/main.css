@@ -75,6 +75,16 @@ a:hover {
 }
 
 
+/* ANCHOR Home Page styling */
+    
+    .splash-img {
+        border-radius: 5px;
+    }
+
+    .container.cards-home {
+        margin: 20px 0;
+    }
+
 /* ANCHOR Profile styling */
 
 .name-and-edit {
