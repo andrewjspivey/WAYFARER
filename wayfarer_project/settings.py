@@ -13,6 +13,15 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path , os
 
 
+import environ
+env = environ.Env(
+        # set casting, default value
+        DEBUG=(bool, False)
+)
+    # reading .env file
+environ.Env.read_env()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,9 +32,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'n_3=c&onrlq)*mra10sh-^^5$*2u^28e8zqx4mg0$h1l@579uq'
+# SECRET_KEY = 'n_3=c&onrlq)*mra10sh-^^5$*2u^28e8zqx4mg0$h1l@579uq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = env('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -86,6 +96,21 @@ DATABASES = {
         'USER':'binay'
     }
 }
+
+DEBUG = env('DEBUG')
+
+
+# DATABASES = {
+#     'default': env.db(),
+# }
+
+
+
+
+
+
+
+
 
 
 # Password validation
