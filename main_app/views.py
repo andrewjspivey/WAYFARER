@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core import mail
 from django.core.mail import send_mail
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
@@ -47,10 +48,12 @@ def cities_index(request):
 
 def profile_detail(request, user_id):
     user = User.objects.get(id=user_id)
+    # posts = Post.objects.filter(user_id=user.id)
     profile_form = Profile_Form(instance=user.profile)
     user_form = User_Form(instance=user)
     context = {
         'user': user,
+        # 'posts': posts,
         'profile_form' : profile_form,
         'user_form' : user_form,
         'login_form': login_form, 
@@ -64,6 +67,15 @@ def cities_detail(request, city_id):
     city = City.objects.get(id=city_id)
     cities = City.objects.all()
     posts = Post.objects.filter(city_id=city.id)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(posts, 3)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
     post_form = Post_Form()
     context = {
         'login_form': login_form, 

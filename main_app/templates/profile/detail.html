@@ -31,7 +31,8 @@
 
 
     <div class="col">
-        {%for post in user.post_set.all %}
+        {% comment %} {%for post in user.post_set.all %} {% endcomment %}
+        {%for post in posts %}
             <a href="{% url 'posts_detail' post.id %}">
                 <div class="card mb-3 post" style="max-width: 540px;">
                     <div class="row no-gutters">
