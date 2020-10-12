@@ -101,9 +101,6 @@ class Post(models.Model):
                 return str(abs(cur_time.month - self.post_date.month)) + " months ago"
         return self.post_date 
 
-
-
-
     def __str__(self):
         return f"{self.user}'s {self.city.name} Post : {self.title} submitted on {self.post_date} : {self.content}"
 
