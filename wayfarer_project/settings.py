@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path 
 
+import environ
+env = environ.Env(
+    DEBUG=(bool,False)
+)
+# reading env file
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +27,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'n_3=c&onrlq)*mra10sh-^^5$*2u^28e8zqx4mg0$h1l@579uq'
+# SECRET_KEY = 'n_3=c&onrlq)*mra10sh-^^5$*2u^28e8zqx4mg0$h1l@579uq'
 
+SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
+
+
 
 ALLOWED_HOSTS = []
 
@@ -85,6 +94,10 @@ DATABASES = {
     }
 }
 
+# DATABASE = {
+#     'default': env.db(),
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -130,14 +143,27 @@ LOGOUT_REDIRECT_URL = '/'
 
 
 # EMAILING REGISTERED USERS
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.wayfarer.com'
-# EMAIL_HOST_USER = 'wayfarer_team@wayfarer.com'
-# EMAIL_HOST_PASSWORD = 'yourpassword'
-# EMAIL_PORT = 587
-
-# UNCOMMENT THIS TO SEND OUT REAL EMAILS
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # UNCOMMENT THIS TO SEND CONSOLE EMAILS
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# UNCOMMENT THIS first line TO SEND OUT REAL EMAILS
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1025
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_TLS = False
+# EMAIL_USE_SSL = False
+
+
+
+
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = 587
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

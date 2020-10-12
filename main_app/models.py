@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime 
 from django.db.models.fields import (DateField, DateTimeField, IntegerField, TimeField)
-
+from django.template.defaultfilters import slugify
+from django.urls import reverse
 
 # Create your models here.
 
@@ -12,17 +13,53 @@ class City(models.Model):
     name = models.CharField(max_length=50)
     image = models.CharField(max_length=250)
     country = models.CharField(max_length=50)
+    # slug = models.SlugField(max_length=25, null=True, blank=True)
 
+    # def save(self, *args, **kwargs):
+    #     self.slug= self.slug or slugify(self.name)
+    #     return super().save(*args, **kwargs)
+
+    # def get_absolute_url(self):
+    #     return reverse('profile_detail', kwargs={'slug':slug})
 
     def __str__(self):
-        return f"{self.name}, {self.country}"
+        return self.name
+
+
+# class Profile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     current_city = models.ForeignKey(City, on_delete=models.CASCADE)
+#     image = models.CharField(max_length=300, default='https://icons-for-free.com/iconfiles/png/512/people+person+profile+user+icon-1320186207447274965.png')
+#     slug = models.SlugField(max_length=25, null=True, blank=True)
+
+#     def save(self, *args, **kwargs):
+#         self.slug= self.slug or slugify(self.user.username)
+#         return super().save(*args, **kwargs)
+
+#     def get_absolute_url(self):
+#         return reverse('profile_detail', kwargs={'slug':slug})
+
+#     def __str__(self):
+#         return f"{self.user.username}'s is currently in {self.current_city}"
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     current_city = models.ForeignKey(City, on_delete=models.CASCADE)
     image = models.CharField(max_length=300, default='https://icons-for-free.com/iconfiles/png/512/people+person+profile+user+icon-1320186207447274965.png')
-    
+    # slug = models.SlugField(max_length=25, null=True, blank=True)
+
+    # def save(self, *args, **kwargs):
+    #     self.slug= self.slug or slugify(self.user.username)
+    #     return super().save(*args, **kwargs)
+
+    # def get_absolute_url(self):
+    #     return reverse('profile_detail', kwargs={'slug':slug})
+
+    def __str__(self):
+        return f"{self.user.username}'s is currently in {self.current_city}"
+
+
 
 
 
@@ -34,7 +71,14 @@ class Post(models.Model):
     post_date = models.DateTimeField(auto_now_add = True)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # slug = models.SlugField(max_length=25, null=True, blank=True)
 
+    # def save(self, *args, **kwargs):
+    #     self.slug= self.slug or slugify(self.name)
+    #     return super().save(*args, **kwargs)
+
+    # def get_absolute_url(self):
+    #     return reverse('profile_detail', kwargs={'slug':slug})
  
     def get_date(self):
         cur_time = datetime.now()
