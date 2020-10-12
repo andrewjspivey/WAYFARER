@@ -6,10 +6,10 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
-    # path('profile/<int:user_id>/', views.profile_detail, name='profile_detail'),
-    path('profile/<slug:slug>/', views.profile_detail, name='profile_detail'),
-    # path('profile/<int:user_id>/edit/', views.profile_edit, name='profile_edit'),
-    path('profile/<slug:slug>/edit/', views.profile_edit, name='profile_edit'),
+    path('profile/<int:user_id>/', views.profile_detail, name='profile_detail'),
+    # path('profile/<slug:slug>/', views.profile_detail, name='profile_detail'),
+    path('profile/<int:user_id>/edit/', views.profile_edit, name='profile_edit'),
+    # path('profile/<slug:slug>/edit/', views.profile_edit, name='profile_edit'),
     
     path('cities/', views.cities_index, name='cities_index'),
     path('cities/<int:city_id>/', views.cities_detail, name='cities_detail'),

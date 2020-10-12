@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
+from django.core import mail
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -47,18 +48,33 @@ def cities_index(request):
 
 
 # PROFILE DETAIL PAGE
-def profile_detail(request, slug):
-    user = User.objects.get(slug=slug)
-    profile_form = Profile_Form(instance=slug.profile)
-    user_form = User_Form(instance=slug)
+def profile_detail(request, user_id):
+    user = User.objects.get(id=user_id)
+    profile_form = Profile_Form(instance=user.profile)
+    user_form = User_Form(instance=user)
     context = {
-        'slug': user,
+        'user': user,
         'profile_form' : profile_form,
         'user_form' : user_form,
         'login_form': login_form, 
         'signup_form': register_form
     }
     return render(request, 'profile/detail.html', context)
+
+
+# # PROFILE DETAIL PAGE
+# def profile_detail(request, slug):
+#     user = User.objects.get(slug=slug)
+#     profile_form = Profile_Form(instance=slug.profile)
+#     user_form = User_Form(instance=slug)
+#     context = {
+#         'slug': user,
+#         'profile_form' : profile_form,
+#         'user_form' : user_form,
+#         'login_form': login_form, 
+#         'signup_form': register_form
+#     }
+#     return render(request, 'profile/detail.html', context)
 
 
 # CITIES INDEX PAGE WITH CITY DETAIL, AT CITY DETAIL PAGE
@@ -136,8 +152,8 @@ def posts_delete(request, post_id):
 
 
 # PROFILE DETAIL PAGE INCLUDES
-def profile_detail(request, slug):
-    user = User.objects.get(slug=slug)
+def profile_detail(request, user_id):
+    user = User.objects.get(id=user_id)
     profile_form = Profile_Form()
     user_form = User_Form()
     context = {
@@ -148,6 +164,19 @@ def profile_detail(request, slug):
         'signup_form': register_form
     }
     return render(request, 'profile/detail.html', context)
+# # PROFILE DETAIL PAGE INCLUDES
+# def profile_detail(request, slug):
+#     user = User.objects.get(slug=slug)
+#     profile_form = Profile_Form()
+#     user_form = User_Form()
+#     context = {
+#         'user': user,
+#         'profile_form' : profile_form,
+#         'user_form' : user_form,
+#         'login_form': login_form, 
+#         'signup_form': register_form
+#     }
+#     return render(request, 'profile/detail.html', context)
 
 
 
@@ -160,34 +189,52 @@ def signup(request):
             user = form.save()
             city_id = City.objects.get(id=request.POST['current_city'])
             profile = Profile.objects.create(
-            user = user,
-            current_city = city_id
+                user = user,
+                current_city = city_id
             )
             profile.save()
+            with mail.get_connection() as connection:
+                # user = User.objects.get(id=user.id)
+                mail.EmailMessage(
+                    'Welcome to Wayfarer',
+                    'Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging-in to Wayfarer.com',
+                    'wayfarer_team@wayfarer.com',
+                    [user.email],
+                    connection=connection
+                ).send()
             login(request, user)
-            return redirect('profile_detail', user_id=user.id)
-        context = {
-                    'error_message': error_message,
-                    'signup_form': register_form,
-                    'login_form': login_form
-                }
-        return render(request, 'registration/signup.html', context)
-
-
-
-
-
-
-        # with mail.get_connection() as connection:
-        #     user = User.objects.get(id=user_id)
-        #     mail.EmailMessage(
-        #         'Welcome to Wayfarer','Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging-in to Wayfarer.com','wayfarer_team@wayfarer.com',[user.email],
-        #         connection=connection,
-        #     ).send()
+            
             # mail.EmailMessage(
             #     subject2, body2, from2, [user.email],
             #     connection=connection
             # ).send()
+            
+            # send_mail(
+            #     'Welcome to Wayfarer',
+            #     'Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com',
+            #     'wayfarer_team@hushmail.com',
+            #     [user.profile.email],
+            #     fail_silently=False,
+            # )
+            # print(f'{user.profile.username} has been sent an email at {user.profile.email}')
+            # return render(request, 'send/index.html')
+
+            return redirect('profile_detail', user_id=user.id)
+    
+        context = {
+            'error_message': error_message,
+            'signup_form': register_form,
+            'login_form': login_form
+        }
+        return render(request, 'registration/signup.html', context)
+
+
+        
+
+
+        # def send_email(request):
+
+
 
 
         #     # print('SIGNUP Function POST IS FORM VALID?????')
@@ -252,17 +299,6 @@ def signup(request):
 
 
 
-
-# def send_email(request):
-#     send_mail(
-#     'Welcome to Wayfarer',
-#     'Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com',
-#     'wayfarer_team@hushmail.com',
-#     [user.email],
-#     fail_silently=False,)
-    
-#     print(f'{user.name} has been sent an email at {user.email}')
-#     return render(request, 'send/index.html')
 
 
 # def success(request, uid):
