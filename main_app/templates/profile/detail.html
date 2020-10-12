@@ -11,7 +11,12 @@
                         <img src="{{user.profile.image.url}}" class="profile-card-img">
                     </div>
                     <div class="col">
+                        <div class="row name-and-edit">
                         <h5 class="card-title">{{user.first_name}}</h5>
+                        {% if request.user.id == user.id %}
+                            <a data-toggle="modal" href="#edit-profile-modal"><i class="fas fa-user-edit"></i></a>
+                        {% endif %}
+                        </div>
                     </div>
                 </div>
                 <p class="card-text">Member since: {{ user.date_joined }}</p>
@@ -22,14 +27,11 @@
             <img src="{{user.profile.current_city.image }}" class="card-img-top" alt="...">
         </div>
         <br/>
-        {% if request.user.id == user.id %}
-            <a data-toggle="modal" href="#edit-profile-modal"><button>Edit Profile</button></a>
-        {% endif %}
     </div>
 
 
     <div class="col">
-        {%for post in user.post_set.all %}
+        {% for post in posts %}
             <a href="{% url 'posts_detail' post.id %}">
                 <div class="card mb-3 post" style="max-width: 540px;">
                     <div class="row no-gutters">
@@ -39,14 +41,41 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{post.title}}</h5>
-                                <p class="card-text">{{post.content}}</p>
-                                <p class="card-text"><small class="text-muted">{{post.post_date}}</small></p>
+                                {% if post.content|length < 200 %}
+                                    <p>{{post.content}}</p>
+                                {% else %}
+                                    <p>{{post.content|truncatechars_html:200 }}</p>
+                                    <small>Read More</small>
+                                {% endif %}
+                                <p class="card-text"><small class="text-muted">{{post.get_date }}</small></p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </a>
+            </a> 
         {% endfor %}
+
+        {% if posts.has_other_pages %}
+            <ul class="pagination justify-content-end">
+                {% if posts.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                {% endif %}
+                {% for i in posts.paginator.page_range %}
+                {% if posts.number == i %}
+                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only page-link">(current)</span></span></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if posts.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
     </div>
 
 </div>
@@ -65,7 +94,7 @@
                 <form action="{% url 'profile_edit' user.id %}" method="POST">
                     {% csrf_token %}
                     {{ user_form.as_p }}
-                    {{ profile_form.as_p }}
+                    {{ prof_form.as_p }}
                     <input type="submit" value="Update Profile">
                 </form>
             </div>

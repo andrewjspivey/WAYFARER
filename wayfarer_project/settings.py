@@ -31,12 +31,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'n_3=c&onrlq)*mra10sh-^^5$*2u^28e8zqx4mg0$h1l@579uq'
+
 
 SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
-
 
 
 ALLOWED_HOSTS = []
@@ -94,13 +93,15 @@ DATABASES = {
         'NAME': 'wayfarer',
         # 'USER':'lizkane'
         # 'USER':'quin?'
-        'USER':'binay'
+        # 'USER':'binay'
     }
 }
 
-# DATABASE = {
-#     'default': env.db(),
+# For when we push to remote database
+# DATABASES = {
+#     'default': env.db()
 # }
+
 
 
 # Password validation
