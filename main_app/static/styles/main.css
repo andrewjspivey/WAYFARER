@@ -29,6 +29,9 @@ a:hover {
     text-decoration: none;
 }
 
+.error{
+    color: red;
+}
 
 /* ANCHOR Navbar styling */
 

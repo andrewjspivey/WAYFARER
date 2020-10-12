@@ -6,6 +6,7 @@ from django.db.models.fields import (DateField, DateTimeField, IntegerField, Tim
 
 # Create your models here.
 
+User._meta.get_field('email')._unique = True
 
 class City(models.Model):
     name = models.CharField(max_length=50)

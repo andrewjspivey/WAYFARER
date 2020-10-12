@@ -10,17 +10,22 @@ from django.core import mail
 from django.core.mail import send_mail
 
 
+
+# Form constants
+register_form = Register_Form()
+login_form = AuthenticationForm()
+
 # Create your views here.
 
 # HOME PAGE WITH CAROUSEL OF CITIES & APP INFO
 def home(request):
-    context = {'login_form': AuthenticationForm(), 'signup_form': Register_Form()}
+    context = {'login_form': login_form, 'signup_form': register_form}
     return render(request, 'home.html', context)
 
 
 # DEVELOPER DETAILS ON APP CREATORS OF WAYFARER
 def about(request):
-    context = {'login_form': AuthenticationForm(), 'signup_form': Register_Form()}
+    context = {'login_form': login_form, 'signup_form': register_form}
     return render(request, 'about.html', context)
 
 
@@ -35,12 +40,11 @@ def cities_index(request):
             return redirect('cities_index')
     cities = City.objects.all()
     city_form = City_Form()
-    context = {'cities':cities, 'city_form': city_form, 'login_form': AuthenticationForm(), 'signup_form': UserCreationForm()}
+    context = {'cities':cities, 'city_form': city_form, 'login_form': login_form, 'signup_form': register_form}
     return render(request, 'cities/index.html', context)
 
 
 
-<<<<<<< HEAD
 def profile_detail(request, user_id):
     user = User.objects.get(id=user_id)
     profile_form = Profile_Form(instance=user.profile)
@@ -49,21 +53,26 @@ def profile_detail(request, user_id):
         'user': user,
         'profile_form' : profile_form,
         'user_form' : user_form,
-        'login_form': AuthenticationForm(), 
-        'signup_form': Register_Form()
+        'login_form': login_form, 
+        'signup_form': register_form
     }
     return render(request, 'profile/detail.html', context)
 
 
-=======
 # CITIES INDEX PAGE WITH CITY DETAIL, AT CITY DETAIL PAGE
->>>>>>> submaster
 def cities_detail(request, city_id):
     city = City.objects.get(id=city_id)
     cities = City.objects.all()
     posts = Post.objects.filter(city_id=city.id)
     post_form = Post_Form()
-    context = {'login_form': AuthenticationForm(), 'signup_form': UserCreationForm(), 'post_form': post_form, 'city': city ,'posts': posts, 'cities':cities}
+    context = {
+        'login_form': login_form, 
+        'signup_form': register_form, 
+        'post_form': post_form, 
+        'city': city,
+        'posts': posts, 
+        'cities':cities
+    }
     return render(request, 'cities/detail.html', context)
 
 
@@ -74,8 +83,8 @@ def posts_detail(request, post_id):
     post_form = Post_Form(instance=post)
     context = {
         'post': post,
-        'login_form': AuthenticationForm(),
-        'signup_form': Register_Form(),
+        'login_form': login_form,
+        'signup_form': register_form,
         'post_form': post_form,
     }
     return render(request, 'posts/detail.html' ,context)
@@ -84,7 +93,6 @@ def posts_detail(request, post_id):
 # CREATE NEW POST WHILE ON CITY PAGE
 @login_required
 def new_post(request, city_id):
-    # return HttpResponse(city_id)
     if request.method == 'POST':
         post_form = Post_Form(request.POST)
         city = City.objects.get(id=city_id)
@@ -96,7 +104,10 @@ def new_post(request, city_id):
             return redirect('cities_detail', city_id=city_id)
     posts = Post.objects.all()
     post_form = Post_Form()
-    context = {'posts':posts, 'post_form': post_form}
+    context = {
+        'posts':posts, 
+        'post_form': post_form
+        }
     return render(request, 'cities/detail.html', context)
 
 
@@ -131,8 +142,8 @@ def profile_detail(request, user_id):
         'user': user,
         'profile_form' : profile_form,
         'user_form' : user_form,
-        'login_form': AuthenticationForm(), 
-        'signup_form': Register_Form()
+        'login_form': login_form, 
+        'signup_form': register_form
     }
     return render(request, 'profile/detail.html', context)
 
@@ -151,124 +162,26 @@ def profile_detail(request, user_id):
 
 
 # SIGN UP IN MODAL AT ANY PAGE WITHIN THE APP
-# def signup(request):
-#     error_message = ''
-#     if request.method == 'POST':
-#     # This is how to create a 'user' form object
-#     # that includes the data from the browser
-#         # form = UserCreationForm(request.POST)
-#         form = Register_Form(request.POST)
-#         if form.is_valid():
-#             # This will add the user to the database
-#             user = form.save()
-#             city_id = City.objects.get(id=request.POST['current_city'])
-#             profile = Profile.objects.create(
-#                 user = user,
-#                 current_city = city_id
-#             )
-#             profile.save()
-#             # This is how we log a user in via code
-#             login(request, user)
-#             return redirect('profile_detail', user_id=user.id)
-#         else:
-#             error_message = 'Invalid sign up - try again'
-#     # A GET or a bad POST request, so render signup.html with an empty form
-#     form = UserCreationForm()
-#     context = {'form': form, 'error_message': error_message}
-#     return render(request, 'registration/signup.html', context)
-
-#     # send_mail()
-
-
-#     with mail.get_connection() as connection:
-#         mail.EmailMessage(
-#             'Welcome to Wayfarer','Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging in to Wayfarer.com','wayfarer_team@wayfarer.com',[user.email],
-#             connection=connection,
-#         ).send()
-#         mail.EmailMessage(
-#             subject2, body2, from2, [user.email],
-#             connection=connection
-#         ).send()
-
-
-# SIGN UP IN MODAL AT ANY PAGE WITHIN THE APP
 def signup(request):
-    # print('SIGNUP Function is HEEEEEERRRRRREEEEE')
-    error_message = ''
-    firstname = ''
-    lastname = ''
-    emailvalue = ''
-    uservalue = ''
-    passwordvalue1 = ''
-    passwordvalue2 = ''
-
     if request.method == 'POST':
-        # print('SIGNUP Function POST IFFFF STATEMENT line 189')
-
-    # This is how to create a 'user' form object
-    # that includes the data from the browser
+        error_message = 'Invalid signup. Try again.'
         form = Register_Form(request.POST)
-        # print(form)
-
         if form.is_valid():
-            # print('SIGNUP Function POST IS FORM VALID?????')
-
-            formsave = form.save(commit=False)
-            
-            firstname = form.cleaned_data.get("first_name")
-            lastname = form.cleaned_data.get("last_name")
-            emailvalue = form.cleaned_data.get("email")
-            uservalue = form.cleaned_data.get("username")
-            passwordvalue1 = form.cleaned_data.get("password1")
-            passwordvalue2 = form.cleaned_data.get("password2")
-
-            if passwordvalue1 == passwordvalue2:
-                try:
-                    user = User.objects.get(username = uservalue)
-                    context = {'form':form, 'error_message':'The username you entered already exists. Try again.'}
-                    # email = User.objects.get(email = emailvalue)
-                    return render(request, 'registration/signup.html', context)
-                except User.DoesNotExist:
-                    # user = User.objects.create_user(uservalue, password = passwordvalue1, email=emailvalue)
-
-                    # This will add the user to the database
-                    user = formsave.save()
-                    city_id = City.objects.get(id=request.POST['current_city'])
-                    profile = Profile.objects.create(
-                        user = user,
-                        current_city = city_id
-                    )
-                    profile.save()
-
-                    # This is how we log a user in via code
-                    login(request, user)
-                    
-                    # formsave.user = request.user
-
-                    # formsave.save()
-
-                    context = {'form':form, 'user_id':user.id}
-                    # print('line225')
-                    # return render(request, 'registration/signup.html', context)               
-                    
-                    return redirect('profile_detail', context)
-
-            else:
-                context = {'form':form, 'error_message': 'The passwords that you provided don\'t match'}
-                print('line233')
-                return render(request, 'registration/signup.html', context)               
-
-                    # error_message = 'Invalid sign up - try again'
-            # A GET or a bad POST request, so render signup.html with an empty form
-        else: 
-            # print('BEFORE USERCREATION FORM UNDER THE LAST ELSE STATEMENT')
-
-            form = UserCreationForm()
-            context = {'form': form, 'error_message': error_message}
-            # print('line241')
-            # return render(request, 'home.html', context)
-            return render(request, 'registration/signup.html', context)
-
+            user = form.save()
+            city_id = City.objects.get(id=request.POST['current_city'])
+            profile = Profile.objects.create(
+            user = user,
+            current_city = city_id
+            )
+            profile.save()
+            login(request, user)
+            return redirect('profile_detail', user_id=user.id)
+        context = {
+                    'error_message': error_message,
+                    'signup_form': register_form,
+                    'login_form': login_form
+                }
+        return render(request, 'registration/signup.html', context)
 
     # send_mail()
 
@@ -284,18 +197,6 @@ def signup(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 # LOGIN IN MODAL AT ANY PAGE IN APP
 def custom_login(request):
     username = request.POST['username']
@@ -305,8 +206,12 @@ def custom_login(request):
         login(request, user)
         return redirect('profile_detail', user_id=user.id)
     else:
-        # TODO figure out frontend error handling?
-        return redirect('/accounts/login')
+        context = {
+            'error_message': 'Invalid Login. Try again.',
+            'login_form': login_form,
+            'signup_form': register_form
+        }
+        return render(request, 'registration/login.html', context)
 
 
 # EDIT PROFILE DETAILS (EXCEPT PASSWORD & USERNAME) AT PROFILE DETAIL PAGE
