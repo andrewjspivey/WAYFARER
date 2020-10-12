@@ -13,13 +13,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path , os
 
 
-import environ
-env = environ.Env(
-        # set casting, default value
-        DEBUG=(bool, False)
-)
-    # reading .env file
-environ.Env.read_env()
 
 import environ
 env = environ.Env(
