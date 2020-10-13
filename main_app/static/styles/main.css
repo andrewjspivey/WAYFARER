@@ -112,11 +112,11 @@ a:hover {
     border-radius: 5px;
 }
 
-input[type="file"] {
+.modal-content input[type="file"] {
     padding: 0;
 }
 
-input[type="submit"] {
+.modal-content input[type="submit"] {
     padding: 5px 10px;
     margin-top: 20px;
 }
@@ -204,16 +204,6 @@ input[type="submit"] {
 
 .fa-user-edit:hover {
     color: var(--background_light);
-}
-
-/* FIXME the scroll here isn't working quite right */
-.profile.col {
-    /* max-height: 90vh; */
-    width: 100%;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .card.profile-details {
@@ -379,4 +369,8 @@ input[type="submit"] {
 
 .post-edit {
     margin-right: 10px;
+}
+
+.comments {
+    margin: 10px 0;
 }

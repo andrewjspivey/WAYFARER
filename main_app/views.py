@@ -19,6 +19,7 @@ from django.template.loader import render_to_string
 # Form constants
 register_form = Register_Form()
 login_form = AuthenticationForm()
+comment_form = Comment_Form()
 
 
 # Create your views here.
@@ -89,6 +90,7 @@ def posts_detail(request, post_id):
         'login_form': login_form,
         'signup_form': register_form,
         'post_form': post_form,
+        'comment_form': comment_form
     }
     return render(request, 'posts/detail.html' ,context)
 
@@ -140,7 +142,7 @@ def posts_delete(request, post_id):
 
 
 
- # adds comment on post
+# adds comment on post
 def add_comments(request, post_id):
     post = Post.objects.get(id = post_id)
     if request.method == 'POST':
@@ -159,18 +161,6 @@ def add_comments(request, post_id):
         'comment_form': comment_form
         }
     return render(request, 'posts/detail.html', context)
-
-
- 
-
-
-
-
-
-
-
-
-
 
 
 

@@ -45,6 +45,7 @@ class User_Form(ModelForm):
 
 
 class Comment_Form(ModelForm):
+    text = forms.CharField(widget=forms.Textarea, label='')
     class Meta:
         model = Comment
         fields = ['text']
