@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
 {%block content %}
 
-<img class="splash-img" src="https://live.staticflickr.com/3709/10274010496_d8f8d564e4_b.jpg" alt="">
 
 
-<h3>Wayfarer is...</h3>
+<div id="city-carousel" class="carousel slide" data-ride="carousel" data-pause="hover" data-interval="7000">
+    <div class="carousel-inner">
+        <div class="carousel-item active" style="background-image: url(https://s23527.pcdn.co/wp-content/uploads/2019/06/sky-2680053_1920-745x497.jpg.optimal.jpg);">
+        </div>
+        {% for city in cities %}
+            <div class="carousel-item" style="background-image: url({{city.image}})">
+                <div class="link-container">
+                    <a class="carousel-city-name" href="{% url 'cities_detail' city.id %}"><h2>{{city.name}}</h2></a>
+                </div>  
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+<h2 class="home-header">Wayfarer is...</h2>
 <div class="container cards-home">
     <div class="row">
         <div class="col">
