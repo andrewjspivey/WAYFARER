@@ -75,6 +75,46 @@ a:hover {
 }
 
 
+/* ANCHOR Form styling */
+
+.modal-header {
+    background-color: var(--main_light);
+}
+
+.modal-content {
+    background-color: var(--secondary_light);
+}
+
+.controls {
+    margin-bottom: 15px;
+}
+
+.modal-content input {
+    border: none;
+    background-color: var(--main_light);
+    color: var(--secondary_dark);
+    border-radius: 5px;
+}
+.modal-content textarea {
+    border: none;
+    background-color: var(--main_light);
+    color: var(--secondary_dark);
+    border-radius: 5px;
+}
+
+.modal-content select {
+    border: none;
+    background-color: var(--main_light);
+    color: var(--secondary_dark);
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    padding: 5px 10px;
+    margin-top: 20px;
+}
+
+
 /* ANCHOR Home Page styling */
 
 #city-carousel {
@@ -114,7 +154,8 @@ a:hover {
 
 .home-header {
     text-align: center;
-    color: rgb(204, 221, 238);
+    color: var(--main_light);
+    opacity: .7;
 }
 
 .container.cards-home {

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import City, Post, Profile
-from .forms import City_Form, Post_Form, Profile_Form, User_Form, Register_Form 
+from .forms import City_Form, Post_Form, Profile_Form, User_Form, Register_Form
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
@@ -19,6 +19,7 @@ from django.template.loader import render_to_string
 # Form constants
 register_form = Register_Form()
 login_form = AuthenticationForm()
+
 
 # Create your views here.
 

@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,7 +67,7 @@
                 <div class="modal-body">
                     <form action="{% url 'custom_login' %}" method="POST">
                         {% csrf_token %}
-                        {{ login_form.as_p }}
+                        {{ login_form|crispy }}
                         <input type="submit" value="Login">
                     </form>
                 </div>
@@ -83,9 +84,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{% url 'signup' %}" method="POST">
+                    <form action="{% url 'signup' %}">
                         {% csrf_token %}
-                        {{ signup_form.as_p }}
+                        {{signup_form|crispy}}
                         <input type="submit" value="Sign Up">
                     </form>
                 </div>

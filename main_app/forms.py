@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 
+
 from .models import City, Post, Profile
 
 
@@ -17,6 +18,7 @@ class Register_Form(UserCreationForm):
         fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2', 'current_city']
         
 
+
 class City_Form(ModelForm):
     class Meta:
         model = City
@@ -30,6 +32,7 @@ class Post_Form(ModelForm):
 
 
 class Profile_Form(ModelForm):
+    image = forms.ImageField(required=False, widget=forms.FileInput)
     class Meta:
         model = Profile
         fields = ['current_city', 'image']
