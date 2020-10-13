@@ -29,7 +29,7 @@ class City(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     current_city = models.ForeignKey(City, on_delete=models.CASCADE)
-    image = models.ImageField(null=True, blank= True,upload_to = 'images/', default='images/default_icon.png')
+    image = models.ImageField(null=True, blank= True, upload_to = 'images/', default='images/default_icon.png')
     slug = models.SlugField(max_length=25, null=True, blank=True, unique=True)
 
     def save(self, *args, **kwargs):
@@ -46,8 +46,6 @@ class Profile(models.Model):
 #     user = models.OneToOneField(User, on_delete=models.CASCADE)
 #     current_city = models.ForeignKey(City, on_delete=models.CASCADE)
 #     image = models.ImageField(null=True, blank= True,upload_to = 'images/', default='images/default_icon.png')
-
-
 
 
 class Post(models.Model):

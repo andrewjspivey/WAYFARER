@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views  
 # from django.conf.urls import patterns, url
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -32,5 +34,6 @@ urlpatterns = [
     # path('cities/<int:city_id>/delete/', views.cities_delete, name='cities_delete'),
     
     # patterns('main_app.views', url(r'^simpleemail/(?<emailto>[\w.%+-]+@[A-Za-z0-9.-}+\.[A-Za-z]{2,4})/', 'confirmation_email', name='confirmation_email'),)
-    # path('send/', views.send_email, name="send")
+    # path('send/', views.send_email, name="send"),
+    # path('upload/', views.image_upload_view),
 ]

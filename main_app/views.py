@@ -23,7 +23,8 @@ login_form = AuthenticationForm()
 
 # HOME PAGE WITH CAROUSEL OF CITIES & APP INFO
 def home(request):
-    context = {'login_form': login_form, 'signup_form': register_form}
+    cities = City.objects.all()
+    context = {'login_form': login_form, 'signup_form': register_form, 'cities': cities}
     return render(request, 'home.html', context)
 
 
@@ -78,10 +79,12 @@ def cities_detail(request, city_id):
 
 
 # POST DETAIL PAGE INCLUDES:
-def posts_detail(request, post_id):
+def posts_detail(request, post_id, slug):
+    slug = Profile.objects.get(slug=slug)
     post = Post.objects.get(id=post_id)
     post_form = Post_Form(instance=post)
     context = {
+        'slug':slug,
         'post': post,
         'login_form': login_form,
         'signup_form': register_form,
@@ -113,7 +116,8 @@ def new_post(request, city_id):
 
 # EDIT POST AT POST DETAIL PAGE 
 @login_required
-def posts_edit(request, post_id):
+def posts_edit(request, post_id, slug):
+
     post = Post.objects.get(id=post_id)
     if request.method == 'POST':
         post_form = Post_Form(request.POST, instance=post)
@@ -134,11 +138,9 @@ def posts_delete(request, post_id):
 
 
 # PROFILE DETAIL PAGE INCLUDES
+@login_required
 def profile_detail(request, slug):
-    print('hit profile detail function')
-    print(slug)
     profile = Profile.objects.get(slug=slug)
-
     user = User.objects.get(id=profile.user.id)
     profile_form = Profile_Form(user.profile)
     user_form = User_Form(user)
@@ -154,7 +156,7 @@ def profile_detail(request, slug):
 
     context = {
         'slug':user.profile.slug,
-        # 'profile':profile,
+        'profile':profile,
         'user': user,
         'posts': posts,
         'prof_form': Profile_Form(instance=user.profile),
@@ -201,15 +203,11 @@ def signup(request):
 
 # LOGIN IN MODAL AT ANY PAGE IN APP
 def custom_login(request):
-    print('OH MY GOD ARE WE EVEN STILL USING MY LOGIN FUNCTION????')
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(request, username=username, password=password)
     if user is not None:
-        print('Do we get into the user is not None block at all or has something gone very very wrong?')
         login(request, user)
-        print('looking at print statement within custom login')
-        print(user.profile.slug)
         return redirect('profile_detail', slug=user.profile.slug)
     else:
         context = {
@@ -221,18 +219,20 @@ def custom_login(request):
         return render(request, 'registration/login.html', context)
 
 # 'slug':user.profile.slug,
+# 'slug':user.profile.slug,
+# 'slug':user.profile.slug,
 
 # EDIT PROFILE DETAILS (EXCEPT PASSWORD & USERNAME) AT PROFILE DETAIL PAGE
 @login_required
 def profile_edit(request, user_id):
     user = User.objects.get(id=user_id)
     if request.method == 'POST':
-        prof_form = Profile_Form(request.POST ,request.FILES, instance=user.profile)
+        prof_form = Profile_Form(request.POST, request.FILES, instance=user.profile)
         user_form = User_Form(request.POST, instance=user)
         if prof_form.is_valid() and user_form.is_valid():
-                prof_form.save()
-                user_form.save()
-                return redirect('profile_detail', user_id=user.id)
+            prof_form.save()
+            user_form.save()
+            return redirect('profile_detail', slug=user.profile.slug)
     else:
         prof_form = Profile_Form(instance=user.profile)
         user_form = User_Form(instance=user)
