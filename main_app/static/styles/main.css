@@ -76,14 +76,58 @@ a:hover {
 
 
 /* ANCHOR Home Page styling */
-    
-    .splash-img {
-        border-radius: 5px;
-    }
 
-    .container.cards-home {
-        margin: 20px 0;
-    }
+#city-carousel {
+    margin-bottom: 15px;
+}
+
+.carousel-item {
+    width: 100%;
+    height: 45vh;
+    background-size: cover;
+    background-position: center;
+    transition: transform 1.5s ease-in-out !important;
+    opacity: .5;
+    border-radius: 5px;
+}
+
+.link-container {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-city-name {
+    color: var(--main_light);
+    display: none;
+}
+
+.carousel-item:hover .link-container {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.carousel-item:hover .carousel-city-name {
+    display: block;
+}
+
+.home-header {
+    text-align: center;
+    color: rgb(204, 221, 238);
+}
+
+.container.cards-home {
+    margin: 15px 0;
+}
+
+.cards-home .card {
+    background-color: var(--secondary_light);
+}
+
+.cards-home .card-title{
+    text-align: center;
+}
 
 /* ANCHOR Profile styling */
 
