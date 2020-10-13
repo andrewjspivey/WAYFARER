@@ -45,7 +45,7 @@
                             <img src="{{ comment.user.profile.image.url }}" class="mr-3">
                         <div class="media-body">
                             <a href="{% url 'profile_detail' comment.user.id %}">
-                            <h5 class="mt-0">{{comment.user.username}}</h5>
+                            <small class="mt-0">{{comment.user.username}}</small>
                             </a>
                             <p>{{comment.text}}</p>
                             <small class="comment-date">{{comment.get_date}}</small>
