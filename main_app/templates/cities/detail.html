@@ -68,55 +68,31 @@
                      </a>
 
 
-
-                <!--{% comment ' Comments for each post' start %}
-                    {% endcomment %}-->
-                    <hr>
-                    <h3>Comments:</h3>
-                    <div> 
-                         {% comment %} <form  action="{% url 'add_comments' post.id %}" method="POST" >
-                            {% csrf_token %}
-                             {{ comment_form.as_p }}
-                            <input type="submit" value="Add">
-                          </form> {% endcomment %}
-                    
-
-                        {% if not post.comments.all  %}
-                           <h2>No Comments Yet .. </h2>
-                            <a  href="#">Add comments</a>
-
-                        {% else %}
-                            {% for comment in post.comments.all %}
-                            <a  href="#">Add comments</a>
-                                    <p>
-                                        
-                                    <strong>{{ comment.user.first_name}} {{ comment.user.last_name}}</strong> 
-                                        {{ comment.text|linebreaks }}
-                                    {{ comment.commented_date }}
-                                
-                                    </p>
-                                
-
-                            {% endfor %}
-
-                        {% endif %}
-                            
-                    </div>
-                    <hr>
-
-            
-
-          
-                <!--{% comment ' Comments for each post'  end %}
-                    {% endcomment %}-->
                    
            
 
 
+                <!--{% comment ' Comments for each post' start %}
+                    {% endcomment %}-->
+                    <hr>
+                   <div>
+                     
+                     <h4>Comments : {{ post.comments.count }}</h4>
+                     <a  href="{% url 'add_comments' post.id %}">Add Comments</a> 
+                        
+                   
+                    </div>
+                    <hr>
+
+            {% endfor %}
+
+          
+                <!--{% comment ' Comments for each post'  end %}
+                    {% endcomment %}-->
 
 
 
-                {% endfor %}
+
 
                 {% if posts.has_other_pages %}
                     <ul class="pagination justify-content-end">

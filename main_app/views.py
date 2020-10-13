@@ -145,18 +145,17 @@ def add_comments(request, post_id):
         comment_form = Comment_Form(request.POST)
         if comment_form.is_valid():
             new_form =  comment_form.save(commit=False)
-            new_form.user = request.user
+            new_form.post = post
             new_form.save()
-            return redirect('cities_detail', post_id=post_id)
+            return redirect('posts_detail', post_id=post_id)
     comments = Comment.objects.all()
     comment_form = Comment_Form()
-    print(comment_form)
     context = {
         'post': post,
-        'comment':comments, 
+        'comments':comments, 
         'comment_form': comment_form
         }
-    return render(request, 'cities/detail.html', context)
+    return render(request, 'posts/detail.html', context)
 
 
  
