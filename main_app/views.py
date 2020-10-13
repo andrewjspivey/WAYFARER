@@ -117,7 +117,7 @@ def new_post(request, city_id):
 @login_required
 def posts_edit(request, post_id):
     post = Post.objects.get(id=post_id)
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user == post.user:
         post_form = Post_Form(request.POST, instance=post)
         if post_form.is_valid():
             post_form.save()
@@ -217,6 +217,8 @@ def custom_login(request):
 def profile_edit(request, user_id):
     user = User.objects.get(id=user_id)
     if request.method == 'POST':
+        if user != request.user:
+            return redirect('/')
         prof_form = Profile_Form(request.POST, request.FILES, instance=user.profile)
         user_form = User_Form(request.POST, instance=user)
         if prof_form.is_valid() and user_form.is_valid():
