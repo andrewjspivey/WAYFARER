@@ -85,12 +85,23 @@ def cities_detail(request, city_id):
 def posts_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     post_form = Post_Form(instance=post)
+    comments = Comment.objects.filter(post_id=post.id)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(comments, 5)
+    try:
+        comments = paginator.page(page)
+    except PageNotAnInteger:
+        commnts = paginator.page(1)
+    except EmptyPage:
+        comments = paginator.page(paginator.num_pages)
+
     context = {
         'post': post,
         'login_form': login_form,
         'signup_form': register_form,
         'post_form': post_form,
-        'comment_form': comment_form
+        'comment_form': comment_form,
+        'comments': comments
     }
     return render(request, 'posts/detail.html' ,context)
 

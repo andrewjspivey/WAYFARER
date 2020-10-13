@@ -40,21 +40,43 @@
         </div>
         <div class="row">
             <div class="col">
-        {% for comment in post.comments.all %}
-            <div class="media">
-                <img src="{{ comment.user.profile.image.url }}" class="mr-3">
-                <div class="media-body">
-                    <a href="{% url 'profile_detail' comment.user.id %}">
-                    <h5 class="mt-0">{{comment.user.username}}</h5>
-                    </a>
-                    <p>{{comment.text}}</p>
-                </div>
-            </div>
-        {% endfor %}
+                {% for comment in comments %}
+                    <div class="media">
+                        <img src="{{ comment.user.profile.image.url }}" class="mr-3">
+                        <div class="media-body">
+                            <a href="{% url 'profile_detail' comment.user.id %}">
+                            <h5 class="mt-0">{{comment.user.username}}</h5>
+                            </a>
+                            <p>{{comment.text}}</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     {% endif %}
 </div>
+
+{% if comments.has_other_pages %}
+    <ul class="pagination justify-content-end">
+        {% if comments.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ comments.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+        {% endif %}
+        {% for i in comments.paginator.page_range %}
+        {% if comments.number == i %}
+            <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only page-link">(current)</span></span></li>
+        {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if comments.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ comments.next_page_number }}">&raquo;</a></li>
+        {% else %}
+        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+        {% endif %}
+    </ul>
+{% endif %}
 
 
 <div class="modal" id="edit-post-modal" tabindex="-1">
