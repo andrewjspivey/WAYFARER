@@ -16,24 +16,25 @@ from django.template.loader import render_to_string
 
 
 
-# Form constants
-register_form = Register_Form()
-login_form = AuthenticationForm()
-comment_form = Comment_Form()
-
-
 # Create your views here.
 
 # HOME PAGE WITH CAROUSEL OF CITIES & APP INFO
 def home(request):
     cities = City.objects.all()
-    context = {'login_form': login_form, 'signup_form': register_form, 'cities': cities}
+    context = {
+        'login_form': AuthenticationForm(), 
+        'signup_form': Register_Form(), 
+        'cities': cities
+        }
     return render(request, 'home.html', context)
 
 
 # DEVELOPER DETAILS ON APP CREATORS OF WAYFARER
 def about(request):
-    context = {'login_form': login_form, 'signup_form': register_form}
+    context = {
+        'login_form': AuthenticationForm(), 
+        'signup_form': Register_Form()
+        }
     return render(request, 'about.html', context)
 
 
@@ -48,7 +49,12 @@ def cities_index(request):
             return redirect('cities_index')
     cities = City.objects.all()
     city_form = City_Form()
-    context = {'cities':cities, 'city_form': city_form, 'login_form': login_form, 'signup_form': register_form}
+    context = {
+        'cities':cities, 
+        'city_form': city_form, 
+        'login_form': AuthenticationForm(), 
+        'signup_form': Register_Form()
+        }
     return render(request, 'cities/index.html', context)
 
 
@@ -70,8 +76,8 @@ def cities_detail(request, city_id):
 
     
     context = {
-        'login_form': login_form, 
-        'signup_form': register_form, 
+        'login_form': AuthenticationForm(), 
+        'signup_form': Register_Form(), 
         'post_form': post_form, 
         'city': city,
         'posts': posts, 
@@ -97,10 +103,10 @@ def posts_detail(request, post_id):
 
     context = {
         'post': post,
-        'login_form': login_form,
-        'signup_form': register_form,
+        'login_form': AuthenticationForm(),
+        'signup_form': Register_Form(),
         'post_form': post_form,
-        'comment_form': comment_form,
+        'comment_form': Comment_Form(),
         'comments': comments
     }
     return render(request, 'posts/detail.html' ,context)
@@ -138,7 +144,10 @@ def posts_edit(request, post_id):
         return redirect('posts_detail',post_id = post_id)
     else:
         post_form = Post_Form(instance=post)
-    context = {'post': post, 'post_form': post_form}
+    context = {
+        'post': post, 
+        'post_form': post_form
+        }
     return render(request, 'cities/detail.html', context)
 
 
@@ -151,9 +160,8 @@ def posts_delete(request, post_id):
 
 
 
-
-
 # adds comment on post
+@login_required
 def add_comments(request, post_id):
     post = Post.objects.get(id = post_id)
     if request.method == 'POST':
@@ -176,6 +184,7 @@ def add_comments(request, post_id):
 
 # DELETE COMMENT 
 
+@login_required
 def comments_delete(request, comment_id):
     comment = Comment.objects.get(id=comment_id)
     post = Post.objects.get(id=comment.post.id)
@@ -204,8 +213,8 @@ def profile_detail(request, user_id):
         'posts': posts,
         'prof_form': Profile_Form(instance=user.profile),
         'user_form': User_Form(instance=user),
-        'login_form': login_form, 
-        'signup_form': register_form
+        'login_form': AuthenticationForm(), 
+        'signup_form': Register_Form()
     }
     return render(request, 'profile/detail.html', context)
 
@@ -215,8 +224,6 @@ def signup(request):
     if request.method == 'POST':
         error_message = 'Invalid signup. Try again.'
         form = Register_Form(request.POST)
-        print('TAKE A CLOSER LOOK AT THAT FORM')
-        print(form)
         if form.is_valid():
             print('Form is valid')
             user = form.save()
@@ -240,8 +247,8 @@ def signup(request):
     
         context = {
             'error_message': error_message,
-            'signup_form': register_form,
-            'login_form': login_form
+            'signup_form': Register_Form(),
+            'login_form': AuthenticationForm()
         }
         return render(request, 'registration/signup.html', context)
 
@@ -258,8 +265,8 @@ def custom_login(request):
     else:
         context = {
             'error_message': 'Invalid Login. Try again.',
-            'login_form': login_form,
-            'signup_form': register_form
+            'login_form': AuthenitcationForm(),
+            'signup_form': Register_Form()
         }
         return render(request, 'registration/login.html', context)
 
@@ -280,6 +287,10 @@ def profile_edit(request, user_id):
     else:
         prof_form = Profile_Form(instance=user.profile)
         user_form = User_Form(instance=user)
-    context = {'user':user, 'prof_form':prof_form,'user_form':user_form}
+    context = {
+        'user':user, 
+        'prof_form':prof_form,
+        'user_form':user_form
+        }
     return render( request, 'profile/edit.html', context)
 
