@@ -49,6 +49,9 @@
                             </a>
                             <p>{{comment.text}}</p>
                             <small class="comment-time">{{comment.get_date}}</small>
+                            {% if request.user.id == comment.user.id %}
+                                <a href="{% url 'comments_delete' post.id comment.id  %}">Delete</a>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}

@@ -174,6 +174,15 @@ def add_comments(request, post_id):
     return render(request, 'posts/detail.html', context)
 
 
+# DELETE COMMENT 
+
+def comments_delete(request,post_id, comment_id):
+    print(request.user)
+    post = Post.objects.get(id=post_id)
+    Comment.objects.get(id=comment_id).delete()
+    return redirect('posts_detail' ,post_id=post_id)
+
+
 
 # PROFILE DETAIL PAGE INCLUDES
 def profile_detail(request, user_id):
