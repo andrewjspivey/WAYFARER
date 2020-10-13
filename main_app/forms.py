@@ -26,14 +26,15 @@ class City_Form(ModelForm):
 
 
 class Post_Form(ModelForm):
-    image = forms.ImageField(required=False, widget=forms.FileInput)
+    image = forms.ImageField(required=False, widget=forms.FileInput, label='Upload Post Image')
+    content = forms.CharField(widget=forms.Textarea, label='')
     class Meta:
         model = Post
         fields = ['title', 'image', 'content']
 
 
 class Profile_Form(ModelForm):
-    image = forms.ImageField(required=False, widget=forms.FileInput)
+    image = forms.ImageField(required=False, widget=forms.FileInput, label='Update Profile Picture')
     class Meta:
         model = Profile
         fields = ['current_city', 'image']
