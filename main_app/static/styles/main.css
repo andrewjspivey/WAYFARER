@@ -75,6 +75,53 @@ a:hover {
 }
 
 
+/* ANCHOR Form styling */
+
+.modal-header {
+    background-color: var(--main_light);
+}
+
+.modal-content {
+    background-color: var(--secondary_light);
+}
+
+.controls {
+    margin-bottom: 15px;
+}
+
+.modal-content input {
+    border: none;
+    background-color: var(--main_light);
+    color: var(--secondary_dark);
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 25px;
+}
+
+.modal-content textarea {
+    border: none;
+    background-color: var(--main_light);
+    color: var(--secondary_dark);
+    border-radius: 5px;
+}
+
+.modal-content select {
+    border: none;
+    background-color: var(--main_light);
+    color: var(--secondary_dark);
+    border-radius: 5px;
+}
+
+.modal-content input[type="file"] {
+    padding: 0;
+}
+
+.modal-content input[type="submit"] {
+    padding: 5px 10px;
+    margin-top: 20px;
+}
+
+
 /* ANCHOR Home Page styling */
 
 #city-carousel {
@@ -114,7 +161,8 @@ a:hover {
 
 .home-header {
     text-align: center;
-    color: rgb(204, 221, 238);
+    color: var(--main_light);
+    opacity: .7;
 }
 
 .container.cards-home {
@@ -123,6 +171,7 @@ a:hover {
 
 .cards-home .card {
     background-color: var(--secondary_light);
+    opacity: .7;
 }
 
 .cards-home .card-title{
@@ -157,16 +206,6 @@ a:hover {
     color: var(--background_light);
 }
 
-/* FIXME the scroll here isn't working quite right */
-.profile.col {
-    /* max-height: 90vh; */
-    width: 100%;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
 .card.profile-details {
     width: 30vw;
     background-color: var(--main_light);
@@ -179,24 +218,6 @@ a:hover {
 .card-img {
     opacity: .5;
 }
-
-/* Trying to unify card size, rather than letting them be defined by the aspect ratio of the background image */
-.card.post-index{
-    width: 30vw;
-}
-
-.card-img-overlay {
-    background-color: rgba(0, 0, 0, .5);
-    background-position: center;
-    color: var(--main_light);
-}
-
-
-.post-index:hover .card-img-overlay {
-    background-color: rgba(255, 255, 255, .5);
-    color: var(--secondary_dark);
-}
-
 
 
 /* ANCHOR City Index Page Styling */
@@ -293,7 +314,6 @@ a:hover {
     justify-content: center;
     align-items: center;
     background-color: var(--secondary_light);
-    /* background-color: lightgray; */
 }
 
 .card-img.post-index {
@@ -312,8 +332,9 @@ a:hover {
 }
 
 .post-detail-title {
-    color: var(--main_light);
+    color: var(--secondary_light);
 }
+
 .post-detail-img {
     width: inherit;
     border-radius: 5px;
@@ -321,7 +342,7 @@ a:hover {
 }
 
 .post-content {
-    color: var(--main_light);
+    color: var(--secondary_light);
 }
 
 .post-date {
@@ -330,4 +351,30 @@ a:hover {
 
 .post-edit {
     margin-right: 10px;
+}
+
+.comments {
+    margin: 10px 0;
+    color: var(--main_light);
+}
+
+.media {
+    margin: 10px 0;
+    background-color: rgba(0, 0, 0, .3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.media img {
+    width:75px;
+    height: auto;
+}
+
+.media p {
+    color: var(--secondary_light);
+}
+
+.comment-date {
+    color: var(--main_light);
 }

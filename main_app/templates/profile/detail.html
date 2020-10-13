@@ -36,7 +36,7 @@
                 <div class="card mb-3 post" style="max-width: 540px;">
                     <div class="row no-gutters">
                         <div class="col-md-4 post-index-img">
-                            <img src="{{post.image}}" class="card-img post-index">
+                            <img src="{{post.image.url}}" class="card-img post-index">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -55,6 +55,7 @@
             </a> 
         {% endfor %}
 
+    </div>
         {% if posts.has_other_pages %}
             <ul class="pagination justify-content-end">
                 {% if posts.has_previous %}
@@ -76,8 +77,6 @@
                 {% endif %}
             </ul>
         {% endif %}
-    </div>
-
 </div>
 
 

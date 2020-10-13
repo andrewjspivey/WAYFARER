@@ -19,6 +19,8 @@ from django.template.loader import render_to_string
 # Form constants
 register_form = Register_Form()
 login_form = AuthenticationForm()
+comment_form = Comment_Form()
+
 
 # Create your views here.
 
@@ -83,11 +85,23 @@ def cities_detail(request, city_id):
 def posts_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     post_form = Post_Form(instance=post)
+    comments = Comment.objects.filter(post_id=post.id)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(comments, 5)
+    try:
+        comments = paginator.page(page)
+    except PageNotAnInteger:
+        commnts = paginator.page(1)
+    except EmptyPage:
+        comments = paginator.page(paginator.num_pages)
+
     context = {
         'post': post,
         'login_form': login_form,
         'signup_form': register_form,
         'post_form': post_form,
+        'comment_form': comment_form,
+        'comments': comments
     }
     return render(request, 'posts/detail.html' ,context)
 
@@ -96,7 +110,7 @@ def posts_detail(request, post_id):
 @login_required
 def new_post(request, city_id):
     if request.method == 'POST':
-        post_form = Post_Form(request.POST)
+        post_form = Post_Form(request.POST, request.FILES)
         city = City.objects.get(id=city_id)
         if post_form.is_valid():
             new_form =  post_form.save(commit=False)
@@ -117,7 +131,7 @@ def new_post(request, city_id):
 @login_required
 def posts_edit(request, post_id):
     post = Post.objects.get(id=post_id)
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user == post.user:
         post_form = Post_Form(request.POST, instance=post)
         if post_form.is_valid():
             post_form.save()
@@ -139,7 +153,7 @@ def posts_delete(request, post_id):
 
 
 
- # adds comment on post
+# adds comment on post
 def add_comments(request, post_id):
     post = Post.objects.get(id = post_id)
     if request.method == 'POST':
@@ -162,21 +176,11 @@ def add_comments(request, post_id):
 
 # DELETE COMMENT 
 
-def comments_delete(request,post_id, comment_id):
-    print(request.user)
-    post = Post.objects.get(id=post_id)
-    Comment.objects.get(id=comment_id).delete()
-    return redirect('posts_detail' ,post_id=post_id)
-
-
-
-
-
-
-
-
-
-
+def comments_delete(request, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    post = Post.objects.get(id=comment.post.id)
+    comment.delete()
+    return redirect('posts_detail', post_id=post.id)
 
 
 
@@ -211,7 +215,10 @@ def signup(request):
     if request.method == 'POST':
         error_message = 'Invalid signup. Try again.'
         form = Register_Form(request.POST)
+        print('TAKE A CLOSER LOOK AT THAT FORM')
+        print(form)
         if form.is_valid():
+            print('Form is valid')
             user = form.save()
             city_id = City.objects.get(id=request.POST['current_city'])
             profile = Profile.objects.create(
@@ -220,7 +227,7 @@ def signup(request):
             )
             profile.save()
             with mail.get_connection() as connection:
-                # user = User.objects.get(id=user.id)
+                user = User.objects.get(id=user.id)
                 mail.EmailMessage(
                     'Welcome to Wayfarer',
                     'Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging-in to Wayfarer.com',
@@ -262,6 +269,8 @@ def custom_login(request):
 def profile_edit(request, user_id):
     user = User.objects.get(id=user_id)
     if request.method == 'POST':
+        if user != request.user:
+            return redirect('/')
         prof_form = Profile_Form(request.POST, request.FILES, instance=user.profile)
         user_form = User_Form(request.POST, instance=user)
         if prof_form.is_valid() and user_form.is_valid():
