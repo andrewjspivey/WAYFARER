@@ -123,6 +123,7 @@ a:hover {
 
 .cards-home .card {
     background-color: var(--secondary_light);
+    opacity: .7;
 }
 
 .cards-home .card-title{
