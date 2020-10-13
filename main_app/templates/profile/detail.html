@@ -91,7 +91,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{% url 'profile_edit' user.id %}" method="POST">
+                <form action="{% url 'profile_edit' user.id %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ user_form.as_p }}
                     {{ prof_form.as_p }}
