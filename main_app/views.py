@@ -146,6 +146,7 @@ def add_comments(request, post_id):
         if comment_form.is_valid():
             new_form =  comment_form.save(commit=False)
             new_form.post = post
+            new_form.user = request.user
             new_form.save()
             return redirect('posts_detail', post_id=post_id)
     comments = Comment.objects.all()

@@ -69,7 +69,8 @@
  </div>
  
    <br> <br>
- 
+         
+                         
                          <form  action="{% url 'add_comments' post.id %}" method="POST" >
                             {% csrf_token %}
                              {{ comment_form.as_p }}
