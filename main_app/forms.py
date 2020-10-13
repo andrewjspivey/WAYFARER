@@ -2,8 +2,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-
-from .models import City, Post, Profile
+from .models import City, Post, Profile, Comment
 
 
 class Register_Form(UserCreationForm):
@@ -38,3 +37,10 @@ class User_Form(ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name']
+
+
+
+class Comment_Form(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']

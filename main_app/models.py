@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime 
+from datetime import datetime
 from django.db.models.fields import (DateField, DateTimeField, IntegerField, TimeField)
 from django.template.defaultfilters import slugify
 from django.urls import reverse
@@ -92,7 +92,14 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-post_date']
-    
 
 
 
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post,related_name='comments', on_delete=models.CASCADE)
+    text = models.TextField(max_length=500)
+    commented_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.text

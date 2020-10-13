@@ -66,7 +66,43 @@
             </div>
         </div>
     </div>
-</div>
+ </div>
+ 
+   <br> <br>
+         
+                         
+                         <form  action="{% url 'add_comments' post.id %}" method="POST" >
+                            {% csrf_token %}
+                             {{ comment_form.as_p }}
+                            <input type="submit" value="Add comments">
+                        </form>  
+
+ <br> <br> <br>
+
+                        {% if not post.comments.all  %}
+                           <h2>No Comments Yet .. </h2>
+                            <a  href="#">Add comments</a>
+                        {% else %}
+
+                                    {% for comment in post.comments.all %}
+                                    <p>
+                                        
+                                    <strong>{{ comment.user.first_name}} {{ comment.user.last_name}}</strong> 
+                                        {{ comment.text|linebreaks }}
+                                    {{ comment.commented_date }}
+                                
+                            </p>
+                                
+
+                            {% endfor %}
+
+                        {% endif %}
+                            
+
+
+
+
+
 
 
 {% endblock %}
