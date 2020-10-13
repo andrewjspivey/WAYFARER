@@ -5,7 +5,7 @@
 	<div class="col post-detail-meta">
 		<a href="{% url 'cities_detail' post.city.id %}"><small>{{post.city.name}}, {{post.city.country}}</small></a>
 		<h3 class="post-detail-title">{{post.title}}</h3>
-		<a href="{% url 'profile_detail' post.user.id %}"><p>{{post.user.username}}</p></a>
+		<a href="{% url 'profile_detail' post.user.slug %}"><p>{{post.user.username}}</p></a>
 	</div>
 	<div class="col">
 		<img src="{{ post.image }}" class="post-detail-img">

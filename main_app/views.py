@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from django.core import mail
-from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
@@ -135,8 +134,12 @@ def posts_delete(request, post_id):
 
 
 # PROFILE DETAIL PAGE INCLUDES
-def profile_detail(request, user_id):
-    user = User.objects.get(id=user_id)
+def profile_detail(request, slug):
+    print('hit profile detail function')
+    print(slug)
+    profile = Profile.objects.get(slug=slug)
+
+    user = User.objects.get(id=profile.user.id)
     profile_form = Profile_Form(user.profile)
     user_form = User_Form(user)
     posts = Post.objects.filter(user_id=user.id)
@@ -150,6 +153,8 @@ def profile_detail(request, user_id):
         posts = paginator.page(paginator.num_pages)
 
     context = {
+        'slug':user.profile.slug,
+        # 'profile':profile,
         'user': user,
         'posts': posts,
         'prof_form': Profile_Form(instance=user.profile),
@@ -183,9 +188,10 @@ def signup(request):
                     connection=connection
                 ).send()
             login(request, user)
-            return redirect('profile_detail', user_id=user.id)
+            return redirect('profile_detail', slug=user.profile.slug)
     
         context = {
+            'slug':user.profile.slug,
             'error_message': error_message,
             'signup_form': register_form,
             'login_form': login_form
@@ -193,23 +199,28 @@ def signup(request):
         return render(request, 'registration/signup.html', context)
 
 
-
 # LOGIN IN MODAL AT ANY PAGE IN APP
 def custom_login(request):
+    print('OH MY GOD ARE WE EVEN STILL USING MY LOGIN FUNCTION????')
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(request, username=username, password=password)
     if user is not None:
+        print('Do we get into the user is not None block at all or has something gone very very wrong?')
         login(request, user)
-        return redirect('profile_detail', user_id=user.id)
+        print('looking at print statement within custom login')
+        print(user.profile.slug)
+        return redirect('profile_detail', slug=user.profile.slug)
     else:
         context = {
+            'slug':user.profile.slug,
             'error_message': 'Invalid Login. Try again.',
             'login_form': login_form,
             'signup_form': register_form
         }
         return render(request, 'registration/login.html', context)
 
+# 'slug':user.profile.slug,
 
 # EDIT PROFILE DETAILS (EXCEPT PASSWORD & USERNAME) AT PROFILE DETAIL PAGE
 @login_required
