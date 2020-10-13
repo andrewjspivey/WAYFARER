@@ -24,7 +24,8 @@ login_form = AuthenticationForm()
 
 # HOME PAGE WITH CAROUSEL OF CITIES & APP INFO
 def home(request):
-    context = {'login_form': login_form, 'signup_form': register_form}
+    cities = City.objects.all()
+    context = {'login_form': login_form, 'signup_form': register_form, 'cities': cities}
     return render(request, 'home.html', context)
 
 
