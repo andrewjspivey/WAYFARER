@@ -351,7 +351,7 @@ a:hover {
 }
 
 .post-detail-title {
-    color: var(--main_light);
+    color: var(--secondary_light);
 }
 .post-detail-img {
     width: inherit;
@@ -360,7 +360,7 @@ a:hover {
 }
 
 .post-content {
-    color: var(--main_light);
+    color: var(--secondary_light);
 }
 
 .post-date {
@@ -373,6 +373,7 @@ a:hover {
 
 .comments {
     margin: 10px 0;
+    color: var(--main_light);
 }
 
 .media {
@@ -387,4 +388,8 @@ a:hover {
 
 .media p {
     color: var(--secondary_light);
+}
+
+.comment-time {
+    color: var(--main_light);
 }

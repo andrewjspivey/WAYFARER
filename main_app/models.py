@@ -111,3 +111,25 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
+    def get_date(self):
+        cur_time = datetime.now()
+        print(cur_time)
+        if self.commented_date.day == cur_time.day:
+            if cur_time.hour - self.commented_date.hour < 1:
+                return "Less than an hour ago"
+            elif cur_time.hour - self.commented_date.hour == 1:
+                return "1 hour ago"
+            else:
+                return str(abs(cur_time.hour  -  self.commented_date.hour)) + " hours ago"
+        elif self.commented_date.month == cur_time.month:
+            if cur_time.day - self.commented_date.day == 1:
+                return "1 day ago"
+            else:
+                return str(abs(cur_time.day - self.commented_date.day)) + " days ago"
+        elif self.commented_date.year == cur_time.year:
+            if cur_time.month - self.commented_date.month == 1:
+                return "1 month ago"
+            else:
+                return str(abs(cur_time.month - self.commented_date.month)) + " months ago"
+        return self.commented_date
