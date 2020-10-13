@@ -160,7 +160,12 @@ def add_comments(request, post_id):
     return render(request, 'posts/detail.html', context)
 
 
- 
+# DELETE POST AT POST DETAIL PAGE
+@login_required
+def comments_delete(request, comment_id):
+    Comment.objects.get(id=comment_id).delete()
+    return redirect("cities_index" )
+
 
 
 
