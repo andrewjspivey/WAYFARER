@@ -51,7 +51,7 @@
                             <small class="comment-date">{{comment.get_date}}</small>
                             {% if request.user.id == comment.user.id %}
                             <br/>
-                                <a href="{% url 'comments_delete' post.id comment.id  %}"><small>Delete</small></a>
+                                <a href="{% url 'comments_delete' comment.id  %}"><small>Delete</small></a>
                             {% endif %}
                         </div>
                     </div>

@@ -176,11 +176,11 @@ def add_comments(request, post_id):
 
 # DELETE COMMENT 
 
-def comments_delete(request,post_id, comment_id):
-    print(request.user)
-    post = Post.objects.get(id=post_id)
-    Comment.objects.get(id=comment_id).delete()
-    return redirect('posts_detail' ,post_id=post_id)
+def comments_delete(request, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    post = Post.objects.get(id=comment.post.id)
+    comment.delete()
+    return redirect('posts_detail', post_id=post.id)
 
 
 
