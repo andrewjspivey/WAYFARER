@@ -215,7 +215,10 @@ def signup(request):
     if request.method == 'POST':
         error_message = 'Invalid signup. Try again.'
         form = Register_Form(request.POST)
+        print('TAKE A CLOSER LOOK AT THAT FORM')
+        print(form)
         if form.is_valid():
+            print('Form is valid')
             user = form.save()
             city_id = City.objects.get(id=request.POST['current_city'])
             profile = Profile.objects.create(
@@ -224,7 +227,7 @@ def signup(request):
             )
             profile.save()
             with mail.get_connection() as connection:
-                # user = User.objects.get(id=user.id)
+                user = User.objects.get(id=user.id)
                 mail.EmailMessage(
                     'Welcome to Wayfarer',
                     'Wayfarer is so excited to have you in our community of city trackers experience makers! Stay up do date by regularly logging-in to Wayfarer.com',

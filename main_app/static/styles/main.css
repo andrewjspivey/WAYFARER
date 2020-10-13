@@ -219,24 +219,6 @@ a:hover {
     opacity: .5;
 }
 
-/* Trying to unify card size, rather than letting them be defined by the aspect ratio of the background image */
-.card.post-index{
-    width: 30vw;
-}
-
-.card-img-overlay {
-    background-color: rgba(0, 0, 0, .5);
-    background-position: center;
-    color: var(--main_light);
-}
-
-
-.post-index:hover .card-img-overlay {
-    background-color: rgba(255, 255, 255, .5);
-    color: var(--secondary_dark);
-}
-
-
 
 /* ANCHOR City Index Page Styling */
 
@@ -332,7 +314,6 @@ a:hover {
     justify-content: center;
     align-items: center;
     background-color: var(--secondary_light);
-    /* background-color: lightgray; */
 }
 
 .card-img.post-index {
@@ -353,6 +334,7 @@ a:hover {
 .post-detail-title {
     color: var(--secondary_light);
 }
+
 .post-detail-img {
     width: inherit;
     border-radius: 5px;
@@ -379,6 +361,9 @@ a:hover {
 .media {
     margin: 10px 0;
     background-color: rgba(0, 0, 0, .3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .media img {
@@ -390,6 +375,6 @@ a:hover {
     color: var(--secondary_light);
 }
 
-.comment-time {
+.comment-date {
     color: var(--main_light);
 }

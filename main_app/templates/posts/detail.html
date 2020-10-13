@@ -42,15 +42,16 @@
             <div class="col">
                 {% for comment in comments %}
                     <div class="media">
-                        <img src="{{ comment.user.profile.image.url }}" class="mr-3">
+                            <img src="{{ comment.user.profile.image.url }}" class="mr-3">
                         <div class="media-body">
                             <a href="{% url 'profile_detail' comment.user.id %}">
                             <h5 class="mt-0">{{comment.user.username}}</h5>
                             </a>
                             <p>{{comment.text}}</p>
-                            <small class="comment-time">{{comment.get_date}}</small>
+                            <small class="comment-date">{{comment.get_date}}</small>
                             {% if request.user.id == comment.user.id %}
-                                <a href="{% url 'comments_delete' post.id comment.id  %}">Delete</a>
+                            <br/>
+                                <a href="{% url 'comments_delete' post.id comment.id  %}"><small>Delete</small></a>
                             {% endif %}
                         </div>
                     </div>
