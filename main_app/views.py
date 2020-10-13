@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import City, Post, Profile
-from .forms import City_Form, Post_Form, Profile_Form, User_Form, Register_Form 
+from .models import City, Post, Profile, Comment
+from .forms import City_Form, Post_Form, Profile_Form, User_Form, Register_Form , Comment_Form
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
@@ -133,6 +133,44 @@ def posts_edit(request, post_id):
 def posts_delete(request, post_id):
     Post.objects.get(id=post_id).delete()
     return redirect("cities_index" )
+
+
+
+
+
+
+ # adds comment on post
+def add_comments(request, post_id):
+    post = Post.objects.get(id = post_id)
+    if request.method == 'POST':
+        comment_form = Comment_Form(request.POST)
+        if comment_form.is_valid():
+            new_form =  comment_form.save(commit=False)
+            new_form.post = post
+            new_form.user = request.user
+            new_form.save()
+            return redirect('posts_detail', post_id=post_id)
+    comments = Comment.objects.all()
+    comment_form = Comment_Form()
+    context = {
+        'post': post,
+        'comments':comments, 
+        'comment_form': comment_form
+        }
+    return render(request, 'posts/detail.html', context)
+
+
+ 
+
+
+
+
+
+
+
+
+
+
 
 
 # PROFILE DETAIL PAGE INCLUDES
