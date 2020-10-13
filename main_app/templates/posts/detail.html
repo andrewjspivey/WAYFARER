@@ -90,12 +90,20 @@
                                     <strong>{{ comment.user.first_name}} {{ comment.user.last_name}}</strong> 
                                         {{ comment.text|linebreaks }}
                                     {{ comment.commented_date }}
-                                
+
+                                  
                             </p>
                                 
 
-                            {% endfor %}
+                                {% if request.user.id == comment.user.id %}
+                                    <a href="{% url 'comments_delete' post.id comment.id  %}">Delete</a>
+                                
+                                {% endif %}
+                        {% endfor %}
 
+                            
+                         
+                         
                         {% endif %}
                             
 
