@@ -97,7 +97,7 @@ def posts_detail(request, post_id):
 @login_required
 def new_post(request, city_id):
     if request.method == 'POST':
-        post_form = Post_Form(request.POST)
+        post_form = Post_Form(request.POST, request.FILES)
         city = City.objects.get(id=city_id)
         if post_form.is_valid():
             new_form =  post_form.save(commit=False)

@@ -26,6 +26,7 @@ class City_Form(ModelForm):
 
 
 class Post_Form(ModelForm):
+    image = forms.ImageField(required=False, widget=forms.FileInput)
     class Meta:
         model = Post
         fields = ['title', 'image', 'content']
