@@ -38,16 +38,21 @@
         <div class="row">
             <a data-toggle="modal" href="#add-comment-modal">Add Comment</a>
         </div>
-
+        <div class="row">
+            <div class="col">
         {% for comment in post.comments.all %}
             <div class="media">
-                <img src="{{ comment.user.profile.image.url }}" class="mr-3" alt="...">
+                <img src="{{ comment.user.profile.image.url }}" class="mr-3">
                 <div class="media-body">
+                    <a href="{% url 'profile_detail' comment.user.id %}">
                     <h5 class="mt-0">{{comment.user.username}}</h5>
+                    </a>
                     <p>{{comment.text}}</p>
                 </div>
             </div>
         {% endfor %}
+            </div>
+        </div>
     {% endif %}
 </div>
 
