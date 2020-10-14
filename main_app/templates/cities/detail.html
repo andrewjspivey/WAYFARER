@@ -48,7 +48,8 @@
                     <div class="card mb-3 post" style="max-width: 540px;">
                     <div class="row no-gutters">
                         <div class="col-md-4 post-index-img">
-                            <img src="{{post.user.profile.image.url}}" class="card-img post-index">
+                            {% comment %} <img src="{{post.user.profile.image.url}}" class="card-img post-index"> {% endcomment %}
+                            <img src="{{post.image.url}}" class="card-img post-index">
                         </div>
                         <div class="col-md-8">
                         <div class="card-body">
@@ -61,34 +62,17 @@
                             {% endif %}
                             <p class="card-text"><small class="text-muted">{{post.get_date }}</small></p>
                         </div>
-
                         </div>
                     </div>
-                </div>
+                    </div>
                     </a>
-
-
-                <!--{% comment ' Comments for each post' start %}
-                    {% endcomment %}-->
                     <hr>
-                   <div>
-                     
-                     <h4>Comments : {{ post.comments.count }}</h4>
-                     <a  href="{% url 'add_comments' post.id %}">Add Comments</a> 
-                        
-                   
+                    <div>
+                        <p>Comments : {{ post.comments.count }}</p>
                     </div>
                     <hr>
 
             {% endfor %}
-
-          
-                <!--{% comment ' Comments for each post'  end %}
-                    {% endcomment %}-->
-
-
-
-
 
                 {% if posts.has_other_pages %}
                     <ul class="pagination justify-content-end">
