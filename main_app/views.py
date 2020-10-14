@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from django.core import mail
-from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
@@ -109,7 +108,7 @@ def posts_detail(request, post_id):
         'comment_form': Comment_Form(),
         'comments': comments
     }
-    return render(request, 'posts/detail.html' ,context)
+    return render(request, 'posts/detail.html', context)
 
 
 # CREATE NEW POST WHILE ON CITY PAGE
@@ -136,6 +135,7 @@ def new_post(request, city_id):
 # EDIT POST AT POST DETAIL PAGE 
 @login_required
 def posts_edit(request, post_id):
+
     post = Post.objects.get(id=post_id)
     if request.method == 'POST' and request.user == post.user:
         post_form = Post_Form(request.POST, instance=post)
@@ -156,7 +156,6 @@ def posts_edit(request, post_id):
 def posts_delete(request, post_id):
     Post.objects.get(id=post_id).delete()
     return redirect("cities_index" )
-
 
 
 
@@ -194,11 +193,27 @@ def comments_delete(request, comment_id):
 
 
 # PROFILE DETAIL PAGE INCLUDES
-def profile_detail(request, user_id):
-    user = User.objects.get(id=user_id)
+@login_required
+def profile_detail(request, slug):
+    profile = Profile.objects.get(slug=slug)
+    user = User.objects.get(id=profile.user.id)
     profile_form = Profile_Form(user.profile)
     user_form = User_Form(user)
     posts = Post.objects.filter(user_id=user.id)
+    
+    all_posts = Post.objects.all()
+    city_count = {}
+
+    for post in all_posts:
+        if post.city in city_count:
+            city_count[post.city] += 1
+        else:
+            city_count[post.city]= 1
+
+    city_count = {key:value for key, value in city_count.items() if value >0}
+    print(city_count)
+
+
     page = request.GET.get('page', 1)
     paginator = Paginator(posts, 3)
     try:
@@ -209,6 +224,9 @@ def profile_detail(request, user_id):
         posts = paginator.page(paginator.num_pages)
 
     context = {
+        'city_count':city_count,
+        'slug':user.profile.slug,
+        'profile':profile,
         'user': user,
         'posts': posts,
         'prof_form': Profile_Form(instance=user.profile),
@@ -243,15 +261,16 @@ def signup(request):
                     connection=connection
                 ).send()
             login(request, user)
-            return redirect('profile_detail', user_id=user.id)
+            return redirect('profile_detail', slug=user.profile.slug)
     
         context = {
+            # 'slug':user.profile.slug,
+            'slug':user.username,
             'error_message': error_message,
             'signup_form': Register_Form(),
             'login_form': AuthenticationForm()
         }
         return render(request, 'registration/signup.html', context)
-
 
 
 # LOGIN IN MODAL AT ANY PAGE IN APP
@@ -261,15 +280,15 @@ def custom_login(request):
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        return redirect('profile_detail', user_id=user.id)
+        return redirect('profile_detail', slug=user.profile.slug)
     else:
         context = {
+            'slug':user.id,
             'error_message': 'Invalid Login. Try again.',
             'login_form': AuthenitcationForm(),
             'signup_form': Register_Form()
         }
         return render(request, 'registration/login.html', context)
-
 
 # EDIT PROFILE DETAILS (EXCEPT PASSWORD & USERNAME) AT PROFILE DETAIL PAGE
 @login_required
@@ -283,7 +302,7 @@ def profile_edit(request, user_id):
         if prof_form.is_valid() and user_form.is_valid():
             prof_form.save()
             user_form.save()
-            return redirect('profile_detail', user_id=user.id)
+            return redirect('profile_detail', slug=user.profile.slug)
     else:
         prof_form = Profile_Form(instance=user.profile)
         user_form = User_Form(instance=user)

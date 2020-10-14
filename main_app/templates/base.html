@@ -36,7 +36,8 @@
         {% if request.user.is_authenticated %}
             <!-- View Profile -->
             <li class="nav-item">
-                <a href="{% url 'profile_detail' request.user.id %}" class="nav-link active">{{request.user.first_name}}'s Profile</a> 
+                <a href="{% url 'profile_detail' request.user.profile.slug %}" class="nav-link active">{{request.user.first_name}}'s Profile</a> 
+                <!-- <a href="{% url 'profile_detail' request.user.id %}" class="nav-link active">{{request.user.first_name}}'s Profile</a>  -->
             </li>
             <!-- Logout -->
             <li class="nav-item">
@@ -65,7 +66,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{% url 'custom_login' %}" method="POST">
+                    <form action="{% url 'custom_login'%}" method="POST">
                         {% csrf_token %}
                         {{ login_form|crispy }}
                         <input type="submit" value="Login">
