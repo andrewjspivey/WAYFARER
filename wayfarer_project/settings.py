@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': 'wayfarer',
         # 'USER':'lizkane'
         # 'USER':'quin?'
-        'USER':'binay'
+        # 'USER':'binay'
     }
 }
 

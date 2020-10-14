@@ -162,18 +162,6 @@ def add_comments(request, post_id):
     return render(request, 'posts/detail.html', context)
 
 
- 
-
-
-
-
-
-
-
-
-
-
-
 
 # PROFILE DETAIL PAGE INCLUDES
 @login_required
@@ -183,6 +171,21 @@ def profile_detail(request, slug):
     profile_form = Profile_Form(user.profile)
     user_form = User_Form(user)
     posts = Post.objects.filter(user_id=user.id)
+    
+    all_posts = Post.objects.all()
+    city_count = {}
+
+
+    for post in all_posts:
+        if post.city in city_count:
+            city_count[post.city] += 1
+        else:
+            city_count[post.city]= 1
+
+    city_count = {key:value for key, value in city_count.items() if value >0}
+    print(city_count)
+
+
     page = request.GET.get('page', 1)
     paginator = Paginator(posts, 3)
     try:
@@ -193,6 +196,7 @@ def profile_detail(request, slug):
         posts = paginator.page(paginator.num_pages)
 
     context = {
+        'city_count':city_count,
         'slug':user.profile.slug,
         'profile':profile,
         'user': user,

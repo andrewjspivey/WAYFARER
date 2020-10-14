@@ -28,7 +28,13 @@
             <p>TEST: A.{{user.profile.slug}} - B.{{user.username}} - C.{{user.profile.id}}</p>
         </div>
         <br/>
-    </div>
+        <div style="background-color: blueviolet; max-width: 33vw; border-radius: 5px;">
+            <h5 style="margin-bottom: -15px;">My Adventures {{ posts|length }}</h5><br/>
+            {% for key,value in city_count.items %}
+            <div style="background-color: aqua; margin: 5px; border-radius: 3px;">{{ key }} {{ value }}</div>
+            {% endfor %}
+            </div>
+        </div>
 
 
     <div class="col">
