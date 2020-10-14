@@ -29,8 +29,10 @@
         <br/>
         <div style="background-color: var(--main_light); max-width: 33vw; border-radius: 5px; text-align: center;">
             <h5 style="margin-bottom: -15px;">My Adventures {{ posts|length }}</h5><br/>
-            {% for key,value in city_count.items %}
-            <div style="background-color: var(--secondary_light); margin: 5px; border-radius: 3px;">{{ key }} {{ value }}</div>
+            {% for post in posts %}    
+                {% for key,value in city_count.items %}
+                <div style="background-color: var(--secondary_light); margin: 5px; border-radius: 3px;">{{ key }} {{ value }}</div>
+                {% endfor %}
             {% endfor %}
             </div>
         </div>

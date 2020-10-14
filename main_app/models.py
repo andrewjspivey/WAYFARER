@@ -9,23 +9,18 @@ from django.urls import reverse
 
 User._meta.get_field('email')._unique = True
 
+
+# CITY MODEL   (POST: MANY TO MANY)  (USER: ONE TO ONE)
 class City(models.Model):
     name = models.CharField(max_length=50)
     image = models.CharField(max_length=250)
     country = models.CharField(max_length=50)
-    # slug = models.SlugField(max_length=25, null=True, blank=True)
-
-    # def save(self, *args, **kwargs):
-    #     self.slug= self.slug or slugify(self.name)
-    #     return super().save(*args, **kwargs)
-
-    # def get_absolute_url(self):
-    #     return reverse('profile_detail', kwargs={'slug':slug})
 
     def __str__(self):
         return self.name
 
 
+# PROFILE MODEL   (POST: ONE PROFILE TO MANY POSTS)
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     current_city = models.ForeignKey(City, on_delete=models.CASCADE)
@@ -42,12 +37,8 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.slug} is currently in {self.current_city}"
 
-# class Profile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     current_city = models.ForeignKey(City, on_delete=models.CASCADE)
-#     image = models.ImageField(null=True, blank= True,upload_to = 'images/', default='images/default_icon.png')
 
-
+# POST MODEL    (POST: MANY TO MANY)
 class Post(models.Model):
     title = models.CharField(max_length=200)
     image = models.ImageField(null=True, blank=True, upload_to = 'images/')
@@ -55,14 +46,6 @@ class Post(models.Model):
     post_date = models.DateTimeField(auto_now_add = True)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # slug = models.SlugField(max_length=25, null=True, blank=True)
-
-    # def save(self, *args, **kwargs):
-    #     self.slug= self.slug or slugify(self.name)
-    #     return super().save(*args, **kwargs)
-
-    # def get_absolute_url(self):
-    #     return reverse('profile_detail', kwargs={'slug':slug})
  
     def get_date(self):
         cur_time = datetime.now()
@@ -125,3 +108,6 @@ class Comment(models.Model):
             else:
                 return str(abs(cur_time.month - self.commented_date.month)) + " months ago"
         return self.commented_date
+    
+    def __str__(self):
+        return f"{self.user} made a comment called '{self.post}' on {self.commented_date}"
