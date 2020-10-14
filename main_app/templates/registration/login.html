@@ -6,7 +6,7 @@
 {%if error_message%}
     <p class="error">{{error_message}}</p>
 {%endif%}
-<form action="{% url 'custom_login' %}" method="POST">
+<form action="{% url 'custom_login'%}" method="POST">
     {% csrf_token %}
     {{login_form.as_p}}
     <input type="submit" class="btn" value="login">
