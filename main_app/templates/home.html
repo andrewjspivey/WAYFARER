@@ -3,14 +3,14 @@
 
 
 
-<div id="city-carousel" class="carousel slide" data-ride="carousel" data-pause="hover" data-interval="7000">
+<div id="city-carousel" class="carousel slide" data-ride="carousel" data-pause="hover" data-interval="5500">
     <div class="carousel-inner">
-        <div class="carousel-item active" style="background-image: url(https://les.mitsubishielectric.co.uk/assets/Uploads/328a039bfe/Changing-view-from-space.jpg);">
+        <div class="carousel-item active" style="background-image: url(https://s23527.pcdn.co/wp-content/uploads/2019/06/sky-2680053_1920-745x497.jpg.optimal.jpg);">
         </div>
         {% for city in cities %}
             <div class="carousel-item" style="background-image: url({{city.image}})">
                 <div class="link-container">
-                    <a class="carousel-city-name" href="{% url 'cities_detail' city.id %}"><h2>{{city.name}}</h2></a>
+                    <a class="carousel-city-name" href="{% url 'cities_detail' city.id %}"><h2 style="font-size: 55px;">{{city.name}}</h2></a>
                 </div>  
             </div>
         {% endfor %}
@@ -22,26 +22,26 @@
 <h2 class="home-header">Wayfarer is...</h2>
 <div class="container cards-home">
     <div class="row">
-        <div class="col">
+        <div class="col wayfarer">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Sed Pulvinar</h5>
+                    <h4 class="card-title">Sed Pulvinar</h4>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel consectetur lacus, eget interdum nulla. Fusce vitae scelerisque mauris, sed pellentesque felis. Etiam ut tristique lorem. In sed felis leo. Integer sit amet pulvinar purus. Mauris ac malesuada sem.<p>
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col wayfarer">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Nulla Vitae</h5>
+                    <h4 class="card-title">Nulla Vitae</h4>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel consectetur lacus, eget interdum nulla. Fusce vitae scelerisque mauris, sed pellentesque felis. Etiam ut tristique lorem. In sed felis leo. Integer sit amet pulvinar purus. Mauris ac malesuada sem.<p>
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col wayfarer">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Etiam Iacus</h5>
+                    <h4 class="card-title">Etiam Iacus</h4>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel consectetur lacus, eget interdum nulla. Fusce vitae scelerisque mauris, sed pellentesque felis. Etiam ut tristique lorem. In sed felis leo. Integer sit amet pulvinar purus. Mauris ac malesuada sem.<p>
                 </div>
             </div>

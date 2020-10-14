@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="row">
-    <div class="col">
+    <div class="col-4">
         {% for list_city in cities %}
         {% if list_city.id == city.id %}
         <div class="card sidebar selected-city">
@@ -12,7 +12,7 @@
             <a href="{% url 'cities_detail' list_city.id %}">
                 <div class="card-content">
                     <img src="{{ list_city.image }}" alt="{{ list_city.name }}{{ list_city.country }}" class="city-index-img"> 
-                    <span class="card-title">{{ list_city.name }}</span>
+                    <h4 class="card-title shrink_text2"> {{ list_city.name }}</h4>
                 </div>
             </a>
         </div> 
@@ -20,12 +20,12 @@
     </div>
 
 
-    <div class="col">
+    <div class="col-8">
     
         <div class="row">
             <div class="col city-detail">
-                <h3>{{city.name}}</h3>
-                <h5>{{city.country}}</h5>
+                <h3 class="shrink_text3">{{city.name}}</h3>
+                <h5 class="shrink_text1">{{city.country}}</h5>
             </div>
         </div>
         <div class="row">
@@ -35,7 +35,7 @@
         </div>
 
         <div class="row new-post-button">
-            <h4>Posts</h3>
+            <h4>{{city.name}} &nbsp Posts</h3>
             {% if request.user.id %}
             <a data-toggle="modal" href="#new-post-modal" class="new-post-toggle"><i class="fas fa-plus-circle"></i></a>
             {% endif %}
@@ -46,27 +46,28 @@
                 {% for post in posts %}
                     <a href="{% url 'posts_detail' post.id %}">
                     <div class="card mb-3 post" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-4 post-index-img">
-                            {% comment %} <img src="{{post.user.profile.image.url}}" class="card-img post-index"> {% endcomment %}
-                            <img src="{{post.image.url}}" class="card-img post-index">
-                        </div>
-                        <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">{{post.title}}</h5>
-                            {% if post.content|length < 200 %}
-                                <p>{{post.content}}</p>
-                            {% else %}
-                                <p>{{post.content|truncatechars_html:200 }}</p>
-                                <small>Read More</small>
-                            {% endif %}
-                            <p class="card-text"><small class="text-muted">{{post.get_date }}</small></p>
-                        </div>
+                        <div class="row no-gutters">
+                            <div class="col-md-6 post-index-img ">
+                                <img src="{{post.image.url}}" class="card-img post-index">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{post.title}}</h5>
+                                    {% if post.content|length < 200 %}
+                                        <p>{{post.content}}</p>
+                                    {% else %}
+                                        <p>{{post.content|truncatechars_html:200 }}</p>
+                                        <small>Read More</small>
+                                    {% endif %}
+                                    <p class="card-text"><small class="text-muted">{{post.get_date }} </small></p>
+                                    <div>
+                                        <p style="text-align: end;">{{request.user.first_name}} {{request.user.last_name}}</p><img src="{{post.user.profile.image.url}}" class="small_prof"/>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                    </a>
-                    <hr>
+                    </a><hr>
                     <div>
                         <p>Comments : {{ post.comments.count }}</p>
                     </div>
@@ -81,17 +82,19 @@
                         {% else %}
                             <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
                         {% endif %}
+
                         {% for i in posts.paginator.page_range %}
-                        {% if posts.number == i %}
-                            <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only page-link">(current)</span></span></li>
-                        {% else %}
-                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                        {% endif %}
+                            {% if posts.number == i %}
+                                <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only page-link">(current)</span></span></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
                         {% endfor %}
+                        
                         {% if posts.has_next %}
-                        <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">&raquo;</a></li>
-                        {% else %}
-                        <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                            <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
                         {% endif %}
                     </ul>
                     {% endif %}

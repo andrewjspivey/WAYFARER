@@ -38,6 +38,8 @@ a:hover {
 .page-link {
     background-color: var(--background_mid);
     color: white;
+    font-size: 2vw;
+    line-height: 2vh;
 }
 
 .page-item.active .page-link {
@@ -57,7 +59,6 @@ a:hover {
 }
 
 
-
 /* ANCHOR Navbar styling */
 
 .nav {
@@ -74,6 +75,21 @@ a:hover {
     display: flex;
 }
 
+.small_prof_nav {
+    width: 3.5vw;
+    height: 3.5vw;
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+    object-fit: fit;
+    transition: 1.5s;
+}
+
+.small_prof_nav:hover {
+    transform: scale(1.2);
+    margin-left: 8px;
+    display: inline-block;
+}
 
 /* ANCHOR Form styling */
 
@@ -123,6 +139,10 @@ a:hover {
 
 
 /* ANCHOR Home Page styling */
+.container {
+    min-width: 95vw;
+}
+
 
 #city-carousel {
     margin-bottom: 15px;
@@ -130,10 +150,10 @@ a:hover {
 
 .carousel-item {
     width: 100%;
-    height: 45vh;
+    height: 55vh;
     background-size: cover;
     background-position: center;
-    transition: transform 1.5s ease-in-out !important;
+    transition: transform 1.40s ease-in-out !important;
     opacity: .5;
     border-radius: 5px;
 }
@@ -144,6 +164,8 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 1;
+
 }
 
 .carousel-city-name {
@@ -152,17 +174,28 @@ a:hover {
 }
 
 .carousel-item:hover .link-container {
-    background-color: rgba(0, 0, 0, .3);
+    /* background-color: rgba(0, 0, 0, .3); */
+    opacity: 1;
+}
+
+.carousel-item:hover {
+    opacity: 1;
 }
 
 .carousel-item:hover .carousel-city-name {
     display: block;
+    opacity: 1;
+
 }
 
 .home-header {
     text-align: center;
     color: var(--main_light);
     opacity: .7;
+}
+
+.wayfarer {
+    margin-bottom: 25px;
 }
 
 .container.cards-home {
@@ -178,16 +211,67 @@ a:hover {
     text-align: center;
 }
 
-/* ANCHOR Profile styling */
 
+/* About: Developers Page */
+.fa-linkedin {
+    color: rgba(0, 0, 0, .5);
+    transition: 400ms;
+    bottom: 0px; 
+}
+
+.fa-linkedin:hover {
+    transform: scale(1.15);
+    color: rgba(220, 220, 220, .5);
+}
+.fa-github-square {
+    color: rgba(0, 0, 0, .5);
+    transition: 400ms;
+    bottom: 0px; 
+
+}
+.fa-github-square:hover {
+    transform: scale(1.15);
+    color: rgba(220, 220, 220, .5);
+
+}
+
+.rounded-circle.dev-pic {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, .7);
+    margin: 20px 0 10px 0;
+
+}
+
+.dev-card {
+    /* background-color: rgba(0, 0, 0, .2); */
+    /* margin: 0 20px; */
+}
+
+.full-row {
+    width: 100%;
+}
+
+
+
+
+/* ANCHOR Profile styling */
 .name-and-edit {
     justify-content: space-around;
 }
 
 .profile-card-img {
-    width: 10vw;
-    height: 10vw;
-    object-fit: contain;
+    width: 15vw;
+    height: 15vw;
+    background-color: var(--secondary_light);
+    object-fit: fit;
+    border-radius: 50%;
+    margin: 10px auto 0;
+}
+
+
+.prof-title {
+    text-align: center;
+    font-family: 'Syne', sans-serif;
+
 }
 
 .profile.row {
@@ -196,6 +280,7 @@ a:hover {
     justify-content: space-between;
     overflow: scroll;
 }
+
 
 .fa-user-edit {
     font-size: 2em;
@@ -216,7 +301,8 @@ a:hover {
 }
 
 .card-img {
-    opacity: .5;
+    opacity: .8;
+    transition: transform 1.5s ease-in-out;
 }
 
 
@@ -231,44 +317,79 @@ a:hover {
 
 .city-index {
     width: 40vw;
-
+    /* max-height: 30vh; */
+    overflow: hidden;
 }
 .card-img-overlay {
     background-color: rgba(0, 0, 0, .5);
-    background-position: center;
+    background-position: center center;
+    object-fit: cover;
     color: var(--main_light);
+    opacity: 1;
+
+
 }
 
-
-.city-index:hover .card-img-overlay {
+.city-index:hover  {
     background-color: rgba(255, 255, 255, .5);
     color: var(--secondary_dark);
+    opacity: 1;
 }
 
-
+.card-img-overlay:hover {
+    opacity: .3;
+}
 
 
 
 /* ANCHOR City Detail Page Styling */
 
 /* city index sidebar */
+.card-content {
+    display:flex;
+    justify-content: block;
+    align-items: center;
+}
+
+.shrink_text3 {
+    font-size: 3vw;
+    margin-bottom: 0;
+}
+
+.shrink_text2 {
+    font-size: 2.5vw;
+    text-align: center;
+}
+
+.shrink_text1 {
+    font-size: 2vw;
+}
+
 .card.selected-city {
     background-color: var(--main_light);
 }
 
 .card.sidebar {
-    max-width: 25vw;
+    max-width: 35vw;
+    max-height: 20vh;
     font-size: 1.5rem;
-    margin: 10px 0;
+    margin: 10px 5%;
+    display: flex;
+    justify-content: center;
 }
 
 .card.sidebar .city-index-img {
-    max-width: 10vw;
+    max-width: 40%;
+    max-height: 18vh;
+    border-radius: 5px;
+    margin-right: 5px;
+
+    object-fit: cover;
 }
 
 
-/* city details */
 
+/* city details */
 .col.city-detail {
     color: var(--background_light);
 }
@@ -307,18 +428,53 @@ a:hover {
 .card.post {
     color: var(--secondary_dark);
     background-color: var(--main_light);
+
 }
+
+/* .postit {
+    position: relative;
+    margin-top: 10%;
+    margin-bottom: -10%;
+} */
 
 .post-index-img {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    background-color: var(--secondary_light);
+    background-color: var(--main_light);
+    /* max-height: 20vh; */
+    width: 100%;
+    size: cover;
+    position: center;
 }
 
 .card-img.post-index {
     opacity: 1;
+    border: 5px solid var(--main_light);
+    background-color: var(--main_light);
+    border-radius: 10px;
+    /* object-fit: fit; */
 }
+
+.small_prof {
+    width: 4vw;
+    height: 4vw;
+    max-width: 100px;
+    max-height: 100px;
+    /* min-width: 30px;
+    min-height: 30px; */
+    border-radius: 50%;
+    display:inline;
+    object-fit: fit;
+    margin-left: 70%;
+}
+
+.small_prof .med {
+    width: 6vw;
+    height: 6vw;
+
+}
+
 
 
 /* ANCHOR Post Detail Styling */

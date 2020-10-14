@@ -5,7 +5,7 @@
 	<div class="col post-detail-meta" style="margin-right: 20px;">
 		<a href="{% url 'cities_detail' post.city.id %}"><h5 style="margin-bottom: 15px;">{{post.city.name}}, {{post.city.country}}</h5></a>
 		<h3 class="post-detail-title" style="margin-bottom: 15px;">{{post.title}}</h3>
-		<a href="{% url 'profile_detail' post.user.profile.slug %}"><h5 style="margin-top: 15px;">BY: {{post.user.username}}</h5></a>
+		<div><a href="{% url 'profile_detail' post.user.profile.slug %}"><h5 style="margin-top: 15px;">BY: {{post.user.username}}</a></div>
         <div class="row post-content">
             <p style="margin-left: 17px;">{{post.content}}</p>
         </div>
@@ -82,6 +82,7 @@
         {% endif %}
     </ul>
 {% endif %}
+
 
 
 <div class="modal" id="edit-post-modal" tabindex="-1">

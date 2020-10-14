@@ -201,10 +201,9 @@ def profile_detail(request, slug):
     user_form = User_Form(user)
     posts = Post.objects.filter(user_id=user.id)
     
-    all_posts = Post.objects.all()
     city_count = {}
 
-    for post in all_posts:
+    for post in posts:
         if post.city in city_count:
             city_count[post.city] += 1
         else:
