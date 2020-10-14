@@ -419,16 +419,18 @@ a:hover {
 
 }
 
-.postit {
-    position: absolute;
-}
+/* .postit {
+    position: relative;
+    margin-top: 10%;
+    margin-bottom: -10%;
+} */
 
 .post-index-img {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     background-color: var(--main_light);
-    max-height: 20vh;
+    /* max-height: 20vh; */
     width: 100%;
     size: cover;
     position: center;
@@ -458,7 +460,6 @@ a:hover {
 .small_prof .med {
     width: 6vw;
     height: 6vw;
-
 }
 
 
