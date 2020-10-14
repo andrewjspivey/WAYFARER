@@ -1,32 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="row">
-	<div class="col post-detail-meta">
-		<a href="{% url 'cities_detail' post.city.id %}"><small>{{post.city.name}}, {{post.city.country}}</small></a>
-		<h3 class="post-detail-title">{{post.title}}</h3>
-		<a href="{% url 'profile_detail' post.user.profile.slug %}"><p>{{post.user.username}}</p></a>
+<div class="row" style="display:flex; justify-content: flex-start; align-items: flex-start;">
+	<div class="col post-detail-meta" style="margin-right: 20px;">
+		<a href="{% url 'cities_detail' post.city.id %}"><h5 style="margin-bottom: 15px;">{{post.city.name}}, {{post.city.country}}</h5></a>
+		<h3 class="post-detail-title" style="margin-bottom: 15px;">{{post.title}}</h3>
+		<a href="{% url 'profile_detail' post.user.profile.slug %}"><h5 style="margin-top: 15px;">BY: {{post.user.username}}</h5></a>
+        <div class="row post-content">
+            <p style="margin-left: 17px;">{{post.content}}</p>
+        </div>
+        <div class="row">
+            <small class="post-date" style="margin-left: 17px;">{{post.post_date}}</small>
+        </div>
 	</div>
 	<div class="col">
-		<img src="{{ post.image.url }}" class="post-detail-img">
+		<img src="{{ post.image.url }}" class="post-detail-img" style="max-height: 50vh; width: auto; max-width: 50vw;">
 	</div>
 </div>
 
-<div class="row post-content">
-    <p>{{post.content}}</p>
-</div>
-<div class="row">
-    <small class="post-date">{{post.post_date}}</small>
-</div>
 
 {% if request.user.id == post.user.id %}
 <div class="row">
-    <a data-toggle="modal" href="#edit-post-modal" class="post-edit">Edit</a>
-    <a data-toggle="modal" href="#delete-post-modal">Delete</a>
+    <a data-toggle="modal" href="#edit-post-modal" class="post-edit">&nbsp Edit &nbsp</a>
+    <a data-toggle="modal" href="#delete-post-modal">&nbsp Delete</a>
 </div>
 {% endif %}
 
-<div class="row">
+<div class="row" style="margin-top: 40px;">
     <h4 class="comments">Comments</h4>
 </div>
     {% if not post.comments.all %}
@@ -44,7 +44,7 @@
                     <div class="media">
                             <img src="{{ comment.user.profile.image.url }}" class="mr-3">
                         <div class="media-body">
-                            <a href="{% url 'profile_detail' comment.user.id %}">
+                            <a href="{% url 'profile_detail' comment.user.profile.slug %}">
                             <h5 class="mt-0">{{comment.user.username}}</h5>
                             </a>
                             <p>{{comment.text}}</p>

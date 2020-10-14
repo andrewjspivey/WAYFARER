@@ -22,8 +22,8 @@ urlpatterns = [
     
     path('posts/<int:post_id>/', views.posts_detail, name='posts_detail'),
     path('post/<int:post_id>/comment/', views.add_comments, name='add_comments'),
-    path('comments/<int:comment_id>/', views.comments_delete, name="comments_delete"),
     path('posts/<int:post_id>/delete', views.posts_delete, name='posts_delete'),
     path('posts/<int:post_id>/edit', views.posts_edit, name='posts_edit'),
+    path('comments/<int:comment_id>/', views.comments_delete, name="comments_delete"),
 
 ]

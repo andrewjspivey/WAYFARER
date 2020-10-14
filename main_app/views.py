@@ -128,7 +128,7 @@ def new_post(request, city_id):
 
 # EDIT POST AT POST DETAIL PAGE 
 @login_required
-def posts_edit(request, post_id, slug):
+def posts_edit(request, post_id):
 
     post = Post.objects.get(id=post_id)
     if request.method == 'POST' and request.user == post.user:
@@ -149,15 +149,8 @@ def posts_delete(request, post_id):
     return redirect("cities_index" )
 
 
-<<<<<<< HEAD
- # adds comment on post
-=======
-
-
-
 
 # adds comment on post
->>>>>>> submaster
 def add_comments(request, post_id):
     post = Post.objects.get(id = post_id)
     if request.method == 'POST':
@@ -178,8 +171,6 @@ def add_comments(request, post_id):
     return render(request, 'posts/detail.html', context)
 
 
-<<<<<<< HEAD
-=======
 # DELETE COMMENT 
 
 def comments_delete(request, comment_id):
@@ -189,7 +180,6 @@ def comments_delete(request, comment_id):
     return redirect('posts_detail', post_id=post.id)
 
 
->>>>>>> submaster
 
 # PROFILE DETAIL PAGE INCLUDES
 @login_required
@@ -265,7 +255,8 @@ def signup(request):
             return redirect('profile_detail', slug=user.profile.slug)
     
         context = {
-            'slug':user.profile.slug,
+            # 'slug':user.profile.slug,
+            'slug':user.username,
             'error_message': error_message,
             'signup_form': register_form,
             'login_form': login_form
@@ -283,7 +274,7 @@ def custom_login(request):
         return redirect('profile_detail', slug=user.profile.slug)
     else:
         context = {
-            'slug':user.profile.slug,
+            'slug':user.id,
             'error_message': 'Invalid Login. Try again.',
             'login_form': login_form,
             'signup_form': register_form
