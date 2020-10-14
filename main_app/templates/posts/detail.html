@@ -8,7 +8,7 @@
 		<a href="{% url 'profile_detail' post.user.profile.slug %}"><p>{{post.user.username}}</p></a>
 	</div>
 	<div class="col">
-		<img src="{{ post.image }}" class="post-detail-img">
+		<img src="{{ post.image.url }}" class="post-detail-img">
 	</div>
 </div>
 
@@ -26,6 +26,62 @@
 </div>
 {% endif %}
 
+<div class="row">
+    <h4 class="comments">Comments</h4>
+</div>
+    {% if not post.comments.all %}
+        <div class="row">
+            <a data-toggle="modal" href="#add-comment-modal">Be the first to comment</a>
+        </div>
+
+    {% else %}
+        <div class="row">
+            <a data-toggle="modal" href="#add-comment-modal">Add Comment</a>
+        </div>
+        <div class="row">
+            <div class="col">
+                {% for comment in comments %}
+                    <div class="media">
+                            <img src="{{ comment.user.profile.image.url }}" class="mr-3">
+                        <div class="media-body">
+                            <a href="{% url 'profile_detail' comment.user.id %}">
+                            <h5 class="mt-0">{{comment.user.username}}</h5>
+                            </a>
+                            <p>{{comment.text}}</p>
+                            <small class="comment-date">{{comment.get_date}}</small>
+                            {% if request.user.id == comment.user.id %}
+                            <br/>
+                                <a href="{% url 'comments_delete' comment.id  %}"><small>Delete</small></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% if comments.has_other_pages %}
+    <ul class="pagination justify-content-end">
+        {% if comments.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ comments.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+        {% endif %}
+        {% for i in comments.paginator.page_range %}
+        {% if comments.number == i %}
+            <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only page-link">(current)</span></span></li>
+        {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if comments.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ comments.next_page_number }}">&raquo;</a></li>
+        {% else %}
+        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+        {% endif %}
+    </ul>
+{% endif %}
 
 
 <div class="modal" id="edit-post-modal" tabindex="-1">
@@ -66,43 +122,27 @@
             </div>
         </div>
     </div>
- </div>
- 
-   <br> <br>
-         
-                         
-                         <form  action="{% url 'add_comments' post.id %}" method="POST" >
-                            {% csrf_token %}
-                             {{ comment_form.as_p }}
-                            <input type="submit" value="Add comments">
-                        </form>  
+</div>
 
- <br> <br> <br>
+<div class="modal" id="add-comment-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'add_comments' post.id %}" method="POST">
+                    {% csrf_token %}
+                    {{ comment_form.as_p }}
+                    <input type="submit" value="Comment">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-                        {% if not post.comments.all  %}
-                           <h2>No Comments Yet .. </h2>
-                            <a  href="#">Add comments</a>
-                        {% else %}
-
-                                    {% for comment in post.comments.all %}
-                                    <p>
-                                        
-                                    <strong>{{ comment.user.first_name}} {{ comment.user.last_name}}</strong> 
-                                        {{ comment.text|linebreaks }}
-                                    {{ comment.commented_date }}
-                                
-                            </p>
-                                
-
-                            {% endfor %}
-
-                        {% endif %}
-                            
-
-
-
-
-
-
-
+                        
 {% endblock %}

@@ -16,6 +16,7 @@ class Register_Form(UserCreationForm):
         fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2', 'current_city']
         
 
+
 class City_Form(ModelForm):
     class Meta:
         model = City
@@ -23,12 +24,15 @@ class City_Form(ModelForm):
 
 
 class Post_Form(ModelForm):
+    image = forms.ImageField(required=False, widget=forms.FileInput, label='Upload Post Image')
+    content = forms.CharField(widget=forms.Textarea, label='')
     class Meta:
         model = Post
         fields = ['title', 'image', 'content']
 
 
 class Profile_Form(ModelForm):
+    image = forms.ImageField(required=False, widget=forms.FileInput, label='Update Profile Picture')
     class Meta:
         model = Profile
         fields = ['current_city', 'image']
@@ -41,6 +45,7 @@ class User_Form(ModelForm):
 
 
 class Comment_Form(ModelForm):
+    text = forms.CharField(widget=forms.Textarea, label='')
     class Meta:
         model = Comment
         fields = ['text']
