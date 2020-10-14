@@ -36,7 +36,7 @@
         {% if request.user.is_authenticated %}
             <!-- View Profile -->
             <li class="nav-item">
-                <a href="{% url 'profile_detail' request.user.profile.slug %}" class="nav-link active">{{request.user.first_name}}'s Profile</a> 
+                <a href="{% url 'profile_detail' request.user.profile.slug %}" class="nav-link active">{{request.user.first_name}}'s Profile <img src="{{request.user.profile.image.url}}" class="small_prof_nav"/></a> 
             </li>
             <!-- Logout -->
             <li class="nav-item">

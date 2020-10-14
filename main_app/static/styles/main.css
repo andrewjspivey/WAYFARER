@@ -57,7 +57,6 @@ a:hover {
 }
 
 
-
 /* ANCHOR Navbar styling */
 
 .nav {
@@ -74,6 +73,20 @@ a:hover {
     display: flex;
 }
 
+.small_prof_nav {
+    width: 5vw;
+    height: 5vw;
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+    object-fit: fit;
+    transition: 1.5s;
+}
+
+.small_prof_nav:hover {
+    transform: scale(1.2);
+    margin-left: 15px;
+}
 
 /* ANCHOR Form styling */
 
@@ -133,8 +146,8 @@ a:hover {
     height: 45vh;
     background-size: cover;
     background-position: center;
-    transition: transform 1.5s ease-in-out !important;
-    opacity: .5;
+    transition: transform 1.0s ease-in-out !important;
+    opacity: 1;
     border-radius: 5px;
 }
 
@@ -153,6 +166,7 @@ a:hover {
 
 .carousel-item:hover .link-container {
     background-color: rgba(0, 0, 0, .3);
+    opacity: .5;
 }
 
 .carousel-item:hover .carousel-city-name {
@@ -163,6 +177,10 @@ a:hover {
     text-align: center;
     color: var(--main_light);
     opacity: .7;
+}
+
+.wayfarer {
+    margin-bottom: 25px;
 }
 
 .container.cards-home {
@@ -180,14 +198,30 @@ a:hover {
 
 /* ANCHOR Profile styling */
 
+.left-prof {
+    
+}
+.member-since {
+    
+}
+
 .name-and-edit {
     justify-content: space-around;
 }
 
 .profile-card-img {
-    width: 10vw;
-    height: 10vw;
-    object-fit: contain;
+    width: 20vw;
+    height: 20vw;
+    background-color: var(--secondary_light);
+    object-fit: fit;
+    border-radius: 50%;
+    border: 5px double var(--background_mid);
+    margin: 10px auto 0;
+    transition: 1.5s;
+}
+
+.profile-card-img: {
+    
 }
 
 .profile.row {
@@ -196,6 +230,23 @@ a:hover {
     justify-content: space-between;
     overflow: scroll;
 }
+
+/* .small_prof_nav {
+    width: 5vw;
+    height: 5vw;
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.small_prof_nav:hover {
+    transform: scale(1.2);
+    margin-left: 15px;
+} */
+
+
+
 
 .fa-user-edit {
     font-size: 2em;
@@ -216,7 +267,8 @@ a:hover {
 }
 
 .card-img {
-    opacity: .5;
+    opacity: .8;
+    transition: transform 1.5s ease-in-out;
 }
 
 
@@ -231,43 +283,79 @@ a:hover {
 
 .city-index {
     width: 40vw;
-
+    max-height: 30vh;
+    overflow: hidden;
 }
 .card-img-overlay {
     background-color: rgba(0, 0, 0, .5);
-    background-position: center;
+    background-position: center center;
+    object-fit: cover;
     color: var(--main_light);
 }
 
-
-.city-index:hover .card-img-overlay {
+.city-index:hover  {
     background-color: rgba(255, 255, 255, .5);
     color: var(--secondary_dark);
 }
 
-
+.card-img-overlay:hover {
+    opacity: .5;
+}
 
 
 
 /* ANCHOR City Detail Page Styling */
 
 /* city index sidebar */
+.card-content {
+    display:flex;
+    justify-content: block;
+    align-items: center;
+}
+
+.shrink_text3 {
+    font-size: 5vw;
+    margin-bottom: 0;
+}
+
+.shrink_text2 {
+    font-size: 3vw;
+}
+
+.shrink_text1 {
+    font-size: 2.5vw;
+}
+
 .card.selected-city {
     background-color: var(--main_light);
 }
 
 .card.sidebar {
-    max-width: 25vw;
+    max-width: 35vw;
+    max-height: 20vh;
     font-size: 1.5rem;
-    margin: 10px 0;
+    margin: 10px 5%;
+    display: flex;
+    justify-content: center;
 }
 
 .card.sidebar .city-index-img {
-    max-width: 10vw;
+    max-width: 45%;
+    max-height: 18vh;
+    border-radius: 5px;
+    margin-right: 5px;
+    overflow: hidden;
+    object-fit: cover;
 }
 
 
+
 /* city details */
+.right-col {
+    margin-left: -5vw;
+
+}
+
 
 .col.city-detail {
     color: var(--background_light);
@@ -307,18 +395,36 @@ a:hover {
 .card.post {
     color: var(--secondary_dark);
     background-color: var(--main_light);
+    /* max-height: 20vh; */
 }
 
 .post-index-img {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--secondary_light);
+    background-color: var(--main_light);
 }
 
 .card-img.post-index {
     opacity: 1;
+    border: 5px solid var(--main_light);
+    background-color: var(--main_light);
+    border-radius: 10px;
 }
+
+.small_prof {
+    width: 4vw;
+    height: 4vw;
+    max-width: 100px;
+    max-height: 100px;
+    /* min-width: 30px;
+    min-height: 30px; */
+    border-radius: 50%;
+    display:inline;
+    object-fit: fit;
+}
+
+
 
 
 /* ANCHOR Post Detail Styling */

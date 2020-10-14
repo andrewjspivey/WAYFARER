@@ -5,35 +5,35 @@
 
     <div class="col">
         <div class="card profile-details">
+            <img src="{{user.profile.image.url}}" class="profile-card-img">
             <div class="card-body">
                 <div class="row">
                     <div class="col">
-                        <img src="{{user.profile.image.url}}" class="profile-card-img">
                     </div>
                     <div class="col">
                         <div class="row name-and-edit">
-                        <h5 class="card-title">{{user.first_name}}</h5>
+                        <h5 class="card-title prof-title">{{user.first_name}}</h5>
                         {% if request.user.id == user.id %}
                             <a data-toggle="modal" href="#edit-profile-modal"><i class="fas fa-user-edit"></i></a>
                         {% endif %}
                         </div>
                     </div>
                 </div>
-                <p class="card-text">Member since: {{ user.date_joined }}</p>
+                <small class="card-text member-since">Member since: {{ user.date_joined }}</small>
                 <div class="card-footer" style="background-color: var(--secondary_light); text-align: center; padding: 3px; border-radius: 5px; margin-bottom: 0;">
                     <h6>Current city:</h6> <h5><a href="{% url 'cities_detail' user.profile.current_city.id  %}">{{user.profile.current_city}}</a></h5>
                 </div>
             </div>
             <img src="{{user.profile.current_city.image }}" class="card-img-top" alt="...">
-        </div>
-        <br/>
-        <div style="background-color: var(--main_light); max-width: 33vw; border-radius: 5px; text-align: center;">
-            <h5 style="margin-bottom: -15px;">My Adventures {{ posts|length }}</h5><br/>
-            {% for post in posts %}    
-                {% for key,value in city_count.items %}
-                <div style="background-color: var(--secondary_light); margin: 5px; border-radius: 3px;">{{ key }} {{ value }}</div>
+            <br/>
+            <div style="background-color: var(--main_light); max-width: 33vw; border-radius: 5px; text-align: center;">
+                <h5 style="margin-bottom: -15px;">My Adventures {{ posts|length }}</h5><br/>
+                {% for post in posts %}    
+                    {% for key,value in city_count.items %}
+                    <div style="background-color: var(--secondary_light); margin: 5px; border-radius: 3px;">{{ key }} {{ value }}</div>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
+                </div>
             </div>
         </div>
 

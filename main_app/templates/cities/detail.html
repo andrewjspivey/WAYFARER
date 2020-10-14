@@ -12,7 +12,7 @@
             <a href="{% url 'cities_detail' list_city.id %}">
                 <div class="card-content">
                     <img src="{{ list_city.image }}" alt="{{ list_city.name }}{{ list_city.country }}" class="city-index-img"> 
-                    <span class="card-title">{{ list_city.name }}</span>
+                    <h4 class="card-title shrink_text2"> {{ list_city.name }}</h4>
                 </div>
             </a>
         </div> 
@@ -24,8 +24,8 @@
     
         <div class="row">
             <div class="col city-detail">
-                <h3>{{city.name}}</h3>
-                <h5>{{city.country}}</h5>
+                <h3 class="shrink_text3">{{city.name}}</h3>
+                <h5 class="shrink_text1">{{city.country}}</h5>
             </div>
         </div>
         <div class="row">
@@ -35,7 +35,7 @@
         </div>
 
         <div class="row new-post-button">
-            <h4>Posts</h3>
+            <h4>{{city.name}} &nbsp Posts</h3>
             {% if request.user.id %}
             <a data-toggle="modal" href="#new-post-modal" class="new-post-toggle"><i class="fas fa-plus-circle"></i></a>
             {% endif %}
@@ -47,20 +47,20 @@
                     <a href="{% url 'posts_detail' post.id %}">
                     <div class="card mb-3 post" style="max-width: 540px;">
                     <div class="row no-gutters">
-                        <div class="col-md-4 post-index-img">
-                            {% comment %} <img src="{{post.user.profile.image.url}}" class="card-img post-index"> {% endcomment %}
+                        <div class="col-md-6 post-index-img">
                             <img src="{{post.image.url}}" class="card-img post-index">
                         </div>
-                        <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">{{post.title}}</h5>
-                            {% if post.content|length < 200 %}
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title">{{post.title}}</h5>
+                                {% if post.content|length < 200 %}
                                 <p>{{post.content}}</p>
-                            {% else %}
+                                {% else %}
                                 <p>{{post.content|truncatechars_html:200 }}</p>
                                 <small>Read More</small>
-                            {% endif %}
-                            <p class="card-text"><small class="text-muted">{{post.get_date }}</small></p>
+                                {% endif %}
+                                <div><p class="card-text"><small class="text-muted">{{post.get_date }}</small></p>
+                                <img src="{{post.user.profile.image.url}}" class="small_prof"/></div>
                         </div>
                         </div>
                     </div>
