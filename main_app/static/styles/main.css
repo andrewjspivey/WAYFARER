@@ -309,7 +309,7 @@ a:hover {
 
 .city-index {
     width: 40vw;
-    max-height: 30vh;
+    /* max-height: 30vh; */
     overflow: hidden;
 }
 .card-img-overlay {
@@ -317,6 +317,7 @@ a:hover {
     background-position: center center;
     object-fit: cover;
     color: var(--main_light);
+
 }
 
 .city-index:hover  {
@@ -416,6 +417,10 @@ a:hover {
     color: var(--secondary_dark);
     background-color: var(--main_light);
 
+}
+
+.postit {
+    position: absolute;
 }
 
 .post-index-img {

@@ -46,10 +46,10 @@
                                     <img src="{{post.image.url}}" class="card-img post-index">
                                     <h5 class="card-title">{{post.title}}</h5>
                                     {% if post.content|length < 200 %}
-                                    <p>{{post.content}}</p>
+                                        <p>{{post.content}}</p>
                                     {% else %}
-                                    <p>{{post.content|truncatechars_html:200 }}
-                                    <small>Read More</small></p>
+                                        <p>{{post.content|truncatechars_html:200 }}
+                                        <small>Read More</small></p>
                                     {% endif %}
                                     <p class="card-text"><small class="text-muted">{{post.get_date }}</small></p>
                                 </div>
