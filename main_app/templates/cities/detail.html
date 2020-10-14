@@ -46,27 +46,28 @@
                 {% for post in posts %}
                     <a href="{% url 'posts_detail' post.id %}">
                     <div class="card mb-3 post" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-6 post-index-img">
-                            <img src="{{post.image.url}}" class="card-img post-index">
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card-body">
-                                <h5 class="card-title">{{post.title}}</h5>
-                                {% if post.content|length < 200 %}
-                                <p>{{post.content}}</p>
-                                {% else %}
-                                <p>{{post.content|truncatechars_html:200 }}</p>
-                                <small>Read More</small>
-                                {% endif %}
-                                <div><p class="card-text"><small class="text-muted">{{post.get_date }}</small></p>
-                                <img src="{{post.user.profile.image.url}}" class="small_prof"/></div>
-                        </div>
+                        <div class="row no-gutters">
+                            <div class="col-md-6 post-index-img">
+                                <img src="{{post.image.url}}" class="card-img post-index">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{post.title}}</h5>
+                                    {% if post.content|length < 200 %}
+                                        <p>{{post.content}}</p>
+                                    {% else %}
+                                        <p>{{post.content|truncatechars_html:200 }}</p>
+                                        <small>Read More</small>
+                                    {% endif %}
+                                    <p class="card-text"><small class="text-muted">{{post.get_date }} </small></p>
+                                    <div>
+                                        <p style="text-align: end;">{{request.user.first_name}} {{request.user.last_name}}</p><img src="{{post.user.profile.image.url}}" class="small_prof"/>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                    </a>
-                    <hr>
+                    </a><hr>
                     <div>
                         <p>Comments : {{ post.comments.count }}</p>
                     </div>

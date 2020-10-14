@@ -38,6 +38,8 @@ a:hover {
 .page-link {
     background-color: var(--background_mid);
     color: white;
+    font-size: 2vw;
+    line-height: 2vh;
 }
 
 .page-item.active .page-link {
@@ -85,7 +87,8 @@ a:hover {
 
 .small_prof_nav:hover {
     transform: scale(1.2);
-    margin-left: 15px;
+    margin-left: 5px;
+    display: inline-block;
 }
 
 /* ANCHOR Form styling */
@@ -197,14 +200,6 @@ a:hover {
 }
 
 /* ANCHOR Profile styling */
-
-.left-prof {
-    
-}
-.member-since {
-    
-}
-
 .name-and-edit {
     justify-content: space-around;
 }
@@ -220,8 +215,16 @@ a:hover {
     transition: 1.5s;
 }
 
-.profile-card-img: {
-    
+
+.profile-card-img:hover {
+    transform: scale(1.1);
+
+}
+
+.prof-title {
+    text-align: center;
+    font-family: 'Syne', sans-serif;
+
 }
 
 .profile.row {
@@ -231,22 +234,9 @@ a:hover {
     overflow: scroll;
 }
 
-/* .small_prof_nav {
-    width: 5vw;
-    height: 5vw;
-    max-width: 100px;
-    max-height: 100px;
-    border-radius: 50%;
-    object-fit: contain;
-}
-
-.small_prof_nav:hover {
-    transform: scale(1.2);
-    margin-left: 15px;
+/* .card-body {
+    max-height: 30vh;
 } */
-
-
-
 
 .fa-user-edit {
     font-size: 2em;
@@ -351,12 +341,6 @@ a:hover {
 
 
 /* city details */
-.right-col {
-    margin-left: -5vw;
-
-}
-
-
 .col.city-detail {
     color: var(--background_light);
 }
@@ -395,14 +379,18 @@ a:hover {
 .card.post {
     color: var(--secondary_dark);
     background-color: var(--main_light);
-    /* max-height: 20vh; */
+
 }
 
 .post-index-img {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     background-color: var(--main_light);
+    max-height: 20vh;
+    width: 100%;
+    size: cover;
+    position: center;
 }
 
 .card-img.post-index {
@@ -410,6 +398,7 @@ a:hover {
     border: 5px solid var(--main_light);
     background-color: var(--main_light);
     border-radius: 10px;
+    /* object-fit: fit; */
 }
 
 .small_prof {
@@ -422,8 +411,13 @@ a:hover {
     border-radius: 50%;
     display:inline;
     object-fit: fit;
+    margin-left: 70%;
 }
 
+.small_prof .med {
+    width: 6vw;
+    height: 6vw;
+}
 
 
 
