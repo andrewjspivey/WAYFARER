@@ -199,6 +199,45 @@ a:hover {
     text-align: center;
 }
 
+
+/* About: Developers Page */
+.fa-linkedin {
+    color: rgba(0, 0, 0, .5);
+    transition: 400ms;
+    bottom: 0px; 
+}
+
+.fa-linkedin:hover {
+    transform: scale(1.15)
+}
+.fa-github-square {
+    color: rgba(0, 0, 0, .5);
+    transition: 400ms;
+    bottom: 0px; 
+
+}
+.fa-github-square:hover {
+    transform: scale(1.15)
+}
+
+.rounded-circle.dev-pic {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, .7);
+    margin: 20px 0 10px 0;
+
+}
+
+.dev-card {
+    background-color: rgba(0, 0, 0, .2);
+    /* margin: 0 20px; */
+}
+
+.full-row {
+    width: 100%;
+}
+
+
+
+
 /* ANCHOR Profile styling */
 .name-and-edit {
     justify-content: space-around;
@@ -234,9 +273,6 @@ a:hover {
     overflow: scroll;
 }
 
-/* .card-body {
-    max-height: 30vh;
-} */
 
 .fa-user-edit {
     font-size: 2em;
@@ -417,6 +453,7 @@ a:hover {
 .small_prof .med {
     width: 6vw;
     height: 6vw;
+
 }
 
 
