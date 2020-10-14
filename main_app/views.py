@@ -79,18 +79,16 @@ def cities_detail(request, city_id):
 
 
 # POST DETAIL PAGE INCLUDES:
-def posts_detail(request, post_id, slug):
-    slug = Profile.objects.get(slug=slug)
+def posts_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     post_form = Post_Form(instance=post)
     context = {
-        'slug':slug,
         'post': post,
         'login_form': login_form,
         'signup_form': register_form,
         'post_form': post_form,
     }
-    return render(request, 'posts/detail.html' ,context)
+    return render(request, 'posts/detail.html', context)
 
 
 # CREATE NEW POST WHILE ON CITY PAGE
@@ -137,10 +135,6 @@ def posts_delete(request, post_id):
     return redirect("cities_index" )
 
 
-
-
-
-
  # adds comment on post
 def add_comments(request, post_id):
     post = Post.objects.get(id = post_id)
@@ -174,7 +168,6 @@ def profile_detail(request, slug):
     
     all_posts = Post.objects.all()
     city_count = {}
-
 
     for post in all_posts:
         if post.city in city_count:

@@ -36,7 +36,7 @@ class Profile_Form(ModelForm):
 class User_Form(ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name']
+        fields = ['first_name', 'last_name',]
 
 
 
