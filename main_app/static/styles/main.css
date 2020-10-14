@@ -76,8 +76,8 @@ a:hover {
 }
 
 .small_prof_nav {
-    width: 5vw;
-    height: 5vw;
+    width: 3.5vw;
+    height: 3.5vw;
     max-width: 100px;
     max-height: 100px;
     border-radius: 50%;
@@ -87,7 +87,7 @@ a:hover {
 
 .small_prof_nav:hover {
     transform: scale(1.2);
-    margin-left: 5px;
+    margin-left: 8px;
     display: inline-block;
 }
 
@@ -139,6 +139,10 @@ a:hover {
 
 
 /* ANCHOR Home Page styling */
+.container {
+    min-width: 95vw;
+}
+
 
 #city-carousel {
     margin-bottom: 15px;
@@ -146,11 +150,11 @@ a:hover {
 
 .carousel-item {
     width: 100%;
-    height: 45vh;
+    height: 55vh;
     background-size: cover;
     background-position: center;
-    transition: transform 1.0s ease-in-out !important;
-    opacity: 1;
+    transition: transform 1.40s ease-in-out !important;
+    opacity: .5;
     border-radius: 5px;
 }
 
@@ -160,6 +164,8 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 1;
+
 }
 
 .carousel-city-name {
@@ -168,12 +174,18 @@ a:hover {
 }
 
 .carousel-item:hover .link-container {
-    background-color: rgba(0, 0, 0, .3);
-    opacity: .5;
+    /* background-color: rgba(0, 0, 0, .3); */
+    opacity: 1;
+}
+
+.carousel-item:hover {
+    opacity: 1;
 }
 
 .carousel-item:hover .carousel-city-name {
     display: block;
+    opacity: 1;
+
 }
 
 .home-header {
@@ -208,7 +220,8 @@ a:hover {
 }
 
 .fa-linkedin:hover {
-    transform: scale(1.15)
+    transform: scale(1.15);
+    color: rgba(220, 220, 220, .5);
 }
 .fa-github-square {
     color: rgba(0, 0, 0, .5);
@@ -217,7 +230,9 @@ a:hover {
 
 }
 .fa-github-square:hover {
-    transform: scale(1.15)
+    transform: scale(1.15);
+    color: rgba(220, 220, 220, .5);
+
 }
 
 .rounded-circle.dev-pic {
@@ -227,7 +242,7 @@ a:hover {
 }
 
 .dev-card {
-    background-color: rgba(0, 0, 0, .2);
+    /* background-color: rgba(0, 0, 0, .2); */
     /* margin: 0 20px; */
 }
 
@@ -244,21 +259,14 @@ a:hover {
 }
 
 .profile-card-img {
-    width: 20vw;
-    height: 20vw;
+    width: 15vw;
+    height: 15vw;
     background-color: var(--secondary_light);
     object-fit: fit;
     border-radius: 50%;
-    border: 5px double var(--background_mid);
     margin: 10px auto 0;
-    transition: 1.5s;
 }
 
-
-.profile-card-img:hover {
-    transform: scale(1.1);
-
-}
 
 .prof-title {
     text-align: center;
@@ -317,16 +325,19 @@ a:hover {
     background-position: center center;
     object-fit: cover;
     color: var(--main_light);
+    opacity: 1;
+
 
 }
 
 .city-index:hover  {
     background-color: rgba(255, 255, 255, .5);
     color: var(--secondary_dark);
+    opacity: 1;
 }
 
 .card-img-overlay:hover {
-    opacity: .5;
+    opacity: .3;
 }
 
 
@@ -341,16 +352,17 @@ a:hover {
 }
 
 .shrink_text3 {
-    font-size: 5vw;
+    font-size: 3vw;
     margin-bottom: 0;
 }
 
 .shrink_text2 {
-    font-size: 3vw;
+    font-size: 2.5vw;
+    text-align: center;
 }
 
 .shrink_text1 {
-    font-size: 2.5vw;
+    font-size: 2vw;
 }
 
 .card.selected-city {
@@ -367,11 +379,11 @@ a:hover {
 }
 
 .card.sidebar .city-index-img {
-    max-width: 45%;
+    max-width: 40%;
     max-height: 18vh;
     border-radius: 5px;
     margin-right: 5px;
-    overflow: hidden;
+
     object-fit: cover;
 }
 
@@ -460,6 +472,7 @@ a:hover {
 .small_prof .med {
     width: 6vw;
     height: 6vw;
+
 }
 
 
