@@ -1,29 +1,112 @@
 {% extends 'base.html'%}
 {% block content %}
 
-
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <p>Left of page</p>
-            <!-- Left of page
-            Name
-            Current city (name & link to city's show page)
-            Join Date
-            -->
-
+<div class="row">
+    <div class="col">
+        <div class="card profile-details">
+            <img src="{{user.profile.image.url}}" class="profile-card-img">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="row name-and-edit">
+                            <h3 class="card-title prof-title">{{user.first_name}}</h3>
+                            {% if request.user.id == user.id %}
+                                <a data-toggle="modal" href="#edit-profile-modal"><i class="fas fa-user-edit"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <small class="card-text member-since">Joined: {{ user.date_joined }}</small>
+                <div class="card-footer" style="background-color: var(--secondary_light); text-align: center; padding: 3px; border-radius: 5px; margin-bottom: 0;">
+                    <h6>Currently in:</h6> <h5><a href="{% url 'cities_detail' user.profile.current_city.id  %}">{{user.profile.current_city}}</a></h5>
+                </div>
+            </div>
+            <img src="{{user.profile.current_city.image }}" class="card-img-top" alt="...">
+            <br/>
+            <div style="background-color: var(--main_light); max-width: 33vw; border-radius: 5px; text-align: center;">
+                <h5 style="margin-bottom: -15px;">My Cities: {{ posts|length }}</h5><br/>
+                {% for post in posts %}    
+                    {% for key,value in city_count.items %}
+                    <div style="background-color: var(--secondary_light); margin: 5px; border-radius: 3px;">{{ key }} {{ value }}</div>
+                    {% endfor %}
+                {% endfor %}
+                </div>
+            </div>
         </div>
-        <div class="col">
-            <p>Right of page</p>
-            <!-- Right of page
-            Picture? Of the user or of their current city?
-            Index of posts (cards, including images(tiled left))
-            -->
 
-        </div>
+
+    <div class="col">
+        {% for post in posts %}
+            <a href="{% url 'posts_detail' post.id %}">
+                <div class="card mb-3 post" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <!-- <div class="col-md-6 post-index-img"> -->
+                            <!-- <div class="col-md-12"> -->
+                                <div class="card-body">
+                                    <img src="{{post.image.url}}" class="card-img post-index">
+                                    <h5 class="card-title">{{post.title}}</h5>
+                                    {% if post.content|length < 200 %}
+                                        <p>{{post.content}}</p>
+                                    {% else %}
+                                        <p>{{post.content|truncatechars_html:200 }}
+                                        <small>Read More</small></p>
+                                    {% endif %}
+                                    <p class="card-text"><small class="text-muted">{{post.get_date }}</small></p>
+                                </div>
+                            <!-- </div>
+                        </div> -->
+                    </div>
+                </div>
+            </a> 
+        {% endfor %}
+
+
+        {% if posts.has_other_pages %}
+            <ul class="pagination justify-content-end">
+                {% if posts.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                {% endif %}
+
+                {% for i in posts.paginator.page_range %}
+                    {% if posts.number == i %}
+                        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only page-link">(current)</span></span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if posts.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
     </div>
 </div>
 
 
+<div class="modal" id="edit-profile-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'profile_edit' user.id %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ user_form.as_p }}
+                    {{ prof_form.as_p }}
+                    <input type="submit" value="Update Profile">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

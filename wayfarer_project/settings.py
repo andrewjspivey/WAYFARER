@@ -10,20 +10,35 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
+from pathlib import Path , os
+import django_on_heroku
+import environ
+
+env = environ.Env(
+    DEBUG=(bool,False)
+)
+# reading env file
+environ.Env.read_env()
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'n_3=c&onrlq)*mra10sh-^^5$*2u^28e8zqx4mg0$h1l@579uq'
 
+
+SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = env('DEBUG')
 DEBUG = True
+
 
 ALLOWED_HOSTS = []
 
@@ -32,6 +47,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'main_app',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,29 +94,35 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'wayfarer',
-        'USER':'lizkane'
+        # 'USER':'lizkane'
         # 'USER':'quin?'
         # 'USER':'binay'
     }
 }
+
+# For when we push to remote database
+# DATABASES = {
+#     'default': env.db()
+# }
+
 
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    # },
 ]
 
 
@@ -123,8 +145,45 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# profile_detail
-LOGIN_REDIRECT_URL = '/profile/'
+STATICFILES_DIRS = (
+os.path.join(BASE_DIR, 'static'),
+)
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+
+MEDIA_URL = '/media/'
+
+
 
 # home
 LOGOUT_REDIRECT_URL = '/'
+
+
+
+# EMAILING REGISTERED USERS
+
+# UNCOMMENT THIS TO SEND CONSOLE EMAILS
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# UNCOMMENT THIS first line TO SEND OUT REAL EMAILS
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1025
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_TLS = False
+# EMAIL_USE_SSL = False
+
+
+
+
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = 587
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+django_on_heroku.settings(locals())

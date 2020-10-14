@@ -2,11 +2,13 @@
 {%block content %}
 
 
-<h1>Log In<h1>
-
-<form action="{% url 'login' %}" method="POST">
+<h1>Log In</h1>
+{%if error_message%}
+    <p class="error">{{error_message}}</p>
+{%endif%}
+<form action="{% url 'custom_login'%}" method="POST">
     {% csrf_token %}
-    {{form.as_p}}
+    {{login_form.as_p}}
     <input type="submit" class="btn" value="login">
     <input type="hidden" name="next" value="{{ next }}">
 </form>
